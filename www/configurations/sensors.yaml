@@ -1,0 +1,322 @@
+  - platform: uptime
+    unit_of_measurement: minutes
+    name: Minuti da restart
+  - platform: uptime
+    unit_of_measurement: days
+    name: Giorni da restart
+  - platform: qnap
+    host: !secret ip_nas
+    username: !secret qnap_user
+    password: !secret qnap_psw
+    monitored_conditions:
+      - status
+      - cpu_usage
+      - cpu_temp
+      - system_temp
+      - memory_percent_used
+      - network_tx
+      - network_rx
+      - volume_percentage_used
+      - volume_size_free
+      - volume_size_used
+      - drive_smart_status
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+  - platform: fritzbox_netmonitor
+
+  #- platform: openhardwaremonitor
+  #  host: !secret ip_media_server
+
+
+
+  - platform: template
+    sensors:
+      livello_serbatoio:
+        friendly_name: "Livello serbatoio"
+        value_template: "{{ state_attr('sensor.fe270je_odometer','tanklevelpercent') }}"
+      pressione_a_sx:
+        friendly_name: "Pressione anteriore SX"
+        value_template: "{{ state_attr('binary_sensor.fe270je_tire_warning','tirepressureFrontLeft') }}"
+      pressione_a_dx:
+        friendly_name: "Pressione anteriore DX"
+        value_template: "{{ state_attr('binary_sensor.fe270je_tire_warning','tirepressureFrontRight') }}"
+      pressione_p_sx:
+        friendly_name: "Pressione posteriore SX"
+        value_template: "{{ state_attr('binary_sensor.fe270je_tire_warning','tirepressureRearLeft') }}"
+      pressione_p_dx:
+        friendly_name: "Pressione posteriore DX"
+        value_template: "{{ state_attr('binary_sensor.fe270je_tire_warning','tirepressureRearRight') }}"
+      consumo_reset:
+       friendly_name: "Consumo da reset"
+       unit_of_measurement: "l/100km"
+       value_template: "{{ state_attr('sensor.fe270je_odometer','liquidconsumptionreset') }}"
+      consumo_recente:
+       friendly_name: "Consumo recente"
+       unit_of_measurement: "l/100km"
+       value_template: "{{ state_attr('sensor.fe270je_odometer','liquidconsumptionstart') }}"
+      stato_tettuccio:
+        friendly_name: "Stato tettuccio"
+        value_template: "{{ state_attr('sensor.fe270je_lock','sunroofstatus') }}"
+      liquido_freni:
+        friendly_name: "Liquido freni"
+        value_template: "{{ state_attr('binary_sensor.fe270je_engine_light_warning','warningbrakefluid') }}"
+      liquido_lavavetri:
+        friendly_name: "Liquido lavavetri"
+        value_template: "{{ state_attr('binary_sensor.fe270je_engine_light_warning','warningwashwater') }}"
+      liquido_refrigerante:
+        friendly_name: "Liquido refrigerante"
+        value_template: "{{ state_attr('binary_sensor.fe270je_engine_light_warning','warningcoolantlevellow') }}"
+
+      stato_luce_camera:
+        friendly_name: "Stato luce camera"
+        value_template: "{{ (states.switch.fibaro_system_fgs223_double_relay_switch_8.state) }}"
+      posizione_tapparella_soggiorno:
+        friendly_name: "Trigger tapparella posizione soggiorno"
+        value_template: "{{ state_attr('cover.fibaro_system_fgrm223_roller_shutter_controller_3_level','power_consumption') }}"
+      posizione_tapparella_studio:
+        friendly_name: "Trigger tapparella posizione studio"
+        value_template: "{{ state_attr('cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_2','power_consumption') }}"
+      posizione_tapparella_camera:
+        friendly_name: "Trigger tapparella posizione camera"
+        value_template: "{{ state_attr('cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_3','power_consumption') }}"
+ 
+
+
+
+      rete_lte_download_current:
+        friendly_name: "Velocità download LTE attuale"
+        value_template: "{{ ((states.sensor.huawei_b535_232_currentdownloadrate.state) | int / 125000) | round (2)  }}"
+        unit_of_measurement: Mbit/s
+      rete_lte_upload_current:
+        friendly_name: "Velocità upload LTE attuale"
+        value_template: "{{ ((states.sensor.huawei_b535_232_currentuploadrate.state) | int / 125000) | round (2)  }}"
+        unit_of_measurement: Mbit/s
+      rete_lte_download_month:
+        friendly_name: "Rete LTE GB mese scaricati"
+        value_template: "{{ ((states.sensor.huawei_b535_232_current_month_download.state) | int / 1073741824) | round (2)  }}"
+        unit_of_measurement: GB
+      rete_lte_upload_month:
+        friendly_name: "Rete LTE GB mese inviati"
+        value_template: "{{ ((states.sensor.huawei_b535_232_current_month_upload.state) | int / 1073741824) | round (2)  }}"
+        unit_of_measurement: GB
+
+      qnas_network_down_mbps:
+        friendly_name: "NAS Download Mbps"
+        value_template: "{{ ((states.sensor.qnas_network_down_eth4.state) | float * 8.388608) | round (2)  }}"
+        unit_of_measurement: Mbit/s
+      qnas_network_up_mbps:
+        friendly_name: "NAS Upload Mbps"
+        value_template: "{{ ((states.sensor.qnas_network_up_eth4.state) | float * 8.388608) | round (2)  }}"
+        unit_of_measurement: Mbit/s
+
+      rete_upload:
+        friendly_name: "Velocità upload attuale totale"
+        value_template: "{{ ((states.sensor.internetgatewaydevicev2_fritz_box_3490_kib_sec_sent.state) | int / 122.07031) | round (2)  }}"
+        unit_of_measurement: Mbit/s
+      rete_download:
+        friendly_name: "Velocità download attuale totale"
+        value_template: "{{ ((states.sensor.internetgatewaydevicev2_fritz_box_3490_kib_sec_received.state) | int / 122.07031) | round (2)  }}"
+        unit_of_measurement: Mbit/s
+      rete_gb_scaricati:
+        friendly_name: GB scaricati durante questa connessione
+        value_template: "{{ ((states.sensor.internetgatewaydevicev2_fritz_box_3490_bytes_received.state) | int / 1073741824) | round (1)  }}"
+      rete_gb_inviati:
+        friendly_name: GB inviati durante questa connessione
+        value_template: "{{ ((states.sensor.internetgatewaydevicev2_fritz_box_3490_bytes_sent.state) | int / 1073741824) | round (1)  }}"
+      rete_uptime:
+        friendly_name: Uptime minuti fritbox
+        value_template: "{{ (state_attr('sensor.fritz_netmonitor','uptime') | int / 60) | round (0)  }}"
+        unit_of_measurement: days
+      qnas_uptime:
+        friendly_name: Uptime
+        value_template: "{{ state_attr('sensor.qnas_status','Uptime') }}"        
+      hassio_uptime_templated:
+        value_template: >-
+          {% set uptime = states.sensor.minuti_da_restart.state | int %}
+          {% set minutes = ((uptime % 60) / 1) | int %} 
+          {% set hours = ((uptime % 1440) / 60) | int %}
+          {% set days = (uptime /1440) | int %}
+          {%- if days < 10 -%}0{{ days }}d{{ ' ' }}{%- endif -%}{%- if days >= 10 -%}{{ days }}d{{ ' ' }}{%- endif -%}
+          {%- if hours < 10 -%}0{{ hours }}h{{ ' ' }}{%- endif -%}{%- if hours >= 10 -%}{{ hours }}h{{ ' ' }}{%- endif -%}
+          {%- if minutes < 10 -%}0{{ minutes }}m{%- endif -%}{%- if minutes >= 10 -%}{{ minutes }}m{%- endif -%} 
+
+      fttc_uptime_templated:
+        value_template: >-
+          {% set uptime = states.sensor.rete_uptime.state | int %}
+          {% set minutes = ((uptime % 60) / 1) | int %} 
+          {% set hours = ((uptime % 1440) / 60) | int %}
+          {% set days = (uptime /1440) | int %}
+          {%- if days < 10 -%}0{{ days }}d{{ ' ' }}{%- endif -%}{%- if days >= 10 -%}{{ days }}d{{ ' ' }}{%- endif -%}
+          {%- if hours < 10 -%}0{{ hours }}h{{ ' ' }}{%- endif -%}{%- if hours >= 10 -%}{{ hours }}h{{ ' ' }}{%- endif -%}
+          {%- if minutes < 10 -%}0{{ minutes }}m{%- endif -%}{%- if minutes >= 10 -%}{{ minutes }}m{%- endif -%} 
+
+      media_server_uptime:
+        value_template: "{{ (states.device_tracker.ubuntu.last_updated) }}"
+        
+
+      kwh_24h:
+        friendly_name: "kWh consumati ultime 24h"
+        unit_of_measurement: kWh
+        value_template: 
+          "{{ ((states.sensor.aeon_labs_zw095_home_energy_meter_gen5_energy.state |float ) - (states.sensor.aeon_labs_zw095_home_energy_meter_gen5_previous_reading.state)|float  )|round(2) }}"
+      previsione_meteo_settimanale:
+        friendly_name: "Frase previsione meteo settimanale"
+        value_template: "{{(states.sensor.dark_sky_daily_summary.state) }}"
+      frase_resoconto_spotify:
+        friendly_name: "Frase di resoconto Spotify"
+        value_template: "{% if is_state('media_player.spotify_stefano_tonelli', 'playing') -%} Attualmente in riproduzione: {{state_attr('media_player.spotify_stefano_tonelli', 'media_title')}} - {{state_attr('media_player.spotify_stefano_tonelli', 'media_artist')}} 
+                         {%- else -%}
+                         {%- endif %}"
+        entity_picture_template: "{% if is_state('media_player.spotify_stefano_tonelli', 'playing') -%} {{state_attr('media_player.spotify_stefano_tonelli', 'entity_picture')}}
+                                    {%- else -%}
+                                    {%- endif %}"
+      ## Converts time and date into sentence for UI
+#      day:
+#        entity: sensor.date
+#        value_template: >
+#          {% set days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] %}
+#          {{ days[now().weekday()] }}
+      month:
+        value_template: >
+          {% set months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] %}
+          {{ strptime(states('sensor.date'), '%Y-%m-%d').day }}
+          {{ months[now().month-1] }}
+      date_string:
+        friendly_name: "Full Date"
+        value_template: "{{ states('sensor.day') }}, {{ states('sensor.month') }} {{ now().year }}"
+
+
+    ############ AMBROGIO  ####################
+      vacuum_status:
+        friendly_name: "Vacuum - Status"
+        value_template: "{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.status }}"
+
+      vacuum_cleaning_status:
+        friendly_name: "Vacuum - Cleaning Status"
+        value_template: "Cleaning {{ states('input_text.room_cleaning') }}"
+
+      vacuum_battery:
+        friendly_name: "Vacuum - Battery"
+        value_template: "{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.battery_level }}"
+        device_class: battery
+        unit_of_measurement: '%'
+
+      vacuum_fan:
+        friendly_name: "Vacuum - Fan Speed"
+        value_template: "{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.fan_speed }}"
+
+      vacuum_battery_icon:
+        friendly_name: "Vacuum - Battery Icon"
+        icon_template: "{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.battery_icon }}"
+        value_template: "{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.battery_icon }}"
+
+      vacuum_cleaning_time:
+        friendly_name: "Vacuum - Cleaning Time"
+        value_template: "{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaning_time }}"
+        unit_of_measurement: min
+      vacuum_cleaned_area:
+        friendly_name: "Vacuum - Cleaned Area"
+        value_template: "{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaned_area }}"
+        unit_of_measurement: mq
+
+      placeholder:
+        value_template: ' '
+
+
+
+  #https://www.home-assistant.io/components/sensor.command_line/
+  - platform: command_line
+    name: CPU Temperature
+    command: "cat /sys/class/thermal/thermal_zone0/temp"
+    unit_of_measurement: "°C"
+    value_template: '{{ value | multiply(0.001) | round(1) }}'
+
+
+
+
+#  - platform: buienradar
+#    name: 'buienradar'
+#    latitude: !secret latitude
+#    longitude: !secret longitude
+#    timeframe: 120
+#    monitored_conditions:
+#      - stationname
+#      - barometerfc
+#      - barometerfcname
+#      - conditioncode
+#      - condition
+#      - conditiondetailed
+#      - conditionexact
+#      - conditionexact_1d
+#      - symbol
+#      - feeltemperature
+#      - temperature
+#      - groundtemperature
+#      - windspeed
+#      - windforce
+#      - windgust
+#      - rain_1d
+#      - windspeed_1d
+#      - rainchance_1d
+#      - precipitation
+#      - irradiance
+#      - precipitation_forecast_average
+#      - precipitation_forecast_total
+#      - rainlast24hour
+#      - rainlasthour
+
+  - platform: tautulli
+    api_key: !secret tautulli_key
+    host: !secret ip_media_server
+
+  - platform: systemmonitor
+    resources:
+      - type: memory_use
+      - type: memory_free
+      - type: load_5m
+      - type: load_15m
+      - type: processor_use
+      - type: processor_temperature
+      - type: last_boot
+
+
+######### INSERITA MA MAI USATA
+#  - platform: wunderground
+#    api_key: !secret wunderground
+#    latitude: !secret latitude
+#    longitude: !secret longitude
+#    monitored_conditions:
+#      - temp_c
+#      - wind_dir
+#      - wind_kph
+#      - pressure_mb
+#      - relative_umidity
+#      - precip_today_metric
+#      - location
+#      - visibility_km
+#      - weather
+#      - weather_1h
+#      - temp_3h_c
+#      - temp_6h_c
+#      - temp_9h_c
+#      - temp_12h_c
+#      - temp_15h_c
+#      - temp_18h_c
+#      - temp_21h_c
+#      - temp_24h_c
+#      - temp_27h_c
+#      - temp_30h_c
+#      - precip_3h_mm
+#      - precip_6h_mm
+#      - precip_9h_mm
+#      - precip_12h_mm
+#      - precip_15h_mm
+#      - precip_18h_mm
+#      - precip_21h_mm
+#      - precip_24h_mm
+#      - precip_27h_mm
+#      - precip_30h_mm
+
+

@@ -1,0 +1,16 @@
+host: !secret ip_nas
+database: home_assistant
+include:
+  entities:
+    - sensor.aeon_labs_zw095_home_energy_meter_gen5_power
+    - sensor.aeon_labs_zw095_home_energy_meter_gen5_energy
+    - sensor.aeon_labs_zw095_home_energy_meter_gen5_previous_reading
+    - sensor.kwh_24h
+    - sensor.qnas_cpu_usage
+    - sensor.qnas_memory_usage
+    - sensor.qnas_network_down_eth4
+    - sensor.qnas_network_up_eth4
+    - sensor.qnas_status
+    - sensor.qnas_volume_used_datavol1
+    - sensor.rete_upload
+    - sensor.rete_download

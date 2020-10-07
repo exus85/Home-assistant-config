@@ -1,0 +1,12 @@
+- platform: androidtv
+  name: NVIDIASHIELD
+  device_class: androidtv
+  host: !secret ip_shield
+  adb_server_ip: 127.0.0.1
+  adb_server_port: 5037
+  adbkey: "/config/androidkeys/adbkey"
+- platform: epson
+  host: !secret ip_proiettore
+- platform: emby
+  host: !secret ip_media_server
+  api_key: !secret emby_api_key

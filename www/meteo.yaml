@@ -1,0 +1,53 @@
+
+
+type: picture-elements
+image: /local/ui/meteo/backgroundTransparent.png
+style:
+  transform: none
+  left: 0%
+  top: 0%
+elements:
+
+  - type: 'custom:weather-card-chart'
+    title: " "
+    weather: weather.openweathermap
+
+    points: 20
+    style: 
+      .: |
+        :host {
+          transform: none !important;
+          top: 0%;
+        }
+        .card-header {
+          display: none
+        } 
+        .card > .main {
+          margin: 10px -18px 0 -18px;
+          height: 100px;
+          border-radius: 30px;
+          background: center / cover no-repeat url('/local/ui/meteo/weatherHeaders/{{ states.sensor.openweathermap_condition.state }}.svg') fixed !important;
+        }
+        .card > .main > ha-icon {
+          display: none;  
+        }
+        .card > .main > div {
+          color: #1e1e1e;
+          margin: auto;
+        }
+        .card > .main > .summary {
+          display: none;
+        }     
+      ha-chart-base:
+        $: |
+          #chartTarget {
+            height: 390px !important;
+          }
+
+            
+
+
+         
+
+
+

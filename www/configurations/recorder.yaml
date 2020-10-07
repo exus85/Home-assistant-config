@@ -1,0 +1,44 @@
+purge_keep_days: 2  
+include:
+  domains:
+    - media_player
+    - weather
+  entities:
+    - sensor.aeon_labs_zw095_home_energy_meter_gen5_power
+    - sensor.aeon_labs_zw095_home_energy_meter_gen5_energy
+    - sensor.aeon_labs_zw095_home_energy_meter_gen5_previous_reading
+    - sensor.kwh_24h
+    - sensor.qnas_cpu_usage
+    - sensor.qnas_cpu_temperature
+    - sensor.qnas_memory_usage
+    - sensor.qnas_network_down_eth4
+    - sensor.qnas_network_up_eth4
+    - sensor.qnas_status
+    - sensor.qnas_used_space_datavol1
+    - sensor.qnas_system_temperature
+    - sensor.qnas_volume_used_datavol1
+    - sensor.qnas_network_down_mbps
+    - sensor.qnas_network_up_mbps
+    - sensor.rete_upload
+    - sensor.rete_download
+    - sensor.inside_temperature_soggiorno_inside_temperature
+    - sensor.cpu_temperature
+    - sensor.internetgatewaydevicev2_fritz_box_3490_kib_sec_received
+    - sensor.internetgatewaydevicev2_fritz_box_3490_kib_sec_sent
+    - sensor.internetgatewaydevicev2_fritz_box_3490_bytes_received
+    - sensor.internetgatewaydevicev2_fritz_box_3490_bytes_sent
+    - sensor.load_15m
+    - sensor.load_5m
+    - sensor.server_cpu_temp
+    - sensor.server_cpu_use
+    - sensor.server_dl_rate
+    - sensor.server_up_rate
+    - sensor.server_dl_total_session
+    - sensor.server_up_total_session
+    - device_tracker.ubuntu  #sarebbe il media server 
+    - sensor.rete_lte_download_current
+    - sensor.rete_lte_upload_current
+    
+  entity_globs:
+    - sensor.openweathermap_*
+    - sensor.huawei_*

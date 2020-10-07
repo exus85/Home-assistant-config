@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="142" style="width: 300px; height: 142px; background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%; shape-rendering: auto;"><path></path><g class="ldl-layer" transform="matrix(-0.473148, -0.00465664, 0.00766934, -0.77926, 303.008, 192.957)"><g class="ldl-ani" style="transform: matrix(0.01, 0, 0, 0.01, 0, 0); transform-origin: 315.183px 155.807px 0px; animation: 1s linear 0s 1 normal forwards running jump-in-1cec0788-3c45-41dd-8954-a8157b3ec3c2;"><g><g class="ldl-layer" transform="matrix(1, 0, 0, 1, 0, 0)"><g class="ldl-ani"><title style="user-select: auto; perspective-origin: 50% 50%;">speech bubbles</title></g></g><g class="ldl-layer" transform="matrix(1, 0, 0, 1, 0, 0)"><g class="ldl-ani"><g style="user-select: auto; perspective-origin: 320px 240px;">
+  
+  
+ <g class="ldl-layer"><g class="ldl-ani"><title style="user-select: auto; perspective-origin: 50% 50%;">Layer 1</title></g></g><g class="ldl-layer"><g class="ldl-ani"><path d="m617.796387,96.331444c0,-10.000282 -13.401611,-18.051064 -30.04834,-18.051064l-471.95871,0c-16.64682,0 -30.048409,8.050781 -30.048409,18.051064l0,27.354454l-73.861718,48.273758l73.861718,-11.754837l0,54.639435c0,10.00029 13.401588,18.051056 30.048409,18.051056l471.95871,0c16.646729,0 30.04834,-8.050766 30.04834,-18.051056l0,-118.51281z" id="path576" stroke-width="4.5" stroke="#00007f" fill-rule="evenodd" fill="#aad4ff" style="fill-rule: evenodd; stroke-width: 4.5px; perspective-origin: 320px 240px; fill: rgb(246, 246, 246); stroke: rgb(206, 201, 201);"></path></g></g></g></g></g></g></g></g><style id="jump-in-4120bd39-1354-4555-a6cb-9e03469a06b0" data-anikit="">@keyframes jump-in-4120bd39-1354-4555-a6cb-9e03469a06b0
+{
+  0% {
+    animation-timing-function: cubic-bezier(0.6505,0.0695,0.8671,0.7282);
+    transform: matrix(0.01,0,0,0.01,0,0);
+  }
+  16.3% {
+    animation-timing-function: cubic-bezier(0.4438,0.3294,0.7021,0.6649);
+    transform: matrix(0.305,0,0,0.305,0,0);
+  }
+  29.7% {
+    animation-timing-function: cubic-bezier(0.1172,0.239,0.3587,0.9665);
+    transform: matrix(0.996,0,0,0.996,0,0);
+  }
+  50.4% {
+    animation-timing-function: cubic-bezier(0.6378,0.0332,0.8686,0.7676);
+    transform: matrix(0.6,0,0,0.6,0,0);
+  }
+  71.1% {
+    animation-timing-function: cubic-bezier(0.1677,0.3519,0.4926,1);
+    transform: matrix(0.998,0,0,0.998,0,0);
+  }
+  85.6% {
+    animation-timing-function: cubic-bezier(0.5309,0.0683,0.7981,0.6106);
+    transform: matrix(0.84,0,0,0.84,0,0);
+  }
+  100% {
+    transform: matrix(1,0,0,1,0,0);
+  }
+}</style><style id="jump-in-1cec0788-3c45-41dd-8954-a8157b3ec3c2" data-anikit="">@keyframes jump-in-1cec0788-3c45-41dd-8954-a8157b3ec3c2
+{
+  0% {
+    animation-timing-function: cubic-bezier(0.6505,0.0695,0.8671,0.7282);
+    transform: matrix(0.01,0,0,0.01,0,0);
+  }
+  16.3% {
+    animation-timing-function: cubic-bezier(0.4438,0.3294,0.7021,0.6649);
+    transform: matrix(0.305,0,0,0.305,0,0);
+  }
+  29.7% {
+    animation-timing-function: cubic-bezier(0.1172,0.239,0.3587,0.9665);
+    transform: matrix(0.996,0,0,0.996,0,0);
+  }
+  50.4% {
+    animation-timing-function: cubic-bezier(0.6378,0.0332,0.8686,0.7676);
+    transform: matrix(0.6,0,0,0.6,0,0);
+  }
+  71.1% {
+    animation-timing-function: cubic-bezier(0.1677,0.3519,0.4926,1);
+    transform: matrix(0.998,0,0,0.998,0,0);
+  }
+  85.6% {
+    animation-timing-function: cubic-bezier(0.5309,0.0683,0.7981,0.6106);
+    transform: matrix(0.84,0,0,0.84,0,0);
+  }
+  100% {
+    transform: matrix(1,0,0,1,0,0);
+  }
+}</style></svg>

@@ -1,0 +1,637 @@
+
+
+
+########################### MAPPA IMMAGINI CASA  #####################################
+  type: picture-elements
+  image: /local/ui/home/main.png
+  ##
+  #style: |
+  #  ha-card {
+  #    background: center / cover no-repeat url("/local/ui/home/background.svg") fixed !important;
+  #  }
+  elements:
+    - action: none
+      entity: light.faretti
+      hold_action:
+        action: none
+      image: /local/ui/home/faretti.png
+      state_filter:
+        'off': opacity(0%)
+        'on': opacity(100%)
+      style:
+        left: 50%
+        mix-blend-mode: lighten
+        top: 50%
+        width: 100%
+      tap_action:
+        action: none
+      type: image
+    - action: none
+      entity: light.luce_del_tavolo
+      hold_action:
+        action: none
+      image: /local/ui/home/tavolo.png
+      state_filter:
+        'off': opacity(0%)
+        'on': opacity(100%)
+      style:
+        left: 50%
+        mix-blend-mode: lighten
+        top: 50%
+        width: 100%
+      tap_action:
+        action: none
+      type: image
+    - action: none
+      entity: light.luce_del_corridoio
+      hold_action:
+        action: none
+      image: /local/ui/home/corridoio.png
+      state_filter:
+        'off': opacity(0%)
+        'on': opacity(100%)
+      style:
+        left: 50%
+        mix-blend-mode: lighten
+        top: 50%
+        width: 100%
+      tap_action:
+        action: none
+      type: image
+    - action: none
+      entity: light.luce_del_bagno
+      hold_action:
+        action: none
+      image: /local/ui/home/bagno.png
+      state_filter:
+        'off': opacity(0%)
+        'on': opacity(100%)
+      style:
+        left: 50%
+        mix-blend-mode: lighten
+        top: 50%
+        width: 100%
+      tap_action:
+        action: none
+      type: image
+    - action: none
+      entity: light.luce_dello_studio
+      hold_action:
+        action: none
+      image: /local/ui/home/studio.png
+      state_filter:
+        'off': opacity(0%)
+        'on': opacity(100%)
+      style:
+        left: 50%
+        mix-blend-mode: lighten
+        top: 50%
+        width: 100%
+      tap_action:
+        action: none
+      type: image
+    - action: none
+      entity: light.lampada_dello_studio
+      hold_action:
+        action: none
+      image: /local/ui/home/studio_lampada.png
+      state_filter:
+        'off': opacity(0%)
+        'on': opacity(100%)
+      style:
+        left: 50%
+        mix-blend-mode: lighten
+        top: 50%
+        width: 100%
+      tap_action:
+        action: none
+      type: image
+    - action: none
+      entity: light.camera
+      hold_action:
+        action: none
+      image: /local/ui/home/camera.png
+      state_filter:
+        'off': opacity(0%)
+        'on': opacity(100%)
+      style:
+        left: 50%
+        mix-blend-mode: lighten
+        top: 50%
+        width: 100%
+      tap_action:
+        action: none
+      type: image
+    - action: none
+      entity: light.luce_della_scala
+      hold_action:
+        action: none
+      image: /local/ui/home/scala.png
+      state_filter:
+        'off': opacity(0%)
+        'on': opacity(100%)
+      style:
+        left: 50%
+        mix-blend-mode: lighten
+        top: 50%
+        width: 100%
+      tap_action:
+        action: none
+      type: image
+
+########################### LIGHTS ICONS #############################################
+
+    - type: image
+      entity: light.luce_dello_studio
+      state_image:
+        'on': /local/ui/home/lightOn.svg
+        'off': /local/ui/home/lightOff.svg
+      style:
+        max-width: 8%
+        left: 28%
+        top: 61%
+        transform: none
+        z-index: 1
+      tap_action:
+        action: toggle
+      hold_action:
+        action: none
+    - type: image
+      entity: light.lampada_dello_studio
+      state_image:
+        'on': /local/ui/home/lightOn.svg
+        'off': /local/ui/home/lightOff.svg
+      style:
+        max-width: 8%
+        left: 45%
+        top: 67%
+        transform: none
+        z-index: 1
+      tap_action:
+        action: toggle
+      hold_action:
+        action: none
+    - type: image
+      entity: light.camera
+      state_image:
+        'on': /local/ui/home/lightOn.svg
+        'off': /local/ui/home/lightOff.svg
+      style:
+        max-width: 8%
+        left: 28%
+        top: 31%
+        transform: none
+        z-index: 1
+      tap_action:
+        action: toggle
+      hold_action:
+        action: none
+    - type: image
+      entity: light.luce_del_corridoio
+      state_image:
+        'on': /local/ui/home/lightOn.svg
+        'off': /local/ui/home/lightOff.svg
+      style:
+        max-width: 8%
+        left: 46%
+        top: 39%
+        transform: none
+        z-index: 1
+      tap_action:
+        action: toggle
+      hold_action:
+        action: none
+    - type: image
+      entity: light.luce_del_bagno
+      state_image:
+        'on': /local/ui/home/lightOn.svg
+        'off': /local/ui/home/lightOff.svg
+      style:
+        max-width: 8%
+        left: 46%
+        top: 24%
+        transform: none
+        z-index: 1
+      tap_action:
+        action: toggle
+      hold_action:
+        action: none
+    - type: image
+      entity: light.luce_del_tavolo
+      state_image:
+        'on': /local/ui/home/lightOn.svg
+        'off': /local/ui/home/lightOff.svg
+      style:
+        max-width: 8%
+        left: 59%
+        top: 34%
+        transform: none
+        z-index: 1
+      tap_action:
+        action: toggle
+      hold_action:
+        action: none
+    - type: image
+      entity: light.faretti
+      state_image:
+        'on': /local/ui/home/lightOn.svg
+        'off': /local/ui/home/lightOff.svg
+      style:
+        max-width: 8%
+        left: 76%
+        top: 36%
+        transform: none
+        z-index: 1
+      tap_action:
+        action: toggle
+      hold_action:
+        action: none
+    - type: image
+      entity: light.luce_della_scala
+      state_image:
+        'on': /local/ui/home/lightOn.svg
+        'off': /local/ui/home/lightOff.svg
+      style:
+        max-width: 8%
+        left: 72%
+        top: 68%
+        transform: none
+        z-index: 1
+      tap_action:
+        action: toggle
+      hold_action:
+        action: none
+
+########################### MONITOR CONSUMO ########################################## 
+
+
+    - type: 'custom:bar-card'
+      entity: sensor.aeon_labs_zw095_home_energy_meter_gen5_power
+      max: 4500
+      name: Consumo
+      severity:
+        - color: '#229700'
+          from: 0
+          to: 1399
+        - color: '#FF8300'
+          from: 1400
+          to: 2499
+        - color: '#FF0000'
+          from: 2500
+          to: 5500      
+      height: 25px
+      positions:
+        icon: 'off'
+        indicator: inside
+        name: inside
+        value: inside
+      animation:
+        state: 'on'
+      style: |
+        :host {
+          transform: none !important;
+          top: 0px;
+          right: 0px;
+          --ha-card-box-shadow: none;
+          --ha-card-background: none;
+          width: 30%;
+        }
+        bar-card-backgroundbar {
+          border-radius: 20px;
+        }
+        bar-card-currentbar {
+          border-radius: 20px;
+        }
+        bar-card-animationbar {
+          border-radius: 20px;
+        }
+      tap_action:
+        action: call-service
+        service: browser_mod.popup
+        service_data:
+          title: []
+          deviceID:
+            - this
+          large: true
+          hide_header: true
+          style:
+          card:
+            type: custom:mini-graph-card
+
+########################### MONITOR SPOTIFY ##########################################
+    - type: conditional
+      conditions:
+        - entity: media_player.spotify_stefano_tonelli
+          state: 'playing'
+      elements:      
+        - type: custom:mini-media-player
+          entity: media_player.spotify_stefano_tonelli
+          info: scroll
+          hide:
+            controls: true
+            name: true
+            power: true
+            source: true
+            volume: true 
+            progress: true 
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/musica/
+
+          style: |
+            :host {
+                transform: none !important;
+                top: 0px;
+                left: 0px;                
+              }
+            ha-card {
+              box-shadow: none !important;
+            }
+            .entity__info {
+             font-size: 1vw !important;
+             justify-content: left !important;
+             margin-left: 0px !important;
+            }
+            .entity__artwork {
+              border-radius: 0 !important;
+            }
+        - type: image
+          image: /local/ui/home/equalizer.svg
+          style:
+            position: absolute
+            transform: none 
+            top: 17px
+            left: 60px
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/musica/
+
+########################### WEBCAM #### ##############################################
+    - type: image
+      entity: camera.foscam_camera
+      image: /local/ui/home/camera.svg
+      style:
+        position: absolute
+        transform: none 
+        left: 72%
+        top: 45%
+      hold_action: 
+        action: none
+      tap_action:
+        action: call-service
+        service: browser_mod.popup
+        service_data:
+          title: []
+          deviceID:
+            - this
+          large: true
+          hide_header: true
+          style:
+            $: |
+              .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
+                border-radius: 25px;
+              }
+            .: |
+              :host {
+                --mdc-theme-surface: rgba(0,0,0,0);
+                --secondary-background-color: rgba(0,0,0,0.5);
+                --ha-card-background: rgba(0,0,0,0.5);
+              }
+              :host .content {
+
+                margin: 0px;
+               }
+          card:
+            type: picture-elements
+            entity: camera.foscam_camera
+            camera_image: camera.foscam_camera
+            camera_view: live
+            elements:
+              - type: icon
+                icon: 'mdi:arrow-up'
+                style:
+                  background: 'rgba(255, 255, 255, 0.5)'
+                  right: 25px
+                  bottom: 50px
+                tap_action:
+                  action: call-service
+                  service: foscam.ptz
+                  service_data:
+                    entity_id: camera.foscam_camera
+                    movement: up
+                    travel_time: 0.25
+              - type: icon
+                icon: 'mdi:arrow-down'
+                style:
+                  background: 'rgba(255, 255, 255, 0.5)'
+                  right: 25px
+                  bottom: 0px
+                tap_action:
+                  action: call-service
+                  service: foscam.ptz
+                  service_data:
+                    entity_id: camera.foscam_camera
+                    movement: down
+                    travel_time: 0.25
+              - type: icon
+                icon: 'mdi:arrow-left'
+                style:
+                  background: 'rgba(255, 255, 255, 0.5)'
+                  right: 50px
+                  bottom: 25px
+                tap_action:
+                  action: call-service
+                  service: foscam.ptz
+                  service_data:
+                    entity_id: camera.foscam_camera
+                    movement: left
+                    travel_time: 0.25
+              - type: icon
+                icon: 'mdi:arrow-right'
+                style:
+                  background: 'rgba(255, 255, 255, 0.5)'
+                  right: 0px
+                  bottom: 25px
+                tap_action:
+                  action: call-service
+                  service: foscam.ptz
+                  service_data:
+                    entity_id: camera.foscam_camera
+                    movement: right
+                    travel_time: 0.25
+              - type: icon
+                icon: 'mdi:arrow-top-left'
+                style:
+                  background: 'rgba(255, 255, 255, 0.5)'
+                  right: 50px
+                  bottom: 50px
+                tap_action:
+                  action: call-service
+                  service: foscam.ptz
+                  service_data:
+                    entity_id: camera.foscam_camera
+                    movement: top_left
+                    travel_time: 0.25
+              - type: icon
+                icon: 'mdi:arrow-top-right'
+                style:
+                  background: 'rgba(255, 255, 255, 0.5)'
+                  right: 0px
+                  bottom: 50px
+                tap_action:
+                  action: call-service
+                  service: foscam.ptz
+                  service_data:
+                    entity_id: camera.foscam_camera
+                    movement: top_right
+                    travel_time: 0.25
+              - type: icon
+                icon: 'mdi:arrow-bottom-left'
+                style:
+                  background: 'rgba(255, 255, 255, 0.5)'
+                  right: 50px
+                  bottom: 0px
+                tap_action:
+                  action: call-service
+                  service: foscam.ptz
+                  service_data:
+                    entity_id: camera.foscam_camera
+                    movement: bottom_left
+                    travel_time: 0.25
+              - type: icon
+                icon: 'mdi:arrow-bottom-right'
+                style:
+                  background: 'rgba(255, 255, 255, 0.5)'
+                  right: 0px
+                  bottom: 0px
+                tap_action:
+                  action: call-service
+                  service: foscam.ptz
+                  service_data:
+                    entity_id: camera.foscam_camera
+                    movement: bottom_right
+                    travel_time: 0.25
+
+########################### ICONE ARIA CONDIZIONATA ##################################
+    - type: conditional
+      conditions:
+        - entity: climate.soggiorno
+          state_not: "off" 
+      elements:
+        - type: image
+          image: /local/ui/home/condizionatore_soggiorno.svg
+          style:
+            left: 62%
+            top: 48%
+    - type: conditional
+      conditions:
+        - entity: climate.camera
+          state_not: "off" 
+      elements:
+        - type: image
+          image: /local/ui/home/condizionatore_camera.svg
+          style:
+            left: 36%
+            top: 44%
+    - type: conditional
+      conditions:
+        - entity: climate.daikinap06055
+          state_not: "off" 
+      elements:
+        - type: image
+          image: /local/ui/home/condizionatore_studio.svg
+          style:
+            left: 47%
+            top: 57%            
+
+
+
+########################### PULSANTI BOTTOM ##########################################
+
+
+    - type: "custom:button-card"
+      icon: >
+        [[[ 
+          if (states['group.luci_piano_terra'].state == 'on') 
+            return "mdi:lightbulb-off"; 
+          else 
+            return "mdi:lightbulb-on";
+        ]]]
+      entity: group.luci_piano_terra
+      show_name: false
+        
+      style: |
+        :host {
+          transform: none;
+          left: 6%;
+          bottom: -2.5%;
+          width: 10%;
+        }
+        ha-card {
+          border-radius: 0px;
+          background: #2b2b2b;
+        }
+
+    - type: "custom:button-card"
+      icon: mdi:air-conditioner
+      entity: climate.daikinap06055
+      show_name: false
+      style: |
+        :host {
+          transform: none;
+          left: 16.3%;
+          bottom: -2.5%;
+          width: 10%;
+        }
+        ha-card {
+          border-radius: 0px;
+          background: #2b2b2b;
+        }
+      tap_action:
+        action: call-service
+        service: browser_mod.popup
+        service_data:
+          title: []
+          deviceID:
+            - this
+          large: true
+          hide_header: true
+          style:
+            $: |
+              .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
+                border-radius: 25px;
+              }
+            .: |
+              :host {
+                --mdc-theme-surface: rgba(0,0,0,0);
+                --secondary-background-color: rgba(0,0,0,0.7);
+                --ha-card-background: rgba(0,0,0,0.7);
+              }
+              :host .content {
+                width: 90vw;
+                height: 65vh;
+                margin: -20px;
+               }
+          card:
+            type: horizontal-stack
+            cards:
+              - type: thermostat
+                entity: climate.soggiorno
+              - type: thermostat
+                entity: climate.camera
+              - type: thermostat
+                entity: climate.daikinap06055           
+        
+
+
+
+
+  
+
+
+
+
+
+
+
+

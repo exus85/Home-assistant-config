@@ -1,0 +1,61 @@
+######### Optimized for Tablet Kiosk mode 10.1"/10.4" 1920x1200  ################# 
+custom_header:
+  compact_mode: true
+  exceptions:
+    - conditions:
+        user: tablet
+      config:
+        kiosk_mode: true
+
+#########################   SIDEBAR      ###################################
+sidebar: !include www/sidebar.yaml
+
+####################### TEMPLATE BUTTON CARD ################################
+button_card_templates: !include www/configurations/button_card_templates.yaml
+
+title: Casa
+views:
+########################### SCHEDA HOME ####################################
+  - title: Home
+    path: home
+    panel: true  
+    badges: []
+    cards:
+      - !include /config/www/home.yaml
+
+########################### SCHEDA PULIZIA #################################
+  - title: Pulizia
+    path: pulizia
+    panel: true
+    badges: []
+    cards:
+      - !include /config/www/pulizia.yaml 
+
+########################### SCHEDA MUSICA ##################################     
+  - title: Musica
+    path: musica
+    panel: true
+    badges: []
+    cards:
+      - !include /config/www/musica.yaml
+     
+########################### SCHEDA METEO ###################################
+  - title: Meteo
+    path: meteo
+    panel: true
+    badges: []
+    cards:
+      - !include /config/www/meteo.yaml
+
+########################### SCHEDA DISPOSITIVI #############################
+  - title: Dispositivi 
+    path: dispositivi 
+    panel: true
+    badges: []
+    cards:
+      - !include /config/www/dispositivi.yaml              
+########################### SCHEDA TAVERNA #################################
+  - title: Taverna  
+    path: taverna  
+                                                                     
+                                                                           

@@ -1,0 +1,89 @@
+type: entities
+style: |
+  ha-card {
+    background: center / cover no-repeat url("/local/ui/musica/background.svg") fixed !important;
+  }
+  #states {
+    padding: 0px 10px 0px 10px;
+  }
+
+entities:
+  - type: 'custom:spotify-card'
+    device: media_player.soggiorno
+    display_style: grid
+    grid_covers_per_row: 7
+    height: 480
+    limit: 28
+    filter_devices:
+      - media_player.nesthub0828
+      - media_player.shield_4
+      - media_player.home_mini_taverna
+    style: |
+      ha-card { 
+       background: none !important;
+       box-shadow: none !important;
+      }
+      #content {
+        background: none !important;
+      }
+      #header {
+        display: none !important;
+      }
+
+  - type: 'custom:mini-media-player'
+    entity: media_player.spotify_stefano_tonelli
+    artwork: cover
+    hide:
+      source: true 
+      power: true
+      shuffle: true
+      icon: true
+      controls: true
+      name: true
+    
+    volume_step: 5
+    style:
+      .: |       
+        ha-card {
+          height: 120px; 
+          padding: 0;
+          border-radius: 0px !important;
+          box-shadow: none !important;
+          margin: -25px -10px 0px -10px;
+          --mmp-accent-color: #ca00d0 !important;
+        }
+        .mmp__bg {
+          background: none !important;
+        }
+        .mmp__bg > .cover {
+          border-radius: 0px !important;
+          -webkit-mask-image: -webkit-gradient(linear, left bottom, left top,from(rgba(64, 92, 177, 1)), to(rgba(64,92,177,0))) !important;
+        }
+        .mmp-player {
+          margin: auto !important;
+          font-size: calc(var(--mmp-unit) * 0.45) !important;
+        }
+        .mmp__container {
+          border-radius: 0px !important;
+        }
+
+#VA solo dopo refresh....
+
+#      ".mmp__container": 
+#        "mmp-progress":
+#          $: |
+#            .mmp-progress {
+#              top: -10px !important;
+#              bottom: auto !important;
+#            }
+
+
+
+      
+
+
+
+
+        
+   
+

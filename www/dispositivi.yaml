@@ -1,0 +1,711 @@
+              
+anchors:            
+<<1: &title
+  entity: sensor.placeholder
+  tap_action:
+    action: none
+  hold_action:
+    action: none
+  type: state-label
+<<2: &title-style
+  color: '#bcbebf'
+  #font-family: SF Text
+  font-size: 2.4vw
+  font-weight: 500
+  max-width: 1px
+  cursor: default
+<<2.1: &title-style2
+  color: '#bcbebf'
+  #font-family: SF Text
+  font-size: 2vw
+  font-weight: 500
+  max-width: 1px
+  cursor: default
+<<3: &row_1 22%
+<<4: &row_2 44%
+<<10: &row_3 72%
+<<5: &column_1 23%
+<<6: &column_2 41%
+<<7: &column_3 59%
+<<8: &column_4 77%
+<<9: &button_width 15%
+<<11: &graph_style_dsl >                     
+                    ha-card, ha-card > div {
+                      padding: 0px !important;
+                    }
+                    ha-card > .header.flex > div, ha-card > .states.flex > div {
+                      padding: 5px !important;
+                      font-weight: 500;
+                    } 
+                    ha-card > .info.flex > .info__item > .info__item__time {
+                      display: none;
+                    }
+                    ha-card {
+                      background-color: rgba(40,40,40,0.6);
+                    }
+                    .name > span {
+                      font-weight: 500 !important;
+                    }
+
+
+<<12: &graph_common_1
+  font_size: 35 
+  #height: 250
+  #aggregate_func: max
+  update_interval: 15
+  font_size_header: 9
+  hours_to_show: 1
+  points_per_hour: 60
+  show:
+    extrema: false
+
+
+<<13: &graph_color_1 "#b9fffc"
+<<14: &graph_color_2 "#a3d8f4"
+<<15: &graph_color_3 "#ff9933"
+<<16: &graph_color_4 "#ff5050"
+<<16.1: &graph_color_secondary_fixed "#ff4fd3"
+
+<<17: &list_style_1 >
+                  .card-content {
+                    padding: 0px;
+                    margin-right: 10px;
+                  }
+                  #states.card-content > div {
+                    margin: 0px;
+                  }
+                  ha-card {
+                    background-color: rgba(40,40,40,0.6);
+                    font-size: 0.9vw;
+                  }
+                  multiple-entity-row {
+                    height: 30px;
+                  }
+<<18: &list_style_2 >
+                  .card-content {
+                    padding: 0px;
+                    margin-right: -10px;
+                  }
+                  ha-card {
+                    background: none;
+                    box-shadow: none;
+                  }
+                  bar-card-background {
+                    margin: 0 !important;
+                  }
+                  .contentbar-direction-right {
+                    flex-direction: column;
+                  }
+                  .min-direction-right {
+                    margin: 0px;
+                    margin-left: 4px;
+                    margin-right: auto;
+                    margin-bottom: -20px;
+                    bottom: 10px;
+                  }
+                    bar-card-value {
+                    margin: 0px;
+                  }
+                  bar-card-name {
+                    margin: 0px;
+                  }
+                  bar-card-max {
+                    margin: 0px;
+                    margin-left: auto;
+                    margin-top: -20px;
+                    margin-right: 10px;
+                    top: 10px;
+                  }
+                  bar-card-divider {
+                    display: none;
+                  }
+
+
+
+type: custom:mod-card
+style: 
+  swipe-card:
+    $: |
+      .swiper-scrollbar-drag {            
+        background-color: rgba(255,79,211,0.6) !important;
+      }
+card:
+    type: custom:swipe-card
+    parameters:
+      scrollbar:
+        hide: false
+        draggable: true
+        snapOnRelease: true
+    
+    cards:
+      ## Credit icons and some code https://github.com/matt8707/hass-config
+    ################# PAGINA 1 - PT ############################
+      - type: picture-elements    
+        image: /local/ui/dispositivi/backgroundStatic.png
+        elements:
+          - type: state-label
+            prefix: Luci piano terra
+            entity: sensor.placeholder
+            tap-action: 
+              action: none
+            hold-action:
+              action: none
+            style:
+              top: 8%
+              left: 38%
+              <<: *title-style
+            
+          - type: custom:button-card
+            entity: light.faretti
+            name: Faretti
+            style:
+              top: *row_1 
+              left: *column_1 
+              width: *button_width 
+            custom_fields:
+              icon_hue: &icon_hue >
+                [[[ const state = entity.state === 'on' ? 'animate' : null;
+                return `<svg viewBox="0 0 50 50"><style>@keyframes animate{0%{transform: scale(0.85);}20%{transform: scale(1.1);}40%{transform: scale(0.95);}60%{transform: scale(1.03);}80%{transform: scale(0.97);}100%{transform: scale(1);}}.animate{animation: animate 0.8s; transform-origin: center;}</style>
+                <path fill="#9da0a2" d="M27.4 47.3h-4.9s-.7.1-.7.8.4.9.7.9h4.9c.3 0 .7-.1.7-.9s-.7-.8-.7-.8zm3.3-2.9H19.3s-.8 0-.8.8.6.9.8.9h11.5c.2 0 .8-.1.8-.9-.1-.8-.9-.8-.9-.8zm0-3H19.3s-.8 0-.8.8.6.9.8.9h11.5c.2 0 .8-.1.8-.9-.1-.8-.9-.8-.9-.8zm0-2.9H19.3s-.8 0-.8.8.6.9.8.9h11.5c.2 0 .8-.1.8-.9s-.9-.8-.9-.8zm5.2-23.2c-3.3-5.3-7-5.6-10.9-5.6-3.8 0-8.4.4-10.9 5.6-.1.1-.1.3.1.7.4.8 3.3 7.2 3.2 18.8 0 1.1-.1 1.6 0 1.7 0 .1 0 .7 1.1.7h13c1 0 1-.5 1.1-.7v-1.7c-.1-11.6 2.8-18 3.2-18.8.1-.4.1-.5.1-.7"/>
+                <path class="${state}" fill="var(--button-card-light-color-no-temperature)" d="M14.1 15.3c3.4-.3 7-.4 10.9-.4 3.8 0 7.5.2 10.9.4.4-.4.7-.8.9-1.1C39 8.5 38.9 6.5 38.9 6c-.2-4.4-8.4-5-12.1-5h0-3.4c-3.7 0-12 .5-12.1 5 0 .5-.1 2.5 2.1 8.2 0 .3.3.8.7 1.1z"/></svg>`; ]]]
+            styles: &icon_hue_styles
+              custom_fields:
+                icon_hue:
+                  [top: 11%, left: 4.5%, width: 3.55vw, position: absolute]
+            template: light
+          - type: custom:button-card
+            entity: light.luce_del_tavolo
+            name: Tavolo soggiorno
+            style:
+              top: *row_1 
+              left: *column_2
+              width: *button_width      
+            custom_fields:
+              icon_hue: *icon_hue
+            styles: *icon_hue_styles
+            template: light    
+          - type: custom:button-card
+            entity: light.camera
+            name: Camera
+            style:
+              top: *row_1
+              left: *column_3
+              width: *button_width       
+            custom_fields:
+              icon_hue: *icon_hue
+            styles: *icon_hue_styles
+            template: light 
+          - type: custom:button-card
+            entity: light.lampada_dello_studio
+            name: Lampada Studio
+            style:
+              top: *row_1
+              left: *column_4
+              width: *button_width      
+            custom_fields:
+              icon_shade: >
+                [[[ const state = entity.state === 'on' ? 'animate' : null;
+                return `<svg viewBox="0 0 50 50"><style>@keyframes animate{0%{transform: scale(0.85);}20%{transform: scale(1.1);}40%{transform: scale(0.95);}60%{transform: scale(1.03);}80%{transform: scale(0.97);}100%{transform: scale(1);}}.animate{animation: animate 0.8s; transform-origin: center;}</style>
+                <path fill="#9da0a2" d="M26.4 25.6c.6-.3 1.1-.7 1.1-1.3L25 17.9l-2.5 6.4c0 .7.6 1.1 1.1 1.3v20.8h-5.5v2.7h13.7v-2.7h-5.5V25.6z"/>
+                <path class="${state}" fill="var(--button-card-light-color-no-temperature)" d="M24.6.9l-9.4.5c-.6.1-1.9 0-2.5 2.1s-2.4 9.1-4 16.9c-.2.7-.5 2-.5 2.3s-.4 1.6.9 1.6c.8.1 7.4.3 15.9.3 8.6 0 15.1-.3 15.9-.3 1.3-.1.9-1.3.9-1.6s-.3-1.6-.5-2.3c-1.6-7.8-3.4-14.8-4-16.9s-1.9-2-2.5-2.1c-1.6-.2-6.9-.4-9.4-.5"/> </svg>`;]]]
+            styles:
+              custom_fields:
+                icon_shade:
+                  [top: 11%, left: 4.6%, width: 3.05vw, position: absolute]
+            template: light    
+          - type: custom:button-card
+            entity: light.luce_della_scala
+            name: Scala
+            style:
+              top: *row_2
+              left: *column_1
+              width: *button_width      
+            custom_fields:
+              icon_hue: *icon_hue
+            styles: *icon_hue_styles
+            template: light     
+          - type: custom:button-card
+            entity: light.luce_del_corridoio
+            name: Corridoio
+            style:
+              top: *row_2
+              left: *column_2
+              width: *button_width       
+            custom_fields:
+              icon_hue: *icon_hue
+            styles: *icon_hue_styles
+            template: light        
+          - type: custom:button-card
+            entity: light.luce_del_bagno
+            name: Bagno
+            style:
+              top: *row_2
+              left: *column_3
+              width: *button_width      
+            custom_fields:
+                icon_hue: *icon_hue
+            styles: *icon_hue_styles
+            template: light  
+          - type: custom:button-card
+            entity: light.luce_dello_studio
+            name: Studio
+            style:
+              top: *row_2
+              left: *column_4
+              width: *button_width      
+            custom_fields:
+              icon_hue: *icon_hue
+            styles: *icon_hue_styles
+            template: light 
+
+          - type: state-label
+            prefix: Luci taverna
+            entity: sensor.placeholder
+            tap-action: 
+              action: none
+            hold-action:
+              action: none
+            style:
+              top: 58%
+              left: 40%
+              <<: *title-style
+          - type: custom:button-card
+            entity: light.cielo_rgb_light
+            name: Cielo stellato
+            style:
+              top: *row_3
+              left: *column_2
+              width: *button_width      
+            custom_fields:
+              icon_hue: *icon_hue
+            styles: *icon_hue_styles
+            template: light 
+          - type: custom:button-card
+            entity: group.torri
+            name: Torri
+            style:
+              top: *row_3 
+              left: *column_3
+              width: *button_width      
+            custom_fields:
+              icon_hue: *icon_hue
+            styles: *icon_hue_styles
+            template: light     
+    ################ PAGINA 2 MONITORS ##################################
+
+      - type: picture-elements
+        image: /local/ui/dispositivi/backgroundStatic2.png
+        elements:
+        ############# TITOLI
+          - type: state-label
+            prefix: Network
+            entity: sensor.placeholder
+            tap-action: 
+              action: none
+            hold-action:
+              action: none
+            style:
+              top: 5%
+              left: 10%
+              <<: *title-style2
+          - type: state-label
+            prefix: Load and Temp
+            entity: sensor.placeholder
+            tap-action: 
+              action: none
+            hold-action:
+              action: none
+            style:
+              top: 5%
+              left: 36.5%
+              <<: *title-style2
+          - type: state-label
+            prefix: Stats
+            entity: sensor.placeholder
+            tap-action: 
+              action: none
+            hold-action:
+              action: none
+            style:
+              top: 5%
+              left: 73%
+              <<: *title-style2          
+
+        ########### PRIMA COLONNA
+          - type: custom:layout-card
+            layout: vertical
+            style:
+              transform: none
+              left: 1%
+              top: 8%
+              width: 30%
+            cards:
+
+              - type: custom:mini-graph-card
+                icon: mdi:wan
+                name: FTTC Download/Upload ultima ora            
+                entities:          
+                  - entity: sensor.rete_download
+                    name: Ftcc DL
+                    show_state: true
+                    show_legend: false
+                    state_adaptive_color: true
+                  - entity: sensor.rete_upload
+                    name: Fttc UP
+                    show_state: true
+                    show_legend: false
+                    state_adaptive_color: true
+                    color: *graph_color_secondary_fixed
+                <<: *graph_common_1
+                color_thresholds:
+                  - value: 5
+                    color: *graph_color_1
+                  - value: 10
+                    color: *graph_color_2
+                  - value: 15
+                    color: *graph_color_3
+                  - value: 25
+                    color: *graph_color_4
+                style:
+                  *graph_style_dsl
+
+              - type: custom:mini-graph-card
+                icon: mdi:signal-4g
+                name: LTE Download/Upload ultima ora            
+                entities:          
+                  - entity: sensor.rete_lte_download_current
+                    name: LTE DL
+                    show_state: true
+                    show_legend: false
+                    state_adaptive_color: true
+                  - entity: sensor.rete_lte_upload_current
+                    name: LTE UP
+                    show_state: true
+                    show_legend: false
+                    state_adaptive_color: true
+                    color: *graph_color_secondary_fixed
+                <<: *graph_common_1
+                color_thresholds:
+                  - value: 5
+                    color: *graph_color_1
+                  - value: 10
+                    color: *graph_color_2
+                  - value: 15
+                    color: *graph_color_3
+                  - value: 25
+                    color: *graph_color_4
+                style:
+                  *graph_style_dsl
+              - type: custom:mini-graph-card
+                icon: mdi:nas
+                name: NAS Download/Upload ultima ora            
+                entities:          
+                  - entity: sensor.qnas_network_down_mbps
+                    name: NAS DL
+                    show_state: true
+                    show_legend: false
+                    state_adaptive_color: true
+                  - entity: sensor.qnas_network_up_mbps
+                    name: NAS UP
+                    show_state: true
+                    show_legend: false
+                    state_adaptive_color: true
+                    color: *graph_color_secondary_fixed
+                <<: *graph_common_1
+                color_thresholds:
+                  - value: 10
+                    color: *graph_color_1
+                  - value: 30
+                    color: *graph_color_2
+                  - value: 60
+                    color: *graph_color_3
+                  - value: 100
+                    color: *graph_color_4
+                style:
+                  *graph_style_dsl
+
+              - type: custom:mini-graph-card
+                icon: mdi:emby
+                name: Media Server DL/UP ultima ora            
+                entities:          
+                  - entity: sensor.server_dl_rate
+                    name: Media Server DL
+                    show_state: true
+                    show_legend: false
+                    state_adaptive_color: true
+                  - entity: sensor.server_up_rate
+                    name: Media Server UP
+                    show_state: true
+                    show_legend: false
+                    state_adaptive_color: true
+                    color: *graph_color_secondary_fixed
+                <<: *graph_common_1
+                color_thresholds:
+                  - value: 10
+                    color: *graph_color_1
+                  - value: 20
+                    color: *graph_color_2
+                  - value: 40
+                    color: *graph_color_3
+                  - value: 70
+                    color: *graph_color_4
+                style:
+                  *graph_style_dsl
+
+
+        ######### SECONDA COLONNA
+
+          - type: custom:layout-card
+            layout: vertical
+            style:
+              transform: none
+              left: 32%
+              top: 8%
+              width: 30%
+            cards:
+
+              - type: custom:mini-graph-card
+                icon: mdi:home
+                name: Consumo Watt Casa           
+                entities:          
+                  - entity: sensor.aeon_labs_zw095_home_energy_meter_gen5_power
+                    name: Watt
+                    show_state: true
+                    show_legend: false
+                    state_adaptive_color: true
+                <<: *graph_common_1
+                color_thresholds:
+                  - value: 500
+                    color: *graph_color_1
+                  - value: 1000
+                    color: *graph_color_2
+                  - value: 1500
+                    color: *graph_color_3
+                  - value: 2500
+                    color: *graph_color_4
+                style:
+                  *graph_style_dsl            
+              - type: custom:mini-graph-card
+                icon: mdi:home-assistant
+                name: Hassio Load and Temp           
+                entities:          
+                  - entity: sensor.load_5m
+                    name: Load
+                    show_state: true
+                    show_legend: false
+                    state_adaptive_color: true
+                    unit: '%'
+                  - entity: sensor.cpu_temperature
+                    name: Temperature
+                    show_state: true
+                    show_legend: false
+                    state_adaptive_color: true
+                    color: *graph_color_secondary_fixed
+                <<: *graph_common_1
+                color_thresholds:
+                  - value: 40
+                    color: *graph_color_1
+                  - value: 50
+                    color: *graph_color_2
+                  - value: 60
+                    color: *graph_color_3
+                  - value: 65
+                    color: *graph_color_4
+                style:
+                  *graph_style_dsl
+              - type: custom:mini-graph-card
+                icon: mdi:nas
+                name: NAS Load and Temp           
+                entities:          
+                  - entity: sensor.qnas_cpu_usage
+                    name: Load
+                    show_state: true
+                    show_legend: false
+                    state_adaptive_color: true
+                  - entity: sensor.qnas_cpu_temperature
+                    name: Temperature
+                    show_state: true
+                    show_legend: false
+                    state_adaptive_color: true
+                    color: *graph_color_secondary_fixed
+                <<: *graph_common_1
+                color_thresholds:
+                  - value: 40
+                    color: *graph_color_1
+                  - value: 50
+                    color: *graph_color_2
+                  - value: 60
+                    color: *graph_color_3
+                  - value: 65
+                    color: *graph_color_4
+                style:
+                  *graph_style_dsl
+              - type: custom:mini-graph-card
+                icon: mdi:emby
+                name: Media Server Load and Temp           
+                entities:          
+                  - entity: sensor.server_cpu_use
+                    name: Load
+                    show_state: true
+                    show_legend: false
+                    state_adaptive_color: true
+                  - entity: sensor.server_cpu_temp
+                    name: Temperature
+                    show_state: true
+                    show_legend: false
+                    state_adaptive_color: true
+                    color: *graph_color_secondary_fixed
+                <<: *graph_common_1
+                color_thresholds:
+                  - value: 40
+                    color: *graph_color_1
+                  - value: 50
+                    color: *graph_color_2
+                  - value: 60
+                    color: *graph_color_3
+                  - value: 65
+                    color: *graph_color_4
+                style:
+                  *graph_style_dsl              
+
+        ########### TERZA COLONNA
+          - type: custom:layout-card
+            layout: vertical
+            style:
+              transform: none
+              left: 63%
+              top: 8%
+              width: 30%
+            cards:
+
+              - type: entities                  
+                entities:
+                  - entity: sensor.fttc_uptime_templated
+                    name: FTTC attiva da
+                    icon: mdi:wan
+                  - entity: sensor.qnas_uptime
+                    name: NAS attivo da
+                    icon: mdi:nas
+                    unit_of_measurement: ''
+                  - entity: sensor.hassio_uptime_templated
+                    name: Hassio attivo da
+                    icon: mdi:home-assistant
+                          
+                style: 
+                  *list_style_1
+
+
+              - type: entities
+                style: *list_style_1
+                entities:
+                  - entity: sensor.rete_lte_download_month
+                    name: LTE download mensile
+                    icon: mdi:signal-4g
+                  - entity: sensor.rete_lte_upload_month
+                    name: LTE upload mensile
+                    icon: mdi:signal-4g
+                  - type: custom:template-entity-row
+                    entity: binary_sensor.emby_check
+                    name: Emby dns/vpn Link
+                    icon: mdi:emby
+                    state: "{% if is_state('binary_sensor.emby_check', 'on')%} CONNESSO {% else %} !OFFLINE! {% endif %}"
+                    style: | 
+                          
+                          .state {
+                          color: {% if is_state('binary_sensor.emby_check', 'on')%} #33cc33 !important {% else %} red !imporatnt {% endif %}
+                            }
+
+                  - type: custom:template-entity-row
+                    entity: sensor.qnas_status
+                    name: NAS health status
+                    icon: mdi:nas
+                    state: "{% if is_state('sensor.qnas_status', 'good')%} GOOD {% else %} WARNING {% endif %}"
+                    style: | 
+                          
+                          .state {
+                          color: {% if is_state('sensor.qnas_status', 'good')%} #33cc33 !important {% else %} red !imporatnt {% endif %}
+                            } 
+                  - type: custom:template-entity-row
+                    entity: sensor.placeholder
+                    name: LAN Connected devices
+                    icon: mdi:lan-connect
+                    state: "{{ states.device_tracker | selectattr('state', 'eq', 'home')| list | count }}"
+                  - type: custom:template-entity-row
+                    entity: sensor.placeholder
+                    name: Luci rilevate
+                    icon: mdi:lightbulb-group-outline
+                    state: "{{ states.light | list | count }}" 
+
+
+              - type: entities
+                style:
+                  *list_style_1
+                entities:
+                  - type: custom:bar-card
+                    entity: sensor.qnas_used_space_datavol1
+                    min: 0
+                    max: 39000
+                    icon: mdi:nas
+                    name: NAS Spazio Usato
+                    color: '#5f84bd'
+                    positions:
+                      icon: 'off'
+                      indicator: 'off'
+                      minmax: inside
+                      title: inside
+                      value: inside
+                    style:
+                      *list_style_2
+              - type: custom:button-card
+                entity: sensor.placeholder
+                name: Zwave Network
+                icon: mdi:z-wave
+                aspect_ratio: 5/1
+                layout: icon_name
+                styles:
+                  card:
+                    - background-color: '#324A5F'
+                style: |
+                    .ellipsis {
+                      margin-right: 50%;
+                    }
+                tap_action:
+                  action: call-service
+                  service: browser_mod.popup
+                  service_data:
+                    title: []
+                    deviceID:
+                      - this
+                    large: true
+                    hide_header: true
+                    style:
+                      $: |
+                        .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
+                          border-radius: 25px;
+                        }
+                      .: |
+                        :host {
+                          --mdc-theme-surface: rgba(0,0,0,0);
+                          --secondary-background-color: rgba(0,0,0,0.5);
+                          --ha-card-background: rgba(0,0,0,0.5);
+                        }
+                        :host .content {
+        
+                          margin: 0px;
+                        }
+                    card:
+                      type: iframe
+                      url: 'http://192.168.1.45:8123/zwave-graph'   
+
+
+
+
+
+
+
+
+
+
+
+                
+

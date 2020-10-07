@@ -1,0 +1,132 @@
+base:
+  aspect_ratio: 1/1
+  show_state: true
+  show_icon: false
+  state:
+    - value: 'on'
+      styles:
+        card: [background-color: 'rgba(64, 64, 64, 0.9)']
+        name: [color: 'rgba(255, 255, 255, 0.9)']
+        state: [color: 'rgba(255, 255, 255, 0.9)']
+  tap_action:
+    action: toggle
+    haptic: light
+  styles:   
+           
+    name:
+      [top: 57.7%, left: 5%, line-height: 2vw, position: absolute]
+    state:
+      [top: 74%, left: 5%, line-height: 2vw, position: absolute]
+    card:
+      [ letter-spacing: 0.01vw, font-weight: 400, color: 'rgba(255, 255, 255, 0.3)', font-size: 1.2vw, 
+      background-color: 'rgba(64, 64, 64, 0.6)', border-radius: 0.8vw, box-shadow: none, transition: none]
+    custom_fields:
+      circle:
+        [top: 8.5%, left: 56.2%, width: 3.5vw, position: absolute, letter-spacing: 0.03vw]
+light:
+  template: ['base']
+  custom_fields:
+    circle: >
+      [[[ if (entity.state === 'on' && entity.attributes.brightness) {
+      const brightness = Math.round(entity.attributes.brightness / 2.54);
+      const radius = 20.5; const circumference = radius * 2 * Math.PI; 
+      return `<svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="${radius}" stroke="#b2b2b2" stroke-width="1.5" fill="none" style="
+      transform: rotate(-90deg); transform-origin: 50% 50%; stroke-dasharray: ${circumference}; stroke-dashoffset: ${circumference - brightness / 100 * circumference};" />
+      <text x="50%" y="54%" fill="#8d8e90" font-size="14" text-anchor="middle" alignment-baseline="middle">${brightness}<tspan font-size="10">%</tspan></text></svg>`; } ]]]
+  hold_action:
+    action: call-service
+    service: browser_mod.popup
+    service_data:
+      title: '[[[ return entity.attributes.friendly_name ]]]'
+      deviceID: this
+      hide_header: true
+      style:
+        $: |
+          .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
+            border-radius: 25px;
+          }
+        .: |
+          :host {
+            --mdc-theme-surface: rgba(0,0,0,0);
+            --secondary-background-color: rgba(0,0,0,0.7);
+            --ha-card-background: rgba(0,0,0,0.7);
+          }
+          .content {
+            margin: auto;
+            width: 100%;
+          }
+      #    :host .content {
+      #      width: 30vw;
+      #      height: 80vh;
+      #      margin: 0px;
+      #     }
+
+      card:
+        type: entities
+        entities:
+          - type: custom:light-popup-card
+            entity: '[[[ return entity.entity_id ]]]'
+            icon: none
+            fullscreen: false
+            brightnessWidth: 100px
+            brightnessHeight: 170px
+            switchHeight: 170px
+            switchWidth: 100px
+            borderRadius: 1.7em
+            sliderColor: '#c7c7c7'
+            sliderTrackColor: rgba(25, 25, 25, 0.9)
+            actionSize: 4.5em
+            actionsInARow: 2
+            style: |
+              #popup {
+                margin: -2.4em 0 1.4em 0; }
+              #popup > div.range-holder > input[type=range] {
+                cursor: grab; }
+              #brightnessValue {
+                color: rgba(255, 255, 255, 0.8); margin: -1.9em 0 0 0; font-size: 2em; font-weight: 400; 
+                position: absolute; z-index: 100; letter-spacing: 0.02em; pointer-events: none; 
+                mix-blend-mode: difference; text-align:center; width: 3.4em; height: 3.4em; }
+              #popup > div.range-holder > input[type=range]::-webkit-slider-thumb {
+                border: 0; eight: 0; width: 0; cursor: grabbing; }
+              #popup > div.action-holder > div > div {
+                margin: 0.8em 0.5em -0.8em 0.5em; }
+              #popup > div.action-holder > div:last-child > div:last-child > .color {
+                background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 80%), 
+                conic-gradient(rgb(120,39,230), rgb(230,34,231), rgb(228,5,136), rgb(228,25,25), rgb(229,105,30), rgb(232,226,46), 
+                rgb(125,230,41), rgb(52,232,40), rgb(51,231,92), rgb(52,232,224),rgb(32,125,229), rgb(18,39,229), rgb(120,39,230));
+                border-width: 2px; border-color: #e6e6e6; --size: 4.4em !important; }
+            actions:
+              - service: light.turn_on
+                service_data:
+                  entity_id: '[[[ return entity.entity_id ]]]'
+                  color_temp: 153
+                color: "#d8d9e1"
+              - service: light.turn_on
+                service_data:
+                  entity_id: '[[[ return entity.entity_id ]]]'
+                  color_temp: 326
+                color: "#d5b08d"
+              - service: light.turn_on
+                service_data:
+                  entity_id: '[[[ return entity.entity_id ]]]'
+                  color_temp: 500
+                color: "#ce944b"
+              - service: browser_mod.popup
+                service_data:
+                  title: '[[[ return entity.attributes.friendly_name ]]]'
+                  deviceID: this
+                  card:
+                    type: entities
+                    show_header_toggle: false
+                    entities:
+                      - entity: '[[[ return entity.entity_id ]]]'
+                        secondary_info: last-changed
+                      - type: custom:light-entity-card
+                        entity: '[[[ return entity.entity_id ]]]'
+                        brightness: false
+                        color_temp: true
+                        full_width_sliders: true
+                        hide_header: true
+                        show_slider_percent: true
+                        smooth_color_wheel: true
+                        consolidate_entities: true

@@ -1,0 +1,128 @@
+digitalClock: true
+date: true
+sidebarMenu:
+  - action: navigate
+    navigation_path: "/lovelace/home"
+    name: "Home"
+    active: true
+  - action: navigate
+    navigation_path: "/lovelace/pulizia"
+    name: "Pulizia"
+    active: true
+  - action: navigate
+    navigation_path: "/lovelace/musica"
+    name: "Musica"
+    active: true   
+  - action: navigate
+    navigation_path: "/lovelace/meteo"
+    name: "Meteo"
+    active: true   
+  - action: navigate
+    navigation_path: "/lovelace/dispositivi"
+    name: "Dispositivi"
+    active: true
+  - action: navigate
+    navigation_path: "/lovelace/taverna"
+    name: "Taverna"
+    active: true      
+style: |
+  :host {
+      --sidebar-background: #2b2b2b;
+      --sidebar-text-color: #FFF;
+      --face-color: #FFF;
+      --face-border-color: #FFF;
+      --clock-hands-color: #000;
+      --clock-seconds-hand-color: #FF4B3E;
+      --clock-middle-background: #FFF;
+      --clock-middle-border: #000;
+
+  }  
+bottomCard:
+
+  type: vertical-stack
+  cardOptions:
+    cards:
+      - type: 'custom:simple-weather-card'
+        backdrop: false
+        entity: weather.openweathermap
+        name: ' '
+        tap_action:
+          action: navigate
+          navigation_path: "/lovelace/meteo"
+        style: |
+          :host {
+            position: absolute;
+            bottom: 13%;
+            width: 90%;
+            left: 5%;
+            
+          }
+          ha-card {
+            background: none  !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+
+            font-size: 1vw;
+          
+          } 
+
+      - type: 'custom:mini-graph-card'
+        tap_action: 
+          action: none
+        show:
+          icon: true
+          legend: false
+          name: false        
+        entities:
+          - sensor.inside_temperature_soggiorno_inside_temperature  
+          - sensor.openweathermap_temperature
+            
+        icon: 'mdi:home-thermometer-outline'                
+        color_thresholds:
+          - color: '#4dd2ff'
+            value: 10
+          - color: '#ffa31a'
+            value: 20
+          - color: '#ff1a1a'
+            value: 30
+        style: |
+          :host {
+            left: 0;
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+
+            overflow: hidden;
+
+            background: none  !important;
+            box-shadow: none !important;
+
+          }
+          .header {
+            font-size: 1vw;
+            position: absolute !important;
+            width: 5% !important;
+            padding: 0 !important;
+            right: 20% !important;
+            top: 5% !important;
+          }
+          ha-card {
+            background: none  !important;
+            padding: 0 !important;
+          }
+          .icon > ha-icon {
+            width:1.8vw !important;
+            height:1.8vw !important;
+          }
+          .state__time{
+            font-size:0.9vw !important;
+            margin-top: 0.2vw;
+            font-weight: 300 !important;
+            opacity: 0.4 !important;
+          }
+          .states {
+            font-size: 0.5vw !important;
+            padding: 1vw 0vw 0vw 0vw  !important;
+            margin: auto !important;
+            width: 68%;
+          }
