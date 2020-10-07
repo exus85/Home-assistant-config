@@ -1,0 +1,114 @@
+
+homeassistant:
+  customize: !include www/configurations/customize.yaml
+  time_zone: !secret timezone
+  latitude: !secret latitude
+  longitude: !secret longitude
+  elevation: !secret elevation
+  unit_system: metric  
+frontend:
+  themes: !include www/configurations/themes.yaml  
+#----------------------------------#
+discovery:
+#----------------------------------#
+lovelace: 
+  mode: yaml
+  resources: !include www/configurations/resources.yaml
+#---------------------------------------------------------------#
+automation: !include www/configurations/automations.yaml
+script: !include www/configurations/scripts.yaml
+sensor: !include www/configurations/sensors.yaml
+light: !include www/configurations/lights.yaml
+group: !include www/configurations/groups.yaml
+zwave: !include www/configurations/zwave.yaml
+cover: !include www/configurations/tapparelle.yaml
+media_player: !include www/configurations/media_players.yaml
+#----------------------------------------------------------------#
+mqtt:
+  broker: !secret ip_hassio
+  username: mqtt
+  password: !secret mqtt_password
+#----------------------------------#
+
+#------------RECORDER--------------#
+recorder: !include www/configurations/recorder.yaml  
+influxdb: !include www/configurations/influxdb.yaml
+
+#----------------------------------#
+logger:
+  default: info
+#----------------------------------#
+#mercedesmeapi:
+#  username: !secret mercedes_user
+#  password: !secret mercedes_password
+#  pin: !secret mercedes_pin
+#----------------------------------#
+variable:
+  nome_salvato:
+    value: ' '
+#----------------------------------#
+
+spotify:
+  client_id: !secret spotify_client_id
+  client_secret: !secret spotify_client_secret
+#----------------------------------#
+spotcast: 
+  sp_dc: !secret sp_dc
+  sp_key: !secret sp_key
+#----------------------------------#
+panel_custom:
+  - name: zwave-graph-panel
+    url_path: zwave-graph
+    sidebar_title: Z-Wave Graph
+    sidebar_icon: mdi:z-wave
+    module_url: /local/jsModuliManuali/zwavegraph3.js
+    config:
+      # ranker - pick one: network-simplex, tight-tree, longest-path
+      ranker: network-simplex
+      # edge_visibility - pick one: relevant, all
+      edge_visibility: relevant
+      # grouping - pick one: z-wave, ungrouped
+      grouping: z-wave
+#----------------------------------#
+tts:
+  - platform: google_translate
+#----------------------------------#
+device_tracker:
+  - platform: fritz
+#----------------------------------#
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+#----------------------------------#
+input_boolean:
+  home_theatre_switch:
+    name: Accendi l'impianto home theatre
+    #initial: off
+    icon: mdi:movie-open
+#----------------------------------#security
+camera:
+  - platform: foscam
+    ip: !secret ip_webcam
+    rtsp_port: 88
+    username: !secret foscam_user
+    password: !secret foscam_password
+
+binary_sensor:
+  - platform: uptimerobot
+    api_key: !secret uptimeRobotKey
+
+vacuum:
+  - platform: xiaomi_miio
+    host: !secret ip_vacuum
+    token: !secret roborockToken
+
+input_text:
+  room_cleaning:
+    name: Currently Cleaning Room
+    initial: charging
+  frase_ambrogio:
+    name: Frase popup ambrogio
+ 
+ 
+###### NON ELIMINARE BROWSER MOD
+browser_mod:
+###### NON ELIMINARE BROWSER MOD

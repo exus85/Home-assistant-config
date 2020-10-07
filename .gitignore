@@ -29,12 +29,6 @@ home-assistant.log
 zwcfg_0xc7e97c1e.xml
 zwscene.xml
 options.xml
-configuration.yaml
-customize.yaml
-groups.yaml
-light.yaml
-lights.yaml
-themes.yaml
 zwave_device_config.yaml
 home-assistant_v2.db-shm
 home-assistant_v2.db-wal

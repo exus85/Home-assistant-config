@@ -1,0 +1,44 @@
+  - platform: switch
+    name: camera
+    entity_id: switch.fibaro_system_fgs223_double_relay_switch_8
+  - platform: switch
+    name: Luce dello studio
+    entity_id: switch.fibaro_system_fgs223_double_relay_switch_6
+  - platform: switch
+    name: Lampada dello studio
+    entity_id: switch.fibaro_system_fgs223_double_relay_switch_5
+  - platform: switch
+    name: Faretti
+    entity_id: switch.fibaro_system_fgs222_double_relay_switch_2x1_5kw_switch_2
+  - platform: switch
+    name: Luce del tavolo
+    entity_id: switch.fibaro_system_fgs222_double_relay_switch_2x1_5kw_switch
+  - platform: switch
+    name: Luce del bagno
+    entity_id: switch.fibaro_system_fgs223_double_relay_switch_2
+  - platform: switch
+    name: Luce del corridoio
+    entity_id: switch.fibaro_system_fgs223_double_relay_switch
+  - platform: switch
+    name: Luce della scala
+    entity_id: switch.fibaro_system_fgs223_double_relay_switch_3
+  - platform: group
+    name: Torre 1
+    entities:
+      - light.aeotec_limited_zwa002_led_bulb_6_multi_color_level
+      - light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_2
+  - platform: group
+    name: Torre 2
+    entities:
+      - light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_3
+      - light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_4
+  - platform: mqtt
+    name: cielo rgb light
+    command_topic: cielo/rgb1/light/switch
+    state_topic: cielo/rgb1/light/status
+    brightness_command_topic: cielo/rgb1/brightness/set
+    brightness_state_topic: cielo/rgb1/brightness/status
+    rgb_state_topic: cielo/rgb1/rgb/status
+    rgb_command_topic: cielo/rgb1/rgb/set
+    brightness_scale: 100
+    optimistic: false

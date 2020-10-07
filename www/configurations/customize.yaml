@@ -1,0 +1,14 @@
+#media_player.shield:
+#  hidden: true
+#media_player.bagno:
+#  friendly_name: Studio
+#  supported_features: 21389
+
+sensor.aeon_labs_zw095_home_energy_meter_gen5_unknown:
+  hidden: true
+
+sensor.aeon_labs_zw095_home_energy_meter_gen5_unknown_2:
+  hidden: true
+
+
+  

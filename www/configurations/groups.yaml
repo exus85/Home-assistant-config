@@ -1,0 +1,37 @@
+Torri:
+  name: Torri
+  entities:
+    - light.aeotec_limited_zwa002_led_bulb_6_multi_color_level
+    - light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_2
+    - light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_3
+    - light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_4
+VanoScala:
+  name: Vano scala
+  entities:
+    - light.luce_della_scala
+
+Luci_piano_terra:
+  name: Luci piano terra
+  entities:
+    - light.luce_della_scala
+    - light.faretti
+    - light.luce_del_bagno
+    - light.luce_del_corridoio
+    - light.luce_del_tavolo
+    - light.luce_dello_studio
+    - light.lampada_dello_studio
+    - light.camera
+
+Luci_taverna:
+  name: Luci taverna 
+  entities:
+    - light.torre_1
+    - light.torre_2
+    - light.cielo_rgb_light
+
+Tapparelle:
+  name: Tapparelle
+  entities:
+    - cover.fibaro_system_fgrm223_roller_shutter_controller_3_level
+    - cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_2
+    - cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_3
