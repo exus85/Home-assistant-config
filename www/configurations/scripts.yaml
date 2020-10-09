@@ -1,4 +1,49 @@
 
+accendi_il_cinema:
+  alias: "Accendi impianto home theatre nuova versione"
+  sequence:
+    - service: media_player.turn_on
+      entity_id: 
+        - media_player.amplificatore
+    - service: media_player.turn_on
+      entity_id: 
+        - media_player.epson_projector
+    - service: light.turn_on
+      entity_id: 
+        - group.torri
+        - light.cielo_rgb_light
+    - service: light.turn_off
+      entity_id: light.luce_della_scala
+
+    - service: androidtv.adb_command
+      data:
+        entity_id: media_player.nvidiashield
+        command: "POWER"
+
+spegni_il_cinema:
+  alias: "Spegni inpianto home theatre nuova versione"
+  sequence:
+    - service: media_player.turn_off
+      entity_id: 
+        - media_player.amplificatore
+    - service: media_player.turn_off
+      entity_id: 
+        - media_player.epson_projector        
+    - service: light.turn_off
+      entity_id: 
+        - group.torri
+        - light.cielo_rgb_light
+
+    - service: light.turn_on
+      entity_id: light.luce_della_scala
+
+    - service: androidtv.adb_command
+      data:
+        entity_id: media_player.nvidiashield
+        command: "SLEEP"
+
+
+
 ############## FIX AEOTEC ZWAVE BULB NON AGGIORNA COLORE 
 aggiorna_colore_luce_1:
   alias: "Aggiorna il colore della luce rgb zwave 1"

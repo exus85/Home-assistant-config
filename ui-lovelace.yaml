@@ -1,11 +1,11 @@
 ######### Optimized for Tablet Kiosk mode 10.1"/10.4" 1920x1200  ################# 
-custom_header:
-  compact_mode: true
-  exceptions:
-    - conditions:
-        user: tablet
-      config:
-        kiosk_mode: true
+#custom_header:
+#  compact_mode: true
+#  exceptions:
+#    - conditions:
+#        user: tablet
+#      config:
+#        kiosk_mode: true
 
 #########################   SIDEBAR      ###################################
 sidebar: !include www/sidebar.yaml
@@ -58,4 +58,4 @@ views:
   - title: Taverna  
     path: taverna  
                                                                      
-                                                                           
+                                                                                            

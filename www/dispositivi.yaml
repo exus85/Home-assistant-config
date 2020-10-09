@@ -76,7 +76,7 @@ anchors:
                   }
                   ha-card {
                     background-color: rgba(40,40,40,0.6);
-                    font-size: 0.9vw;
+                    font-size: 10px;
                   }
                   multiple-entity-row {
                     height: 30px;
@@ -466,7 +466,7 @@ card:
 
               - type: custom:mini-graph-card
                 icon: mdi:home
-                name: Consumo Watt Casa           
+                name: Consumo Watt Casa 24H
                 entities:          
                   - entity: sensor.aeon_labs_zw095_home_energy_meter_gen5_power
                     name: Watt
@@ -695,8 +695,48 @@ card:
                         }
                     card:
                       type: iframe
-                      url: 'http://192.168.1.45:8123/zwave-graph'   
+                      url: !secret zwave_graph_url   
 
+              - type: custom:button-card
+                entity: sensor.placeholder
+                name: Log Viewer
+                icon: mdi:shield-bug
+                aspect_ratio: 5/1
+                layout: icon_name
+                styles:
+                  card:
+                    - background-color: '#324A5F'
+                style: |
+                    .ellipsis {
+                      margin-right: 50%;
+                    }
+                tap_action:
+                  action: call-service
+                  service: browser_mod.popup
+                  service_data:
+                    title: []
+                    deviceID:
+                      - this
+                    large: true
+                    hide_header: true
+                    style:
+                      $: |
+                        .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
+                          border-radius: 25px;
+                        }
+                      .: |
+                        :host {
+                          --mdc-theme-surface: rgba(0,0,0,0);
+                          --secondary-background-color: rgba(0,0,0,0.5);
+                          --ha-card-background: rgba(0,0,0,0.5);
+                        }
+                        :host .content {
+        
+                          margin: 0px;
+                        }
+                    card:
+                      type: iframe
+                      url: !secret log_viewer_url
 
 
 

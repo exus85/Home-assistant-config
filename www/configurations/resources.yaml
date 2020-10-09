@@ -3,8 +3,6 @@
 - type: module
   url: /hacsfiles/config-template-card/config-template-card.js    
 - type: module
-  url: /hacsfiles/custom-header/custom-header.js
-- type: module
   url: /hacsfiles/lovelace-card-mod/card-mod.js
 - type: module
   url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
@@ -46,3 +44,6 @@
   url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
 - type: module
   url: /hacsfiles/lovelace-template-entity-row/template-entity-row.js
+####### NON PIU' AGGIORNATO - USO TEMA TABLET ORA PER "KIOSK" vedi themes.yaml
+#- type: module
+#  url: /hacsfiles/custom-header/custom-header.js

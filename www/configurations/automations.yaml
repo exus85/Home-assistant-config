@@ -1,53 +1,53 @@
 
-- alias: 'Accendi_Tutto'
-  trigger:
-    platform: state
-    entity_id: input_boolean.home_theatre_switch
-    to: 'on'
-  action:
-    - service: media_player.turn_on
-      entity_id: 
-        - media_player.amplificatore
-    - service: media_player.turn_on
-      entity_id: 
-        - media_player.epson_projector
-    - service: light.turn_on
-      entity_id: 
-        - group.torri
-        - light.cielo_rgb_light
-    - service: light.turn_off
-      entity_id: light.luce_della_scala
+#- alias: 'Accendi_Tutto'
+#  trigger:
+#    platform: state
+#    entity_id: input_boolean.home_theatre_switch
+#    to: 'on'
+#  action:
+#    - service: media_player.turn_on
+#      entity_id: 
+#        - media_player.amplificatore
+#    - service: media_player.turn_on
+#      entity_id: 
+#        - media_player.epson_projector
+#    - service: light.turn_on
+#      entity_id: 
+#        - group.torri
+#        - light.cielo_rgb_light
+#    - service: light.turn_off
+#      entity_id: light.luce_della_scala
+#
+#    - service: androidtv.adb_command
+#      data:
+#        entity_id: media_player.nvidiashield
+#        command: "POWER"
 
-    - service: androidtv.adb_command
-      data:
-        entity_id: media_player.nvidiashield
-        command: "POWER"
 
-
-- alias: 'Spegni_Tutto'
-  trigger:
-    platform: state
-    entity_id: input_boolean.home_theatre_switch
-    to: 'off'
-  action:
-    - service: media_player.turn_off
-      entity_id: 
-        - media_player.amplificatore
-    - service: media_player.turn_off
-      entity_id: 
-        - media_player.epson_projector        
-    - service: light.turn_off
-      entity_id: 
-        - group.torri
-        - light.cielo_rgb_light
-
-    - service: light.turn_on
-      entity_id: light.luce_della_scala
-
-    - service: androidtv.adb_command
-      data:
-        entity_id: media_player.nvidiashield
-        command: "SLEEP"
+#- alias: 'Spegni_Tutto'
+#  trigger:
+#    platform: state
+#    entity_id: input_boolean.home_theatre_switch
+#    to: 'off'
+#  action:
+#    - service: media_player.turn_off
+#      entity_id: 
+#        - media_player.amplificatore
+#    - service: media_player.turn_off
+#      entity_id: 
+#        - media_player.epson_projector        
+#    - service: light.turn_off
+#      entity_id: 
+#        - group.torri
+#       - light.cielo_rgb_light
+#
+#    - service: light.turn_on
+#      entity_id: light.luce_della_scala
+#
+#    - service: androidtv.adb_command
+#      data:
+#        entity_id: media_player.nvidiashield
+#        command: "SLEEP"
 
 
 - alias: 'luci_taverna_on'
@@ -124,12 +124,12 @@
   condition:
     - condition: and
       conditions:
-        - condition: state
-          entity_id: 'light.cielo_rgb_light'
-          state: 'on'
-        - condition: state
-          entity_id: 'group.torri'
-          state: 'on'
+#        - condition: state
+#          entity_id: 'light.cielo_rgb_light'
+#          state: 'on'
+#        - condition: state
+#          entity_id: 'group.torri'
+#          state: 'on'
         - condition: or
           conditions:
           - condition: template
@@ -141,6 +141,7 @@
       entity_id:
         - group.torri
         - light.cielo_rgb_light
+ 
  
  
         
@@ -155,12 +156,12 @@
   condition:
     - condition: and
       conditions:
-        - condition: state
-          entity_id: 'light.cielo_rgb_light'
-          state: 'off'
-        - condition: state
-          entity_id: 'group.torri'
-          state: 'off'            
+#        - condition: state
+#          entity_id: 'light.cielo_rgb_light'
+#          state: 'off'
+#        - condition: state
+#          entity_id: 'group.torri'
+#          state: 'off'            
         - condition: or
           conditions:
             - condition: template
@@ -172,6 +173,7 @@
       entity_id:
         - group.torri
         - light.cielo_rgb_light
+ 
         
 
               
@@ -198,60 +200,59 @@
  
 ############# FIX PER MANCATO REPORT COLORE LUCI AEOTEC #################
 
-- alias: 'aggiorna_colore_luce_1'
-  trigger:
-    - platform: state
-      entity_id: light.aeotec_limited_zwa002_led_bulb_6_multi_color_level
-
-  condition:
-    - condition: template
-      value_template: '{{ as_timestamp(now()) - as_timestamp(states.script.aggiorna_colore_luce_1.attributes.last_triggered) | int > 9 }}'  
-  action:
-    - service: script.turn_off
-      entity_id: script.aggiorna_colore_luce_1
-    - service: script.aggiorna_colore_luce_1
-
-
-- alias: 'aggiorna_colore_ luce_2'
-  trigger:
-    - platform: state
-      entity_id: light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_2
-
-  condition:
-    - condition: template
-      value_template: '{{ as_timestamp(now()) - as_timestamp(states.script.aggiorna_colore_luce_2.attributes.last_triggered) | int > 10 }}'  
-  action:
-    - service: script.turn_off
-      entity_id: script.aggiorna_colore_luce_2
-    - service: script.aggiorna_colore_luce_2
+#- alias: 'aggiorna_colore_luce_1'
+#  trigger:
+#    - platform: state
+#      entity_id: light.aeotec_limited_zwa002_led_bulb_6_multi_color_level
+#  condition:
+#    - condition: template
+#      value_template: '{{ as_timestamp(now()) - as_timestamp(states.script.aggiorna_colore_luce_1.attributes.last_triggered) | int > 9 }}'  
+#  action:
+#    - service: script.turn_off
+#      entity_id: script.aggiorna_colore_luce_1
+#    - service: script.aggiorna_colore_luce_1
 
 
-- alias: 'aggiorna_colore_luce_3'
-  trigger:
-    - platform: state
-      entity_id: light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_3
+#- alias: 'aggiorna_colore_ luce_2'
+#  trigger:
+#    - platform: state
+#      entity_id: light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_2
+#
+#  condition:
+#    - condition: template
+#      value_template: '{{ as_timestamp(now()) - as_timestamp(states.script.aggiorna_colore_luce_2.attributes.last_triggered) | int > 10 }}'  
+#  action:
+#    - service: script.turn_off
+#      entity_id: script.aggiorna_colore_luce_2
+#    - service: script.aggiorna_colore_luce_2
 
-  condition:
-    - condition: template
-      value_template: '{{ as_timestamp(now()) - as_timestamp(states.script.aggiorna_colore_luce_3.attributes.last_triggered) | int > 11 }}'  
-  action:
-    - service: script.turn_off
-      entity_id: script.aggiorna_colore_luce_3
-    - service: script.aggiorna_colore_luce_3
+
+#- alias: 'aggiorna_colore_luce_3'
+#  trigger:
+#    - platform: state
+#      entity_id: light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_3
+#
+#  condition:
+#    - condition: template
+#      value_template: '{{ as_timestamp(now()) - as_timestamp(states.script.aggiorna_colore_luce_3.attributes.last_triggered) | int > 11 }}'  
+#  action:
+#    - service: script.turn_off
+#      entity_id: script.aggiorna_colore_luce_3
+#    - service: script.aggiorna_colore_luce_3
 
 
-- alias: 'aggiorna_colore_luce_4'
-  trigger:
-    - platform: state
-      entity_id: light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_4
-
-  condition:
-    - condition: template
-      value_template: '{{ as_timestamp(now()) - as_timestamp(states.script.aggiorna_colore_luce_4.attributes.last_triggered) | int > 12 }}'  
-  action:
-    - service: script.turn_off
-      entity_id: script.aggiorna_colore_luce_4
-    - service: script.aggiorna_colore_luce_4
+#- alias: 'aggiorna_colore_luce_4'
+#  trigger:
+#    - platform: state
+#      entity_id: light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_4
+#
+#  condition:
+#    - condition: template
+#      value_template: '{{ as_timestamp(now()) - as_timestamp(states.script.aggiorna_colore_luce_4.attributes.last_triggered) | int > 12 }}'  
+#  action:
+#    - service: script.turn_off
+#      entity_id: script.aggiorna_colore_luce_4
+#    - service: script.aggiorna_colore_luce_4
 
 ############### FIX FIBARO ROLLER   #############
 
