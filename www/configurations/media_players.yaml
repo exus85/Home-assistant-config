@@ -10,3 +10,7 @@
 - platform: emby
   host: !secret ip_media_server
   api_key: !secret emby_api_key
+- platform: pjlink
+  host: !secret ip_proiettore
+  password: !secret pjlinkpassword
+  name: proiettore

@@ -35,7 +35,7 @@ views:
   - title: Musica
     path: musica
     panel: true
-    badges: []
+    badges: [] 
     cards:
       - !include /config/www/musica.yaml
      
@@ -53,9 +53,14 @@ views:
     panel: true
     badges: []
     cards:
-      - !include /config/www/dispositivi.yaml              
+      - !include /config/www/dispositivi.yaml 
 ########################### SCHEDA TAVERNA #################################
-  - title: Taverna  
-    path: taverna  
-                                                                     
-                                                                                            
+  - title: Monitoring  
+    path: monitoring  
+    panel: true
+    badges: []
+    cards:
+      - !include /config/www/monitoring.yaml                                                                              
+                                                                                                                                                          
+                                           
+                                        

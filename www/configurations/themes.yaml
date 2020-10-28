@@ -141,4 +141,21 @@ Tablet:
     app-header {
       display: none;
     }
-    
+ 
+
+
+
+Default:
+  primary-background-color: "#111111"
+  card-background-color: "#1c1c1c"
+  secondary-background-color: "#1e1e1e"
+  primary-text-color: "#e1e1e1"
+  secondary-text-color: "#9b9b9b"
+  app-header-text-color: "#e1e1e1"
+  app-header-background-color: "#1c1c1c"
+  switch-unchecked-button-color: "#999999"
+  switch-unchecked-track-color: "#9b9b9b"
+  divider-color: "rgba(225, 225, 225, .12)"
+  primary-color: "#03a9f4"  ## <--- eventuale valore da modificare
+  accent-color: "#ff9800"   ## <--- eventuale valore da modificare
+  card-mod-theme: Default  

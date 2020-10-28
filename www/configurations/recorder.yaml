@@ -38,6 +38,8 @@ include:
     - device_tracker.ubuntu  #sarebbe il media server 
     - sensor.rete_lte_download_current
     - sensor.rete_lte_upload_current
+    - sensor.pi_hole_queries_last10min
+    - sensor.pi_hole_ads_last_10min
     
   entity_globs:
     - sensor.openweathermap_*

@@ -166,7 +166,7 @@
         value_template: "{{(states.sensor.dark_sky_daily_summary.state) }}"
       frase_resoconto_spotify:
         friendly_name: "Frase di resoconto Spotify"
-        value_template: "{% if is_state('media_player.spotify_stefano_tonelli', 'playing') -%} Attualmente in riproduzione: {{state_attr('media_player.spotify_stefano_tonelli', 'media_title')}} - {{state_attr('media_player.spotify_stefano_tonelli', 'media_artist')}} 
+        value_template: "{% if is_state('media_player.spotify_stefano_tonelli', 'playing') -%} Attualmente in riproduzione su <span class='dispositivo'> {{state_attr('media_player.spotify_stefano_tonelli', 'source')}} </span> - Brano: {{state_attr('media_player.spotify_stefano_tonelli', 'media_title')}} - Artista: {{state_attr('media_player.spotify_stefano_tonelli', 'media_artist')}} 
                          {%- else -%}
                          {%- endif %}"
         entity_picture_template: "{% if is_state('media_player.spotify_stefano_tonelli', 'playing') -%} {{state_attr('media_player.spotify_stefano_tonelli', 'entity_picture')}}
@@ -281,6 +281,9 @@
       - type: processor_temperature
       - type: last_boot
 
+
+          
+        
 
 ######### INSERITA MA MAI USATA
 #  - platform: wunderground

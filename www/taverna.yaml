@@ -1,0 +1,30 @@
+type: custom:layout-card
+layout: vertical
+style:
+  transform: none
+  left: 1%
+  top: 8%
+  width: 30%
+cards:
+  - type: custom:html-card
+    content: |
+      <section>
+          <h1>News</h1>
+          <ul class="news-list" data-length="5">
+              <li class="news"><time class="news__date">2018.08.05</time>
+                  <p class="news__title">NewsTitle5 NewsTitle5 NewsTitle5</p>
+              </li>
+              <li class="news"><time class="news__date">2018.08.04</time>
+                  <p class="news__title">NewsTitle4 NewsTitle4 NewsTitle4</p>
+              </li>
+              <li class="news"><time class="news__date">2018.08.03</time>
+                  <p class="news__title">NewsTitle3 NewsTitle3 NewsTitle3</p>
+              </li>
+              <li class="news"><time class="news__date">2018.08.02</time>
+                  <p class="news__title">NewsTitle2 NewsTitle2 NewsTitle2</p>
+              </li>
+              <li class="news"><time class="news__date">2018.08.01</time>
+                  <p class="news__title">NewsTitle1 NewsTitle1 NewsTitle1</p>
+              </li>
+          </ul>
+      </section>
