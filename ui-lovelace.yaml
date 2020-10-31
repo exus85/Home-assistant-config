@@ -52,7 +52,7 @@ views:
     path: dispositivi 
     panel: true
     badges: []
-    cards:
+    cards:   
       - !include /config/www/dispositivi.yaml 
 ########################### SCHEDA TAVERNA #################################
   - title: Monitoring  
@@ -62,5 +62,5 @@ views:
     cards:
       - !include /config/www/monitoring.yaml                                                                              
                                                                                                                                                           
-                                           
-                                        
+                                                                           
+                                                                                                

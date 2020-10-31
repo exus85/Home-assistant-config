@@ -14,13 +14,7 @@ anchors:
   font-weight: 500
   max-width: 1px
   cursor: default
-<<2.1: &title-style2
-  color: '#bcbebf'
-  #font-family: SF Text
-  font-size: 2vw
-  font-weight: 500
-  max-width: 1px
-  cursor: default
+
 <<3: &row_1 22%
 <<4: &row_2 44%
 <<10: &row_3 72%
@@ -29,96 +23,6 @@ anchors:
 <<7: &column_3 59%
 <<8: &column_4 77%
 <<9: &button_width 15%
-<<11: &graph_style_dsl >                     
-                    ha-card, ha-card > div {
-                      padding: 0px !important;
-                    }
-                    ha-card > .header.flex > div, ha-card > .states.flex > div {
-                      padding: 5px !important;
-                      font-weight: 500;
-                    } 
-                    ha-card > .info.flex > .info__item > .info__item__time {
-                      display: none;
-                    }
-                    ha-card {
-                      background-color: rgba(40,40,40,0.6);
-                    }
-                    .name > span {
-                      font-weight: 500 !important;
-                    }
-
-
-<<12: &graph_common_1
-  font_size: 35 
-  #height: 250
-  #aggregate_func: max
-  update_interval: 15
-  font_size_header: 9
-  hours_to_show: 1
-  points_per_hour: 60
-  show:
-    extrema: false
-
-
-<<13: &graph_color_1 "#b9fffc"
-<<14: &graph_color_2 "#a3d8f4"
-<<15: &graph_color_3 "#ff9933"
-<<16: &graph_color_4 "#ff5050"
-<<16.1: &graph_color_secondary_fixed "#ff4fd3"
-
-<<17: &list_style_1 >
-                  .card-content {
-                    padding: 0px;
-                    margin-right: 10px;
-                  }
-                  #states.card-content > div {
-                    margin: 0px;
-                  }
-                  ha-card {
-                    background-color: rgba(40,40,40,0.6);
-                    font-size: 10px;
-                  }
-                  multiple-entity-row {
-                    height: 30px;
-                  }
-<<18: &list_style_2 >
-                  .card-content {
-                    padding: 0px;
-                    margin-right: -10px;
-                  }
-                  ha-card {
-                    background: none;
-                    box-shadow: none;
-                  }
-                  bar-card-background {
-                    margin: 0 !important;
-                  }
-                  .contentbar-direction-right {
-                    flex-direction: column;
-                  }
-                  .min-direction-right {
-                    margin: 0px;
-                    margin-left: 4px;
-                    margin-right: auto;
-                    margin-bottom: -20px;
-                    bottom: 10px;
-                  }
-                    bar-card-value {
-                    margin: 0px;
-                  }
-                  bar-card-name {
-                    margin: 0px;
-                  }
-                  bar-card-max {
-                    margin: 0px;
-                    margin-left: auto;
-                    margin-top: -20px;
-                    margin-right: 10px;
-                    top: 10px;
-                  }
-                  bar-card-divider {
-                    display: none;
-                  }
 
 
 

@@ -39,6 +39,10 @@
 #https://github.com/PiotrMachowski/lovelace-html-card   
 - type: module
   url: /local/jsModuliManuali/html-card.js 
+- type: module
+  url: /hacsfiles/lovelace-vertical-slider-cover-card/vertical-slider-cover-card.js
+  
+  
 
 - type: module 
   url: /hacsfiles/lovelace-multiple-entity-row/multiple-entity-row.js

@@ -130,3 +130,5 @@ light:
                         show_slider_percent: true
                         smooth_color_wheel: true
                         consolidate_entities: true
+
+

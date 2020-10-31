@@ -6,13 +6,6 @@ anchors:
   hold_action:
     action: none
   type: state-label
-<<2: &title-style
-  color: '#bcbebf'
-  #font-family: SF Text
-  font-size: 2.4vw
-  font-weight: 500
-  max-width: 1px
-  cursor: default
 <<2.1: &title-style2
   color: '#bcbebf'
   #font-family: SF Text
@@ -20,14 +13,7 @@ anchors:
   font-weight: 500
   max-width: 1px
   cursor: default
-<<3: &row_1 22%
-<<4: &row_2 44%
-<<10: &row_3 72%
-<<5: &column_1 23%
-<<6: &column_2 41%
-<<7: &column_3 59%
-<<8: &column_4 77%
-<<9: &button_width 15%
+
 <<11: &graph_style_dsl >                     
                     ha-card, ha-card > div {
                       padding: 0px !important;
@@ -55,6 +41,7 @@ anchors:
   font_size_header: 9
   hours_to_show: 1
   points_per_hour: 60
+  line_width: 3
   show:
     extrema: false
 
@@ -309,7 +296,7 @@ card:
                   extrema: false
                 hours_to_show: 24
                 points_per_hour: 6
-                line_width: 2
+                line_width: 3
                 entities:          
                   - entity: sensor.pi_hole_queries_last10min
                     name: Queries                    
@@ -363,7 +350,7 @@ card:
                 font_size_header: 9
                 hours_to_show: 24
                 points_per_hour: 4
-                line_width: 2
+                line_width: 3
                 show:
                   extrema: false
                                   
@@ -671,7 +658,7 @@ card:
                     height: 30px;
                   }
                   span.dispositivo {
-                    color: red;
+                    color: rgb(95, 132, 189);
                   }
                   .scrolling-text {
                     font-size: 12px;
@@ -697,7 +684,7 @@ card:
                       }
                   } 
                 name: >
-                  [[[return `<div class="scrolling-text">Infotext -- ${states['sensor.frase_resoconto_spotify'].state} </div>`]]]
+                  [[[return `<div class="scrolling-text">Infotext -- ${states['sensor.infotext'].state} </div>`]]]
                       
 
 

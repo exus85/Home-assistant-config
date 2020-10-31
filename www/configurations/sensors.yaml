@@ -172,6 +172,10 @@
         entity_picture_template: "{% if is_state('media_player.spotify_stefano_tonelli', 'playing') -%} {{state_attr('media_player.spotify_stefano_tonelli', 'entity_picture')}}
                                     {%- else -%}
                                     {%- endif %}"
+
+      infotext:
+        friendly_name: "Frase infotext scroll"
+        value_template: "Oggi pi hole ha rilevato <span class='dispositivo'>{{states.sensor.pi_hole_dns_queries_today.state}}</span> queries, <span class='dispositivo'>{{states.sensor.pi_hole_ads_blocked_today.state}}</span> sono state bloccate pari al <span class='dispositivo'>{{states.sensor.pi_hole_ads_percentage_blocked_today.state}}%</span>"
       ## Converts time and date into sentence for UI
 #      day:
 #        entity: sensor.date

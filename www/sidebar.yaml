@@ -26,17 +26,22 @@ sidebarMenu:
     name: "Monitoring"
     active: true      
 style: |
-  :host {
-      --sidebar-background: #2b2b2b;
-      --sidebar-text-color: #FFF;
-      --face-color: #FFF;
-      --face-border-color: #FFF;
-      --clock-hands-color: #000;
-      --clock-seconds-hand-color: #FF4B3E;
-      --clock-middle-background: #FFF;
-      --clock-middle-border: #000;
+    :host {
+        --sidebar-background: #2b2b2b;
+        --sidebar-text-color: #FFF;
+        --face-color: #FFF;
+        --face-border-color: #FFF;
+        --clock-hands-color: #000;
+        --clock-seconds-hand-color: #FF4B3E;
+        --clock-middle-background: #FFF;
+        --clock-middle-border: #000;
 
-  }  
+    }  
+    .sidebar-inner {
+      bottom: 0px;
+      height: 100% !important;
+    }
+  
 bottomCard:
   type: custom:layout-card
   layout: vertical
@@ -44,8 +49,14 @@ bottomCard:
     :host {
       width: 100% !important;
       position: absolute;
-      bottom: -9.5%;
+      bottom: 0%;
       left: 0%; 
+    }
+    .column.cards {
+      max-width: 100% !important;
+    }
+    .cards > :last-child {
+      margin: 0px !important;
     }
   cardOptions:
     cards:
@@ -98,6 +109,7 @@ bottomCard:
         style: |
           ha-card, ha-card > div {
             padding: 0px !important;
+            
           }
           ha-card > .header.flex > div, ha-card > .states.flex > div {
             padding: 5px !important;
@@ -108,6 +120,7 @@ bottomCard:
           }
           ha-card {
             background-color: rgba(40,40,40,0);
+
           }
           .name > span {
             font-weight: 500 !important;
