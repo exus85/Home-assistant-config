@@ -44,7 +44,7 @@ views:
     path: meteo
     panel: true
     badges: []
-    cards:
+    cards: 
       - !include /config/www/meteo.yaml
 
 ########################### SCHEDA DISPOSITIVI #############################
@@ -62,5 +62,5 @@ views:
     cards:
       - !include /config/www/monitoring.yaml                                                                              
                                                                                                                                                           
-                                                                           
-                                                                                                
+                                                                                
+                                                                                           

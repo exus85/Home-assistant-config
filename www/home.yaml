@@ -12,7 +12,10 @@
       action: toggle
     hold_action:
       action: none
-
+  <<13: &graph_color_1 "#b9fffc"
+  <<14: &graph_color_2 "#a3d8f4"
+  <<15: &graph_color_3 "#ff9933"
+  <<16: &graph_color_4 "#ff5050"
 
 ########################### MAPPA IMMAGINI CASA  #####################################
   type: picture-elements
@@ -233,42 +236,51 @@
     - type: 'custom:bar-card'
       entity: sensor.aeon_labs_zw095_home_energy_meter_gen5_power
       max: 4500
-      name: Consumo
+      name: ""
       severity:
-        - color: '#229700'
+        - color: '#b9fffc'
           from: 0
           to: 1399
-        - color: '#FF8300'
+        - color: '#a3d8f4'
           from: 1400
           to: 2499
-        - color: '#FF0000'
+        - color: '#ff9933'
           from: 2500
           to: 5500      
-      height: 25px
+      height: 4.5vw
       positions:
         icon: 'off'
         indicator: inside
-        name: inside
+        name: 'off'
         value: inside
       animation:
         state: 'off'
       style: |
         :host {
           transform: none !important;
-          top: 0px;
-          right: 0px;
+          bottom: 0.3%;
+          left: 52.1%;
           --ha-card-box-shadow: none;
           --ha-card-background: none;
-          width: 30%;
+          width: 12.5%;
         }
         bar-card-backgroundbar {
-          border-radius: 20px;
+          border-radius: 8px;
         }
         bar-card-currentbar {
-          border-radius: 20px;
+          border-radius: 8px;
         }
         bar-card-animationbar {
-          border-radius: 20px;
+          border-radius: 8px;
+        }
+        bar-card-value {
+          margin-right: auto;
+          font-size: 12px;
+          font-weight: bold;
+          text-shadow: 1px 1px #0005;
+        }
+        .card-content {
+          padding: 0px;
         }
       tap_action:
         action: call-service
@@ -280,8 +292,52 @@
           large: true
           hide_header: true
           style:
+            $: |
+              .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
+                border-radius: 25px;
+              }
+              .mdc-dialog__content {
+                padding: 0px !important;
+              }
+            .: |
+              :host {
+                --mdc-theme-surface: rgba(0,0,0,0);
+                --secondary-background-color: rgba(0,0,0,0.7);
+                --ha-card-background: rgba(0,0,0,0.7);
+              }
+              .content {
+                margin: 0px !important;
+              }
           card:
-            type: custom:mini-graph-card
+              type: custom:mini-graph-card
+              icon: mdi:home
+              name: Consumo Watt Casa 24H
+              entities:          
+                - entity: sensor.aeon_labs_zw095_home_energy_meter_gen5_power
+                  name: Watt
+                  show_state: true
+                  show_legend: false
+                  state_adaptive_color: true
+              font_size: 35 
+              #height: 250
+              #aggregate_func: max
+              update_interval: 15
+              font_size_header: 9
+              hours_to_show: 24
+              points_per_hour: 4
+              line_width: 3
+              show:
+                extrema: false                                
+              color_thresholds:
+                - value: 500
+                  color: *graph_color_1
+                - value: 1000
+                  color: *graph_color_2
+                - value: 1500
+                  color: *graph_color_3
+                - value: 2500
+                  color: *graph_color_4
+              style:
 
 ########################### MONITOR SPOTIFY ##########################################
     - type: conditional
@@ -463,6 +519,10 @@
           border-radius: 8px;
           background: #2b2b2b;
         }
+        :host .content {
+
+          margin: 0px;
+         }
       tap_action:
         action: call-service
         service: browser_mod.popup
@@ -477,17 +537,24 @@
               .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
                 border-radius: 25px;
               }
+              .mdc-dialog__content {
+                padding: 0px !important;
+              }
             .: |
               :host {
                 --mdc-theme-surface: rgba(0,0,0,0);
                 --secondary-background-color: rgba(0,0,0,0.7);
                 --ha-card-background: rgba(0,0,0,0.7);
               }
-              :host .content {
-                width: 90vw;
-                height: 65vh;
-                margin: -20px;
-               }
+              .content {
+                margin: 0px !important;
+              }
+
+             # :host .content {
+             #   width: 90vw;
+             #   height: 65vh;
+             #   margin: -20px;
+             #  }
           card:
             type: horizontal-stack
             cards:
