@@ -173,17 +173,6 @@
       entity_id:
         - group.torri
         - light.cielo_rgb_light
- 
-        
-
-              
-            
-
-      
-       
-
-
- 
      
 - alias: 'IFTTT-HA'
   trigger:

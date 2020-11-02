@@ -60,7 +60,7 @@
               'on': opacity(100%)
             style:
               left: 50%
-              mix-blend-mode: lighten
+              
               top: 50%
               width: 100%
             tap_action:
@@ -76,7 +76,7 @@
               'on': opacity(100%)
             style:
               left: 50%
-              mix-blend-mode: lighten
+              
               top: 50%
               width: 100%
             tap_action:
@@ -92,7 +92,7 @@
               'on': opacity(100%)
             style:
               left: 50%
-              mix-blend-mode: lighten
+              
               top: 50%
               width: 100%
             tap_action:
@@ -108,7 +108,7 @@
               'on': opacity(100%)
             style:
               left: 50%
-              mix-blend-mode: lighten
+              
               top: 50%
               width: 100%
             tap_action:
@@ -124,7 +124,7 @@
               'on': opacity(100%)
             style:
               left: 50%
-              mix-blend-mode: lighten
+              
               top: 50%
               width: 100%
             tap_action:
@@ -140,7 +140,7 @@
               'on': opacity(100%)
             style:
               left: 50%
-              mix-blend-mode: lighten
+              
               top: 50%
               width: 100%
             tap_action:
@@ -156,7 +156,7 @@
               'on': opacity(100%)
             style:
               left: 50%
-              mix-blend-mode: lighten
+              
               top: 50%
               width: 100%
             tap_action:
@@ -172,7 +172,7 @@
               'on': opacity(100%)
             style:
               left: 50%
-              mix-blend-mode: lighten
+              
               top: 50%
               width: 100%
             tap_action:
@@ -994,10 +994,9 @@
               top: 50%
               width: 100%
               mix-blend-mode: screen
-              
-           
             variables:
-              shield_state: states['media_player.nvidiashield'].attributes['app_id']
+              shield_onOff: states['media_player.nvidiashield'].state
+              shield_app: states['media_player.nvidiashield'].attributes['app_id']
             entities: 
               - media_player.nvidiashield
             card:
@@ -1006,20 +1005,16 @@
               hold_action:
                 action: none
               image: >-                
-                ${ if (shield_state == 'com.netflix.ninja') '/local/ui/home/taverna/netflix.png';
-                      else if (shield_state == 'com.amazon.amazonvideo.livingroom') '/local/ui/home/taverna/primeVideo.png';
+                ${ if (shield_app == 'com.netflix.ninja') '/local/ui/home/taverna/netflix.png';
+                      else if (shield_app == 'com.amazon.amazonvideo.livingroom') '/local/ui/home/taverna/primeVideo.png';
                       else '/local/ui/home/taverna/emby.png'; }
               state_filter:
                 'off': opacity(0%)
                 'on': opacity(100%)
               tap_action:
                 action: none  
-              style: |
-                ha-card {
-                background-color: rgba(0,0,0,0) !important;
-                
-                 }
-
+              style: |                
+                ${shield_onOff == 'off' ? 'ha-card {display: none;}' : 'ha-card {background-color: rgba(0,0,0,0) !important;}'}
 
           - type: image
             entity: light.cielo_rgb_light

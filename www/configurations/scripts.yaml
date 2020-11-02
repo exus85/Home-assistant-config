@@ -7,7 +7,7 @@ accendi_il_cinema:
         - media_player.amplificatore
     - service: input_boolean.turn_on
       entity_id: 
-        - input_boolean.home_theatre_switch
+        - input_boolean.home_theatre_switch #comanda solo il proiettore (nodered)
     - service: light.turn_on
       entity_id: 
         - group.torri
@@ -28,7 +28,7 @@ spegni_il_cinema:
         - media_player.amplificatore
     - service: input_boolean.turn_off
       entity_id: 
-        - input_boolean.home_theatre_switch       
+        - input_boolean.home_theatre_switch #comanda solo il proiettore (nodered)       
     - service: light.turn_off
       entity_id: 
         - group.torri
