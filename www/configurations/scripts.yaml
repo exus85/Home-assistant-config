@@ -5,9 +5,9 @@ accendi_il_cinema:
     - service: media_player.turn_on
       entity_id: 
         - media_player.amplificatore
-    - service: media_player.turn_on
+    - service: input_boolean.turn_on
       entity_id: 
-        - media_player.epson_projector
+        - input_boolean.home_theatre_switch
     - service: light.turn_on
       entity_id: 
         - group.torri
@@ -26,9 +26,9 @@ spegni_il_cinema:
     - service: media_player.turn_off
       entity_id: 
         - media_player.amplificatore
-    - service: media_player.turn_off
+    - service: input_boolean.turn_off
       entity_id: 
-        - media_player.epson_projector        
+        - input_boolean.home_theatre_switch       
     - service: light.turn_off
       entity_id: 
         - group.torri

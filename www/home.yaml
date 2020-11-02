@@ -1,8 +1,8 @@
   anchors:
   <<1: &lightStateImage
     state_image:
-      'on': /local/ui/home/lightOn.png
-      'off': /local/ui/home/lightOff.png
+      'on': /local/ui/home/light_Icon_On.png
+      'off': /local/ui/home/light_Icon_Off.png
   <<2: &lightIconCommonStyle 
     max-width: 5.5%
     transform: none
@@ -17,890 +17,1034 @@
   <<15: &graph_color_3 "#ff9933"
   <<16: &graph_color_4 "#ff5050"
 
-########################### MAPPA IMMAGINI CASA  #####################################
-  type: picture-elements
-  image: /local/ui/home/main.png
-  ##
-  #style: |
-  #  ha-card {
-  #    background: center / cover no-repeat url("/local/ui/home/background.svg") fixed !important;
-  #  }
-  elements:
-    - action: none
-      entity: light.faretti
-      hold_action:
-        action: none
-      image: /local/ui/home/faretti.png
-      state_filter:
-        'off': opacity(0%)
-        'on': opacity(100%)
-      style:
-        left: 50%
-        mix-blend-mode: lighten
-        top: 50%
-        width: 100%
-      tap_action:
-        action: none
-      type: image
-    - action: none
-      entity: light.luce_del_tavolo
-      hold_action:
-        action: none
-      image: /local/ui/home/tavolo.png
-      state_filter:
-        'off': opacity(0%)
-        'on': opacity(100%)
-      style:
-        left: 50%
-        mix-blend-mode: lighten
-        top: 50%
-        width: 100%
-      tap_action:
-        action: none
-      type: image
-    - action: none
-      entity: light.luce_del_corridoio
-      hold_action:
-        action: none
-      image: /local/ui/home/corridoio.png
-      state_filter:
-        'off': opacity(0%)
-        'on': opacity(100%)
-      style:
-        left: 50%
-        mix-blend-mode: lighten
-        top: 50%
-        width: 100%
-      tap_action:
-        action: none
-      type: image
-    - action: none
-      entity: light.luce_del_bagno
-      hold_action:
-        action: none
-      image: /local/ui/home/bagno.png
-      state_filter:
-        'off': opacity(0%)
-        'on': opacity(100%)
-      style:
-        left: 50%
-        mix-blend-mode: lighten
-        top: 50%
-        width: 100%
-      tap_action:
-        action: none
-      type: image
-    - action: none
-      entity: light.luce_dello_studio
-      hold_action:
-        action: none
-      image: /local/ui/home/studio.png
-      state_filter:
-        'off': opacity(0%)
-        'on': opacity(100%)
-      style:
-        left: 50%
-        mix-blend-mode: lighten
-        top: 50%
-        width: 100%
-      tap_action:
-        action: none
-      type: image
-    - action: none
-      entity: light.lampada_dello_studio
-      hold_action:
-        action: none
-      image: /local/ui/home/studio_lampada.png
-      state_filter:
-        'off': opacity(0%)
-        'on': opacity(100%)
-      style:
-        left: 50%
-        mix-blend-mode: lighten
-        top: 50%
-        width: 100%
-      tap_action:
-        action: none
-      type: image
-    - action: none
-      entity: light.camera
-      hold_action:
-        action: none
-      image: /local/ui/home/camera.png
-      state_filter:
-        'off': opacity(0%)
-        'on': opacity(100%)
-      style:
-        left: 50%
-        mix-blend-mode: lighten
-        top: 50%
-        width: 100%
-      tap_action:
-        action: none
-      type: image
-    - action: none
-      entity: light.luce_della_scala
-      hold_action:
-        action: none
-      image: /local/ui/home/scala.png
-      state_filter:
-        'off': opacity(0%)
-        'on': opacity(100%)
-      style:
-        left: 50%
-        mix-blend-mode: lighten
-        top: 50%
-        width: 100%
-      tap_action:
-        action: none
-      type: image
+########################### SWIPER  #####################################
+  type: custom:mod-card
+  style: 
+    swipe-card:
+      $: |
+        .swiper-pagination {
+          top: 2px;
+          height: 1vw;
+          }
+  card:
+    type: 'custom:swipe-card'
+    parameters:
+      effect: 'cube'
+      cubeEffect: 
+        shadow: true
+        slideShadows: true
+        shadowOffset: 20
+        shadowScale: 0.94
+      pagination:
+        type: 'bullets'          
+        hide: false
+        draggable: true
+        snapOnRelease: true      
+    cards:
+      ###################  PIANO TERRA P 0 ############################
+      - type: picture-elements
+        image: /local/ui/home/pianoterra/main.png
+        ##
+        #style: |
+        #  ha-card {
+        #    background: center / cover no-repeat url("/local/ui/home/background.svg") fixed !important;
+        #  }
+        elements:
+          - action: none
+            entity: light.faretti
+            hold_action:
+              action: none
+            image: /local/ui/home/pianoterra/faretti.png
+            state_filter:
+              'off': opacity(0%)
+              'on': opacity(100%)
+            style:
+              left: 50%
+              mix-blend-mode: lighten
+              top: 50%
+              width: 100%
+            tap_action:
+              action: none
+            type: image
+          - action: none
+            entity: light.luce_del_tavolo
+            hold_action:
+              action: none
+            image: /local/ui/home/pianoterra/tavolo.png
+            state_filter:
+              'off': opacity(0%)
+              'on': opacity(100%)
+            style:
+              left: 50%
+              mix-blend-mode: lighten
+              top: 50%
+              width: 100%
+            tap_action:
+              action: none
+            type: image
+          - action: none
+            entity: light.luce_del_corridoio
+            hold_action:
+              action: none
+            image: /local/ui/home/pianoterra/corridoio.png
+            state_filter:
+              'off': opacity(0%)
+              'on': opacity(100%)
+            style:
+              left: 50%
+              mix-blend-mode: lighten
+              top: 50%
+              width: 100%
+            tap_action:
+              action: none
+            type: image
+          - action: none
+            entity: light.luce_del_bagno
+            hold_action:
+              action: none
+            image: /local/ui/home/pianoterra/bagno.png
+            state_filter:
+              'off': opacity(0%)
+              'on': opacity(100%)
+            style:
+              left: 50%
+              mix-blend-mode: lighten
+              top: 50%
+              width: 100%
+            tap_action:
+              action: none
+            type: image
+          - action: none
+            entity: light.luce_dello_studio
+            hold_action:
+              action: none
+            image: /local/ui/home/pianoterra/studio.png
+            state_filter:
+              'off': opacity(0%)
+              'on': opacity(100%)
+            style:
+              left: 50%
+              mix-blend-mode: lighten
+              top: 50%
+              width: 100%
+            tap_action:
+              action: none
+            type: image
+          - action: none
+            entity: light.lampada_dello_studio
+            hold_action:
+              action: none
+            image: /local/ui/home/pianoterra/studio_lampada.png
+            state_filter:
+              'off': opacity(0%)
+              'on': opacity(100%)
+            style:
+              left: 50%
+              mix-blend-mode: lighten
+              top: 50%
+              width: 100%
+            tap_action:
+              action: none
+            type: image
+          - action: none
+            entity: light.camera
+            hold_action:
+              action: none
+            image: /local/ui/home/pianoterra/camera.png
+            state_filter:
+              'off': opacity(0%)
+              'on': opacity(100%)
+            style:
+              left: 50%
+              mix-blend-mode: lighten
+              top: 50%
+              width: 100%
+            tap_action:
+              action: none
+            type: image
+          - action: none
+            entity: light.luce_della_scala
+            hold_action:
+              action: none
+            image: /local/ui/home/pianoterra/scala.png
+            state_filter:
+              'off': opacity(0%)
+              'on': opacity(100%)
+            style:
+              left: 50%
+              mix-blend-mode: lighten
+              top: 50%
+              width: 100%
+            tap_action:
+              action: none
+            type: image
 
-########################### LIGHTS ICONS #############################################
+        ########################### LIGHTS ICONS #############################################
 
-    - type: image
-      entity: light.luce_dello_studio
-      <<: *lightStateImage 
-      <<: *lightIconActions
-      style: 
-        <<: *lightIconCommonStyle
-        left: 28%
-        top: 61%
+          - type: image
+            entity: light.luce_dello_studio
+            <<: *lightStateImage 
+            <<: *lightIconActions
+            style: 
+              <<: *lightIconCommonStyle
+              left: 28%
+              top: 61%
 
-    - type: image
-      entity: light.lampada_dello_studio
-      <<: *lightStateImage 
-      <<: *lightIconActions
-      style:
-        <<: *lightIconCommonStyle
-        left: 46%
-        top: 67%
+          - type: image
+            entity: light.lampada_dello_studio
+            <<: *lightStateImage 
+            <<: *lightIconActions
+            style:
+              <<: *lightIconCommonStyle
+              left: 46%
+              top: 67%
 
-    - type: image
-      entity: light.camera
-      <<: *lightStateImage 
-      <<: *lightIconActions
-      style:
-        <<: *lightIconCommonStyle
-        left: 28%
-        top: 29%
+          - type: image
+            entity: light.camera
+            <<: *lightStateImage 
+            <<: *lightIconActions
+            style:
+              <<: *lightIconCommonStyle
+              left: 28%
+              top: 29%
 
-    - type: image
-      entity: light.luce_del_corridoio
-      <<: *lightStateImage 
-      <<: *lightIconActions
-      style:
-        <<: *lightIconCommonStyle
-        left: 49%
-        top: 39%
+          - type: image
+            entity: light.luce_del_corridoio
+            <<: *lightStateImage 
+            <<: *lightIconActions
+            style:
+              <<: *lightIconCommonStyle
+              left: 49%
+              top: 39%
 
-    - type: image
-      entity: light.luce_del_bagno
-      <<: *lightStateImage 
-      <<: *lightIconActions
-      style:
-        <<: *lightIconCommonStyle
-        left: 48%
-        top: 21%
- 
-    - type: image
-      entity: light.luce_del_tavolo
-      <<: *lightStateImage 
-      <<: *lightIconActions
-      style:
-        <<: *lightIconCommonStyle
-        left: 63%
-        top: 31%
-
-    - type: image
-      entity: light.faretti
-      <<: *lightStateImage 
-      <<: *lightIconActions
-      style:
-        <<: *lightIconCommonStyle
-        left: 80%
-        top: 34%
-
-    - type: image
-      entity: light.luce_della_scala
-      <<: *lightStateImage 
-      <<: *lightIconActions
-      style:
-        <<: *lightIconCommonStyle
-        left: 78%
-        top: 72%
-
-
-########################### MONITOR CONSUMO ########################################## 
-
-
-    - type: 'custom:bar-card'
-      entity: sensor.aeon_labs_zw095_home_energy_meter_gen5_power
-      max: 4500
-      name: ""
-      severity:
-        - color: '#b9fffc'
-          from: 0
-          to: 1399
-        - color: '#a3d8f4'
-          from: 1400
-          to: 2499
-        - color: '#ff9933'
-          from: 2500
-          to: 5500      
-      height: 4.5vw
-      positions:
-        icon: 'off'
-        indicator: inside
-        name: 'off'
-        value: inside
-      animation:
-        state: 'off'
-      style: |
-        :host {
-          transform: none !important;
-          bottom: 0.3%;
-          left: 52.1%;
-          --ha-card-box-shadow: none;
-          --ha-card-background: none;
-          width: 12.5%;
-        }
-        bar-card-backgroundbar {
-          border-radius: 8px;
-        }
-        bar-card-currentbar {
-          border-radius: 8px;
-        }
-        bar-card-animationbar {
-          border-radius: 8px;
-        }
-        bar-card-value {
-          margin-right: auto;
-          font-size: 12px;
-          font-weight: bold;
-          text-shadow: 1px 1px #0005;
-        }
-        .card-content {
-          padding: 0px;
-        }
-      tap_action:
-        action: call-service
-        service: browser_mod.popup
-        service_data:
-          title: []
-          deviceID:
-            - this
-          large: true
-          hide_header: true
-          style:
-            $: |
-              .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
-                border-radius: 25px;
-              }
-              .mdc-dialog__content {
-                padding: 0px !important;
-              }
-            .: |
-              :host {
-                --mdc-theme-surface: rgba(0,0,0,0);
-                --secondary-background-color: rgba(0,0,0,0.7);
-                --ha-card-background: rgba(0,0,0,0.7);
-              }
-              .content {
-                margin: 0px !important;
-              }
-          card:
-              type: custom:mini-graph-card
-              icon: mdi:home
-              name: Consumo Watt Casa 24H
-              entities:          
-                - entity: sensor.aeon_labs_zw095_home_energy_meter_gen5_power
-                  name: Watt
-                  show_state: true
-                  show_legend: false
-                  state_adaptive_color: true
-              font_size: 35 
-              #height: 250
-              #aggregate_func: max
-              update_interval: 15
-              font_size_header: 9
-              hours_to_show: 24
-              points_per_hour: 4
-              line_width: 3
-              show:
-                extrema: false                                
-              color_thresholds:
-                - value: 500
-                  color: *graph_color_1
-                - value: 1000
-                  color: *graph_color_2
-                - value: 1500
-                  color: *graph_color_3
-                - value: 2500
-                  color: *graph_color_4
-              style:
-
-########################### MONITOR SPOTIFY ##########################################
-    - type: conditional
-      conditions:
-        - entity: media_player.spotify_stefano_tonelli
-          state: 'playing'
-      elements:      
-        - type: custom:mini-media-player
-          entity: media_player.spotify_stefano_tonelli
-          info: scroll
-          hide:
-            controls: true
-            name: true
-            power: true
-            source: true
-            volume: true 
-            progress: true 
-          tap_action:
-            action: navigate
-            navigation_path: /lovelace/musica/
-
-          style: |
-            :host {
-                transform: none !important;
-                top: 0px;
-                left: -10px;                
-              }
-            ha-card {
-              box-shadow: none !important;
-            }
-            .entity__info {
-             font-size: 1vw !important;
-             justify-content: left !important;
-             margin-left: 0px !important;
-            }
-            .entity__artwork {
-              border-radius: 0 !important;
-            }
-            .mmp__bg {
-              background: none !important;
-            }
-        - type: image
-          image: /local/ui/home/equalizer.svg
-          style:
-            position: absolute
-            transform: none 
-            top: 17px
-            left: 50px
-          tap_action:
-            action: navigate
-            navigation_path: /lovelace/musica/
-
-
-
-########################### ICONE ARIA CONDIZIONATA ##################################
-    - type: conditional
-      conditions:
-        - entity: climate.soggiorno
-          state_not: "off" 
-      elements:
-        - type: image
-          image: /local/ui/home/condizionatore_soggiorno.svg
-          style:
-            left: 62%
-            top: 48%
-    - type: conditional
-      conditions:
-        - entity: climate.camera
-          state_not: "off" 
-      elements:
-        - type: image
-          image: /local/ui/home/condizionatore_camera.svg
-          style:
-            left: 36%
-            top: 44%
-    - type: conditional
-      conditions:
-        - entity: climate.daikinap06055
-          state_not: "off" 
-      elements:
-        - type: image
-          image: /local/ui/home/condizionatore_studio.svg
-          style:
-            left: 47%
-            top: 57%            
-
-
-
-########################### PULSANTI BOTTOM ##########################################
-
-    ######## LUCI ############
-    - type: "custom:button-card"
-      aspect_ratio: 2/1  
-      show_name: false    
-      show_icon: false
-      custom_fields:
-        icon_hue: >
-          [[[ const state = entity.state === 'on' ? 'animate' : null;
-          return `<svg viewBox="0 0 50 50"><style>@keyframes animate{0%{transform: scale(0.85);}20%{transform: scale(1.1);}40%{transform: scale(0.95);}60%{transform: scale(1.03);}80%{transform: scale(0.97);}100%{transform: scale(1);}}.animate{animation: animate 0.8s; transform-origin: center;}</style>
-          <path fill="#9da0a2" d="M27.4 47.3h-4.9s-.7.1-.7.8.4.9.7.9h4.9c.3 0 .7-.1.7-.9s-.7-.8-.7-.8zm3.3-2.9H19.3s-.8 0-.8.8.6.9.8.9h11.5c.2 0 .8-.1.8-.9-.1-.8-.9-.8-.9-.8zm0-3H19.3s-.8 0-.8.8.6.9.8.9h11.5c.2 0 .8-.1.8-.9-.1-.8-.9-.8-.9-.8zm0-2.9H19.3s-.8 0-.8.8.6.9.8.9h11.5c.2 0 .8-.1.8-.9s-.9-.8-.9-.8zm5.2-23.2c-3.3-5.3-7-5.6-10.9-5.6-3.8 0-8.4.4-10.9 5.6-.1.1-.1.3.1.7.4.8 3.3 7.2 3.2 18.8 0 1.1-.1 1.6 0 1.7 0 .1 0 .7 1.1.7h13c1 0 1-.5 1.1-.7v-1.7c-.1-11.6 2.8-18 3.2-18.8.1-.4.1-.5.1-.7"/>
-          <path class="${state}" fill="var(--button-card-light-color-no-temperature)" d="M14.1 15.3c3.4-.3 7-.4 10.9-.4 3.8 0 7.5.2 10.9.4.4-.4.7-.8.9-1.1C39 8.5 38.9 6.5 38.9 6c-.2-4.4-8.4-5-12.1-5h0-3.4c-3.7 0-12 .5-12.1 5 0 .5-.1 2.5 2.1 8.2 0 .3.3.8.7 1.1z"/></svg>`; ]]]
-      styles: 
-        custom_fields:
-          icon_hue:
-            [top: 9%, left: 30%, width: 3.55vw, position: absolute]
-      entity: group.luci_piano_terra 
-      style: |
-        :host {
-          transform: none;
-          left: 8%;
-          bottom: -3.5%;
-          width: 12%;
-        }
-        ha-card {
-          border-radius: 8px;
-          background: #2b2b2b;
-        }
-    ######## ARIA CONDIZIONATA ############
-    - type: "custom:button-card"
-      icon: mdi:air-conditioner
-      entity: climate.daikinap06055
-      show_name: false
-      show_icon: false
-      aspect_ratio: 2/1
-      custom_fields:
-        icon_hue: >
-          [[[ const state = entity.state === 'on' ? 'animate' : null;
-            return `<svg version="1.1" id="_x31_0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
-            <style type="text/css">
-              .st0{fill:#374149;}
-           
-            </style>
-            <g>
-              <path class="st1" d="M312.324,337.761c6.242-0.183,12.508-0.32,18.715-0.546c-0.051-0.039-0.098-0.078-0.153-0.118
-                c0.086-0.004,0.168-0.004,0.25-0.007c-10.774-8.258-21.461-16.727-31.93-25.418c-34.539,1.09-51.875,1.09-86.41,0
-                c-9.199,7.543-18.554,14.836-27.98,22.023c-1.406,1.039-2.848,2.184-4.25,3.192c0.062,0.004,0.126,0.004,0.188,0.007
-                c-0.066,0.047-0.129,0.102-0.195,0.153C224.508,339.175,268.395,339.327,312.324,337.761z" style="fill: #75c8ff;"></path>
-              <path class="st2" d="M358.508,365.331c-34.191,2.172-68.34,3.258-102.485,3.258c-34.277,0-68.511-1.086-102.874-3.301
-                c-10.426,7.523-20.981,14.789-31.598,21.945c-3.668,2.426-7.293,4.906-11.008,7.262c0.066,0.008,0.133,0.012,0.199,0.016
-                c-0.07,0.05-0.141,0.098-0.214,0.145c88.101,7.8,175.492,8.453,263.46,2.144c9.055-0.61,18.114-1.222,27.137-1.965
-                c-0.058-0.039-0.113-0.074-0.172-0.113c0.086-0.008,0.172-0.012,0.258-0.02C386.789,385.187,372.539,375.457,358.508,365.331z" style="fill: #5cbeff;"></path>
-              <path class="st3" d="M509.617,452.155c-18.434-10.32-36.726-20.87-54.754-31.742c-66.641,7.863-132.762,11.816-198.84,11.816
-                c-66.167,0-132.331-3.953-199.015-11.816c-17.988,10.871-36.214,21.418-54.625,31.742c-3.863,2.165-2.809,8.016,1.57,8.664
-                c169.434,25.122,334.66,25.161,504.09,0.004C512.426,460.175,513.48,454.32,509.617,452.155z" style="fill: #3fb2ff;"></path>
-              <path class="st0" d="M37.2,250.563h437.601l6.586-15.672c12.969-30.887,19.809-66.211,19.809-102.153
-                c0-27.617-3.879-54.418-11.641-79.636c-3.777-12.406-15.109-20.778-28.129-20.778h-410.8c-13.02,0-24.352,8.371-28.18,20.778
-                c-7.71,25.218-11.641,52.019-11.641,79.636c0,35.942,6.84,71.266,19.809,102.153L37.2,250.563z M475.566,126.027l-1.687,0.175
-                c-2.047,0.219-4.168,0.438-6.336,0.637c-27.547,2.594-59.5,4.63-94.965,6.055c-37.141,1.461-76.375,2.203-116.61,2.203
-                c-40.195,0-79.434-0.742-116.602-2.203c-35.457-1.426-67.398-3.465-94.972-6.062c-2.126-0.192-4.211-0.41-6.258-0.63l-1.703-0.179
-                c0.563-23.168,4.238-45.262,10.414-65.418c0.508-1.633,2.039-2.758,3.778-2.758h410.8c1.684,0,3.215,1.126,3.726,2.758
-                C471.328,80.762,475.004,102.855,475.566,126.027z M37.375,151.781c1.547,0.164,3.098,0.324,4.664,0.469
-                c27.989,2.637,60.391,4.703,96.317,6.149c11.465,0.449,23.175,0.812,34.996,1.125l2.542,9.558h160.226l2.547-9.558
-                c11.797-0.317,23.484-0.676,34.926-1.125c35.926-1.446,68.344-3.512,96.305-6.145c1.504-0.137,2.984-0.293,4.457-0.446l0.594-0.039
-                c-1.941,26.531-7.914,51.379-17.098,73.27h-30.57l-6.434-0.035l4.312-19.117l0.992-4.222h-0.038l0.038-0.161H85.899l4.344,19.434
-                l0.883,4.102H54.145c-6.305-15.031-10.965-31.535-13.977-48.941C38.871,168.144,37.836,160.074,37.375,151.781z M407,216.855
-                l-1.832,8.183l-0.867,3.828H107.699l-0.867-3.828l-1.839-8.218h246.988L407,216.855z" style="fill: rgb(157, 160, 162);"></path>
-              <polygon class="st0" points="210.727,103.039 210.727,102.879 175.895,105.082 175.895,110.887 210.727,113.09 210.727,103.644 
-                210.739,103.039 	" style="fill: rgb(157, 160, 162);"></polygon>
-              <polygon class="st0" points="301.45,102.879 301.45,102.891 301.289,102.879 301.289,113.09 336.121,110.887 336.121,105.082 
-                303.602,103.027 	" style="fill: rgb(157, 160, 162);"></polygon>
-              <polygon class="st0" points="234.274,100.984 234.274,100.984 234.114,100.984 234.114,114.988 277.902,114.988 277.902,100.984 
-                234.407,100.984 	" style="fill: rgb(157, 160, 162);"></polygon>
-            </g>
-            </svg>`; ]]]
+          - type: image
+            entity: light.luce_del_bagno
+            <<: *lightStateImage 
+            <<: *lightIconActions
+            style:
+              <<: *lightIconCommonStyle
+              left: 48%
+              top: 21%
       
+          - type: image
+            entity: light.luce_del_tavolo
+            <<: *lightStateImage 
+            <<: *lightIconActions
+            style:
+              <<: *lightIconCommonStyle
+              left: 63%
+              top: 31%
 
-      styles:
-        custom_fields:
-          icon_hue:
-            [top: 9%, left: 30%, width: 3.55vw, position: absolute]
-      style: |
-        :host {
-          transform: none;
-          left: 20.5%;
-          bottom: -3.5%;
-          width: 12%;
-        }
-        ha-card {
-          border-radius: 8px;
-          background: #2b2b2b;
-        }
-        :host .content {
+          - type: image
+            entity: light.faretti
+            <<: *lightStateImage 
+            <<: *lightIconActions
+            style:
+              <<: *lightIconCommonStyle
+              left: 80%
+              top: 34%
 
-          margin: 0px;
-         }
-      tap_action:
-        action: call-service
-        service: browser_mod.popup
-        service_data:
-          title: []
-          deviceID:
-            - this
-          large: true
-          hide_header: true
-          style:
-            $: |
-              .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
-                border-radius: 25px;
-              }
-              .mdc-dialog__content {
-                padding: 0px !important;
-              }
-            .: |
+          - type: image
+            entity: light.luce_della_scala
+            <<: *lightStateImage 
+            <<: *lightIconActions
+            style:
+              <<: *lightIconCommonStyle
+              left: 78%
+              top: 72%
+
+
+        ########################### MONITOR CONSUMO ########################################## 
+
+
+          - type: 'custom:bar-card'
+            entity: sensor.aeon_labs_zw095_home_energy_meter_gen5_power
+            max: 4500
+            name: ""
+            severity:
+              - color: '#b9fffc'
+                from: 0
+                to: 1399
+              - color: '#a3d8f4'
+                from: 1400
+                to: 2499
+              - color: '#ff9933'
+                from: 2500
+                to: 5500      
+            height: 4.5vw
+            positions:
+              icon: 'off'
+              indicator: inside
+              name: 'off'
+              value: inside
+            animation:
+              state: 'off'
+            style: |
               :host {
-                --mdc-theme-surface: rgba(0,0,0,0);
-                --secondary-background-color: rgba(0,0,0,0.7);
-                --ha-card-background: rgba(0,0,0,0.7);
+                transform: none !important;
+                bottom: 0.3%;
+                left: 52.1%;
+                --ha-card-box-shadow: none;
+                --ha-card-background: none;
+                width: 12.5%;
               }
-              .content {
-                margin: 0px !important;
+              bar-card-backgroundbar {
+                border-radius: 8px;
               }
-
-             # :host .content {
-             #   width: 90vw;
-             #   height: 65vh;
-             #   margin: -20px;
-             #  }
-          card:
-            type: horizontal-stack
-            cards:
-              - type: thermostat
-                entity: climate.soggiorno
-              - type: thermostat
-                entity: climate.camera
-              - type: thermostat
-                entity: climate.daikinap06055
-
-    ######## TAPPARELLE ############
-    - type: "custom:button-card"
-      icon: mdi:blinds
-      entity: cover.fibaro_system_fgrm223_roller_shutter_controller_3_level
-      show_name: false
-      show_icon: false
-      aspect_ratio: 2/1
-      custom_fields:
-        # SVG ICON TAPPARELLE #
-        icon_hue: >
-          [[[ const state = entity.state === 'on' ? 'animate' : null;
-          return `<svg  viewBox="0 -2 512 512"  xmlns="http://www.w3.org/2000/svg">
-          <path d="m10.558594 501.410156h490.882812c1.667969 0 3.015625-1.351562 3.015625-3.015625v-487.84375c0-1.667969-1.347656-3.015625-3.015625-3.015625h-490.882812c-1.667969 0-3.015625 1.347656-3.015625 3.015625v487.84375c0 1.664063 1.347656 3.015625 3.015625 3.015625zm0 0" fill="#954c35"/>
-          <path d="m475.015625 342.441406v93.46875c0 2.777344-2.25 5.027344-5.027344 5.027344h-427.976562c-2.777344 0-5.027344-2.25-5.027344-5.027344v-93.46875zm0 0" fill="#44bfd7"/>
-          <path d="m475.015625 342.441406v93.46875c0 2.777344-2.25 5.027344-5.027344 5.027344h-398.363281c-2.773438 0-5.027344-2.25-5.027344-5.027344v-93.46875zm0 0" fill="#7cd2e3"/>
-          <path d="m504.460938 10.554688v38.84375h-496.921876v-38.84375c0-1.667969 1.359376-3.015626 3.015626-3.015626h490.890624c1.65625 0 3.015626 1.347657 3.015626 3.015626zm0 0" fill="#808080"/>
-          <path d="m7.542969 49.398438h496.914062v41.863281h-496.914062zm0 0" fill="#a0a0a0"/><path d="m7.542969 91.261719h496.914062v41.863281h-496.914062zm0 0" fill="#808080"/>
-          <path d="m7.542969 133.125h496.914062v41.863281h-496.914062zm0 0" fill="#a0a0a0"/><path d="m7.542969 174.988281h496.914062v41.867188h-496.914062zm0 0" fill="#707070"/>
-          <path d="m7.542969 216.851562h496.914062v41.867188h-496.914062zm0 0" fill="#a0a0a0"/><path d="m7.542969 258.71875h496.914062v41.863281h-496.914062zm0 0" fill="#808080"/>
-          <path d="m7.542969 300.582031h496.914062v41.863281h-496.914062zm0 0" fill="#a9a9a9"/><path d="m263.929688 342.445312h41.214843v98.492188h-41.214843zm0 0" fill="#44bfd7"/>
-          <path d="m235.390625 342.441406h41.21875v98.496094h-41.21875zm0 0" fill="#7c3f2c"/><path d="m348.246094 376.785156c-3.25-2.605468-7.992188-2.082031-10.597656 1.164063l-28.949219 36.09375c-3.984375 4.96875-.367188 12.257812 5.875 12.257812 2.210937 0 4.398437-.96875 5.886719-2.824219l28.949218-36.09375c2.605469-3.25 2.085938-7.992187-1.164062-10.597656zm0 0"/>
-          <path d="m390.359375 358.738281c-3.25-2.605469-7.992187-2.082031-10.597656 1.164063l-28.949219 36.09375c-3.984375 4.96875-.367188 12.257812 5.875 12.257812 2.210938 0 4.398438-.96875 5.886719-2.824218l28.949219-36.09375c2.605468-3.246094 2.085937-7.992188-1.164063-10.597657zm0 0"/>
-          <path d="m111.75 422.050781c2.109375 0 4.207031-.878906 5.699219-2.597656l39.613281-45.644531c2.730469-3.144532 2.394531-7.90625-.75-10.632813-3.144531-2.730469-7.910156-2.394531-10.636719.75l-39.617187 45.644531c-4.253906 4.902344-.695313 12.480469 5.691406 12.480469zm0 0"/>
-          <path d="m196.621094 376.785156c-3.25-2.605468-7.996094-2.082031-10.601563 1.164063l-14.472656 18.046875c-2.605469 3.25-2.082031 7.996094 1.164063 10.597656 3.269531 2.625 8.011718 2.0625 10.597656-1.164062l14.476562-18.046876c2.605469-3.25 2.082032-7.992187-1.164062-10.597656zm0 0"/>
-          <path d="m437.992188 394.832031c-3.25-2.605469-7.992188-2.082031-10.597657 1.164063l-14.476562 18.046875c-2.605469 3.25-2.082031 7.992187 1.164062 10.597656 3.269531 2.621094 8.011719 2.0625 10.601563-1.164063l14.472656-18.046874c2.605469-3.246094 2.082031-7.992188-1.164062-10.597657zm0 0"/>
-          <path d="m116.472656 362.984375c-3.25-2.605469-7.992187-2.082031-10.597656 1.164063l-14.476562 18.050781c-2.605469 3.246093-2.082032 7.992187 1.164062 10.597656 3.269531 2.621094 8.011719 2.0625 10.597656-1.164063l14.472656-18.046874c2.609376-3.25 2.085938-7.996094-1.160156-10.601563zm0 0"/>
-          <path d="m504.460938 0c-17.253907 0-466.59375 0-496.921876 0-4.160156 0-7.539062 3.367188-7.539062 7.539062v493.867188c0 4.171875 3.378906 7.539062 7.539062 7.539062h422.210938c4.160156 0 7.539062-3.367187 7.539062-7.539062 0-4.164062-3.378906-7.542969-7.539062-7.542969h-414.671875v-143.882812h14.367187v90.957031c0 4.164062 3.375 7.539062 7.539063 7.539062h126.402344c4.160156 0 7.539062-3.375 7.539062-7.539062 0-4.160156-3.378906-7.539062-7.539062-7.539062h-118.863281v-83.417969h14.539062v26.121093c0 4.164063 3.375 7.539063 7.539062 7.539063 4.164063 0 7.539063-3.375 7.539063-7.539063v-26.121093h153.710937v83.417969h-34.308593c-4.160157 0-7.539063 3.378906-7.539063 7.539062 0 4.164062 3.378906 7.539062 7.539063 7.539062h281.472656c4.164063 0 7.539063-3.375 7.539063-7.539062v-90.957031h14.367187v143.882812h-37.015625c-4.160156 0-7.539062 3.378907-7.539062 7.542969 0 4.171875 3.378906 7.539062 7.539062 7.539062h44.554688c4.160156 0 7.539062-3.367187 7.539062-7.539062 0-53.863281 0-437.496094 0-493.867188 0-4.171874-3.378906-7.539062-7.539062-7.539062zm-445.398438 334.902344c-13.714844 0-30.058594 0-43.984375 0 0-9.550782 0-16.257813 0-26.78125h43.984375zm0-41.859375h-43.984375v-26.789063h43.984375zm0-41.867188h-43.984375v-26.78125h43.984375zm0-41.859375h-43.984375v-26.789062h43.984375zm0-41.871094h-43.984375v-26.777343h43.984375zm0-41.859374c-9.703125 0-33.917969 0-43.984375 0v-26.789063h43.984375zm0-41.867188h-43.984375v-26.78125h43.984375zm0-41.859375h-43.984375v-26.78125h43.984375zm15.078125-26.78125h363.71875v26.78125h-363.71875zm0 83.71875h289.300781c4.164063 0 7.539063-3.367187 7.539063-7.539063 0-4.160156-3.375-7.539062-7.539063-7.539062-1.234375 0-282.941406 0-289.300781 0v-26.78125h363.71875v26.78125h-44.257813c-4.164062 0-7.539062 3.378906-7.539062 7.539062 0 4.171876 3.375 7.539063 7.539062 7.539063h44.257813v26.789063c-11.625 0-354.492187 0-363.71875 0zm0 41.871094h363.71875v26.777343h-363.71875zm0 41.859375h363.71875v26.789062h-363.71875zm0 41.867187h363.71875v26.78125h-363.71875zm0 41.859375h363.71875v26.789063h-363.71875zm0 68.648438v-26.78125h363.71875v26.78125c-35.617187 0-326.953125 0-363.71875 0zm393.335937 98.496094h-183.328124v-40.667969c0-4.164063-3.375-7.539063-7.539063-7.539063s-7.539063 3.375-7.539063 7.539063v40.667969h-26.140624v-83.414063h26.140624v12.585937c0 4.167969 3.375 7.539063 7.539063 7.539063s7.539063-3.371094 7.539063-7.539063v-12.589843h153.710937v26.121093c0 4.164063 3.375 7.539063 7.539063 7.539063 4.164062 0 7.539062-3.375 7.539062-7.539063v-26.121093h14.539062zm29.445313-98.496094c-13.789063 0-29.867187 0-43.984375 0v-26.78125h43.984375zm0-41.859375h-43.984375v-26.789063h43.984375zm0-41.867188h-43.984375v-26.78125h43.984375zm0-41.859375h-43.984375v-26.789062h43.984375zm0-41.871094h-43.984375v-26.777343h43.984375zm0-41.859374h-43.984375v-26.789063h43.984375zm0-41.867188h-43.984375v-26.78125h43.984375zm0-41.859375h-43.984375v-26.78125h43.984375zm0 0"/>
-          </svg>`; ]]]
-        ######################## 
-      styles: 
-        custom_fields:
-          icon_hue:
-            [top: 9%, left: 31%, width: 3.55vw, position: absolute]
-      style: |
-        :host {
-          transform: none;
-          left: 33%;
-          bottom: -3.5%;
-          width: 12%;
-        }
-        ha-card {
-          border-radius: 8px;
-          background: #2b2b2b;
-        }
-        :host .content {
-
-          margin: 0px;
-         }
-      tap_action:
-        action: call-service
-        service: browser_mod.popup
-        service_data:
-          title: []
-          deviceID:
-            - this
-          large: true
-          hide_header: true
-          style:
-            $: |
-              .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
-                border-radius: 25px;
-                padding: 0px !important;
+              bar-card-currentbar {
+                border-radius: 8px;
               }
-              .mdc-dialog__content {
-                padding: 0px !important;
+              bar-card-animationbar {
+                border-radius: 8px;
               }
+              bar-card-value {
+                margin-right: auto;
+                font-size: 12px;
+                font-weight: bold;
+                text-shadow: 1px 1px #0005;
+              }
+              .card-content {
+                padding: 0px;
+              }
+            tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: []
+                deviceID:
+                  - this
+                large: true
+                hide_header: true
+                style:
+                  $: |
+                    .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
+                      border-radius: 25px;
+                    }
+                    .mdc-dialog__content {
+                      padding: 0px !important;
+                    }
+                  .: |
+                    :host {
+                      --mdc-theme-surface: rgba(0,0,0,0);
+                      --secondary-background-color: rgba(0,0,0,0.7);
+                      --ha-card-background: rgba(0,0,0,0.7);
+                    }
+                    .content {
+                      margin: 0px !important;
+                    }
+                card:
+                    type: custom:mini-graph-card
+                    icon: mdi:home
+                    name: Consumo Watt Casa 24H
+                    entities:          
+                      - entity: sensor.aeon_labs_zw095_home_energy_meter_gen5_power
+                        name: Watt
+                        show_state: true
+                        show_legend: false
+                        state_adaptive_color: true
+                    font_size: 35 
+                    #height: 250
+                    #aggregate_func: max
+                    update_interval: 15
+                    font_size_header: 9
+                    hours_to_show: 24
+                    points_per_hour: 4
+                    line_width: 3
+                    show:
+                      extrema: false                                
+                    color_thresholds:
+                      - value: 500
+                        color: *graph_color_1
+                      - value: 1000
+                        color: *graph_color_2
+                      - value: 1500
+                        color: *graph_color_3
+                      - value: 2500
+                        color: *graph_color_4
+                    style:
 
-            .: |
+        ########################### MONITOR SPOTIFY ##########################################
+          - type: conditional
+            conditions:
+              - entity: media_player.spotify_stefano_tonelli
+                state: 'playing'
+            elements:      
+              - type: custom:mini-media-player
+                entity: media_player.spotify_stefano_tonelli
+                info: scroll
+                hide:
+                  controls: true
+                  name: true
+                  power: true
+                  source: true
+                  volume: true 
+                  progress: true 
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/musica/
+
+                style: |
+                  :host {
+                      transform: none !important;
+                      top: 0px;
+                      left: -10px;                
+                    }
+                  ha-card {
+                    box-shadow: none !important;
+                  }
+                  .entity__info {
+                  font-size: 1vw !important;
+                  justify-content: left !important;
+                  margin-left: 0px !important;
+                  }
+                  .entity__artwork {
+                    border-radius: 0 !important;
+                  }
+                  .mmp__bg {
+                    background: none !important;
+                  }
+              - type: image
+                image: /local/ui/home/equalizer.svg
+                style:
+                  position: absolute
+                  transform: none 
+                  top: 17px
+                  left: 50px
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/musica/
+
+
+
+        ########################### ICONE ARIA CONDIZIONATA ##################################
+          - type: conditional
+            conditions:
+              - entity: climate.soggiorno
+                state_not: "off" 
+            elements:
+              - type: image
+                image: /local/ui/home/pianoterra/condizionatore_soggiorno.svg
+                style:
+                  left: 62%
+                  top: 48%
+          - type: conditional
+            conditions:
+              - entity: climate.camera
+                state_not: "off" 
+            elements:
+              - type: image
+                image: /local/ui/home/pianoterra/condizionatore_camera.svg
+                style:
+                  left: 36%
+                  top: 44%
+          - type: conditional
+            conditions:
+              - entity: climate.daikinap06055
+                state_not: "off" 
+            elements:
+              - type: image
+                image: /local/ui/home/pianoterra/condizionatore_studio.svg
+                style:
+                  left: 47%
+                  top: 57%            
+
+
+
+        ########################### PULSANTI BOTTOM ##########################################
+
+          ######## LUCI ############
+          - type: "custom:button-card"
+            aspect_ratio: 2/1  
+            show_name: false    
+            show_icon: false
+            custom_fields:
+              icon_hue: >
+                [[[ const state = entity.state === 'on' ? 'animate' : null;
+                return `<svg viewBox="0 0 50 50"><style>@keyframes animate{0%{transform: scale(0.85);}20%{transform: scale(1.1);}40%{transform: scale(0.95);}60%{transform: scale(1.03);}80%{transform: scale(0.97);}100%{transform: scale(1);}}.animate{animation: animate 0.8s; transform-origin: center;}</style>
+                <path fill="#9da0a2" d="M27.4 47.3h-4.9s-.7.1-.7.8.4.9.7.9h4.9c.3 0 .7-.1.7-.9s-.7-.8-.7-.8zm3.3-2.9H19.3s-.8 0-.8.8.6.9.8.9h11.5c.2 0 .8-.1.8-.9-.1-.8-.9-.8-.9-.8zm0-3H19.3s-.8 0-.8.8.6.9.8.9h11.5c.2 0 .8-.1.8-.9-.1-.8-.9-.8-.9-.8zm0-2.9H19.3s-.8 0-.8.8.6.9.8.9h11.5c.2 0 .8-.1.8-.9s-.9-.8-.9-.8zm5.2-23.2c-3.3-5.3-7-5.6-10.9-5.6-3.8 0-8.4.4-10.9 5.6-.1.1-.1.3.1.7.4.8 3.3 7.2 3.2 18.8 0 1.1-.1 1.6 0 1.7 0 .1 0 .7 1.1.7h13c1 0 1-.5 1.1-.7v-1.7c-.1-11.6 2.8-18 3.2-18.8.1-.4.1-.5.1-.7"/>
+                <path class="${state}" fill="var(--button-card-light-color-no-temperature)" d="M14.1 15.3c3.4-.3 7-.4 10.9-.4 3.8 0 7.5.2 10.9.4.4-.4.7-.8.9-1.1C39 8.5 38.9 6.5 38.9 6c-.2-4.4-8.4-5-12.1-5h0-3.4c-3.7 0-12 .5-12.1 5 0 .5-.1 2.5 2.1 8.2 0 .3.3.8.7 1.1z"/></svg>`; ]]]
+            styles: 
+              custom_fields:
+                icon_hue:
+                  [top: 9%, left: 30%, width: 3.55vw, position: absolute]
+            entity: group.luci_piano_terra 
+            style: |
               :host {
-                --mdc-theme-surface: rgba(0,0,0,0);
-                --secondary-background-color: rgba(0,0,0,0.7);
-                --ha-card-background: rgba(0,0,0,0.7);
+                transform: none;
+                left: 8%;
+                bottom: -3.5%;
+                width: 12%;
               }
-              .content {
-                margin: 0px !important;
+              ha-card {
+                border-radius: 8px;
+                background: #2b2b2b;
               }
+          ######## ARIA CONDIZIONATA ############
+          - type: "custom:button-card"
+            icon: mdi:air-conditioner
+            entity: climate.daikinap06055
+            show_name: false
+            show_icon: false
+            aspect_ratio: 2/1
+            custom_fields:
+              icon_hue: >
+                [[[ const state = entity.state === 'on' ? 'animate' : null;
+                  return `<svg version="1.1" id="_x31_0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
+                  <style type="text/css">
+                    .st0{fill:#374149;}
+                
+                  </style>
+                  <g>
+                    <path class="st1" d="M312.324,337.761c6.242-0.183,12.508-0.32,18.715-0.546c-0.051-0.039-0.098-0.078-0.153-0.118
+                      c0.086-0.004,0.168-0.004,0.25-0.007c-10.774-8.258-21.461-16.727-31.93-25.418c-34.539,1.09-51.875,1.09-86.41,0
+                      c-9.199,7.543-18.554,14.836-27.98,22.023c-1.406,1.039-2.848,2.184-4.25,3.192c0.062,0.004,0.126,0.004,0.188,0.007
+                      c-0.066,0.047-0.129,0.102-0.195,0.153C224.508,339.175,268.395,339.327,312.324,337.761z" style="fill: #75c8ff;"></path>
+                    <path class="st2" d="M358.508,365.331c-34.191,2.172-68.34,3.258-102.485,3.258c-34.277,0-68.511-1.086-102.874-3.301
+                      c-10.426,7.523-20.981,14.789-31.598,21.945c-3.668,2.426-7.293,4.906-11.008,7.262c0.066,0.008,0.133,0.012,0.199,0.016
+                      c-0.07,0.05-0.141,0.098-0.214,0.145c88.101,7.8,175.492,8.453,263.46,2.144c9.055-0.61,18.114-1.222,27.137-1.965
+                      c-0.058-0.039-0.113-0.074-0.172-0.113c0.086-0.008,0.172-0.012,0.258-0.02C386.789,385.187,372.539,375.457,358.508,365.331z" style="fill: #5cbeff;"></path>
+                    <path class="st3" d="M509.617,452.155c-18.434-10.32-36.726-20.87-54.754-31.742c-66.641,7.863-132.762,11.816-198.84,11.816
+                      c-66.167,0-132.331-3.953-199.015-11.816c-17.988,10.871-36.214,21.418-54.625,31.742c-3.863,2.165-2.809,8.016,1.57,8.664
+                      c169.434,25.122,334.66,25.161,504.09,0.004C512.426,460.175,513.48,454.32,509.617,452.155z" style="fill: #3fb2ff;"></path>
+                    <path class="st0" d="M37.2,250.563h437.601l6.586-15.672c12.969-30.887,19.809-66.211,19.809-102.153
+                      c0-27.617-3.879-54.418-11.641-79.636c-3.777-12.406-15.109-20.778-28.129-20.778h-410.8c-13.02,0-24.352,8.371-28.18,20.778
+                      c-7.71,25.218-11.641,52.019-11.641,79.636c0,35.942,6.84,71.266,19.809,102.153L37.2,250.563z M475.566,126.027l-1.687,0.175
+                      c-2.047,0.219-4.168,0.438-6.336,0.637c-27.547,2.594-59.5,4.63-94.965,6.055c-37.141,1.461-76.375,2.203-116.61,2.203
+                      c-40.195,0-79.434-0.742-116.602-2.203c-35.457-1.426-67.398-3.465-94.972-6.062c-2.126-0.192-4.211-0.41-6.258-0.63l-1.703-0.179
+                      c0.563-23.168,4.238-45.262,10.414-65.418c0.508-1.633,2.039-2.758,3.778-2.758h410.8c1.684,0,3.215,1.126,3.726,2.758
+                      C471.328,80.762,475.004,102.855,475.566,126.027z M37.375,151.781c1.547,0.164,3.098,0.324,4.664,0.469
+                      c27.989,2.637,60.391,4.703,96.317,6.149c11.465,0.449,23.175,0.812,34.996,1.125l2.542,9.558h160.226l2.547-9.558
+                      c11.797-0.317,23.484-0.676,34.926-1.125c35.926-1.446,68.344-3.512,96.305-6.145c1.504-0.137,2.984-0.293,4.457-0.446l0.594-0.039
+                      c-1.941,26.531-7.914,51.379-17.098,73.27h-30.57l-6.434-0.035l4.312-19.117l0.992-4.222h-0.038l0.038-0.161H85.899l4.344,19.434
+                      l0.883,4.102H54.145c-6.305-15.031-10.965-31.535-13.977-48.941C38.871,168.144,37.836,160.074,37.375,151.781z M407,216.855
+                      l-1.832,8.183l-0.867,3.828H107.699l-0.867-3.828l-1.839-8.218h246.988L407,216.855z" style="fill: rgb(157, 160, 162);"></path>
+                    <polygon class="st0" points="210.727,103.039 210.727,102.879 175.895,105.082 175.895,110.887 210.727,113.09 210.727,103.644 
+                      210.739,103.039 	" style="fill: rgb(157, 160, 162);"></polygon>
+                    <polygon class="st0" points="301.45,102.879 301.45,102.891 301.289,102.879 301.289,113.09 336.121,110.887 336.121,105.082 
+                      303.602,103.027 	" style="fill: rgb(157, 160, 162);"></polygon>
+                    <polygon class="st0" points="234.274,100.984 234.274,100.984 234.114,100.984 234.114,114.988 277.902,114.988 277.902,100.984 
+                      234.407,100.984 	" style="fill: rgb(157, 160, 162);"></polygon>
+                  </g>
+                  </svg>`; ]]]
+            
 
-          card:
-            type: custom:vertical-slider-cover-card
-            title: Tapparelle
-            sideColor1: '#f7f7f7'
-            sideColor2: '#2b2b2b'
-            positionWidth: 100px
-            positionHeight: 325px
-            closedBaseline: 11
-            entities:
-              - entity: cover.fibaro_system_fgrm223_roller_shutter_controller_3_level
-                name: Soggiorno
-              - entity: cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_2
-                name: Studio
-              - entity: cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_3                  
-                name: Camera
- 
-       
-    ######## SOVERGLIANZA ################
-    - type: "custom:button-card"
-      aspect_ratio: 2/1
-      show_name: false
-      show_icon: false      
-      custom_fields:
-        # SVG ICON VIDEOCAMERA #
-        icon_hue: >
-          [[[ const state = entity.state === 'on' ? 'animate' : null;
-          return `<svg viewBox="0 0 1000 1000" xml:space="preserve">
-          <path fill="#9da0a2" d="M74.1,743.6c7.1-1.9,142.5-46.7,142.5-46.7s-13-41-14.6-48.8c-2-9.1-5.3-9.3-8-9.7h-0.7l-139.5-1.2C53.8,637.1,69.4,716.7,74.1,743.6z"/>
-          <path fill="#9da0a2" d="M404.6,695.8c0,0-317.7,131.7-325.6,134.2c-3.2,20.4-18.2,84.3-18.2,84.3h135.2c0,0,11.5,0.2,13.7-8.9c9-37.1,15.1-70.7,15.6-72c1-3.3,2.9-8.3,8.8-11.3c3.1-1.6,233.4-118.3,233.4-118.3s0-23.2,0-39.6h-62.9V695.8z"/>
-          <path fill="#9da0a2" d="M144.9,391.9c0-14.2-0.1-23.9-0.2-30.3c-22.3-11.1-93.1-47.6-108.6-55.2C36,320.6,36,336.5,36,336.5v0.1c-0.1,0.4-0.1,0.8-0.1,1.3c0,4.9,1.1,15.2,6.7,18.4c7.7,4.4,86.1,46.1,102.5,55c-0.2-2.8-0.2-5.7-0.2-8.6c0-0.2,0-0.3,0-0.5C144.9,398.5,144.9,395.2,144.9,391.9z"/>
-          <path fill="#9da0a2" d="M989.7,389.8c-0.3-1.2-1.9-2.5-4.5-3.9c-11.4-0.5-62.6-2.9-117.9-5.6c-2.3,42.9-6.3,116-7.3,120.9c-0.6,2.9-7.2,15.9-16.2,32.3c2.3,1.6,4.4,2.9,5.9,3.8c5.3,3,15.4,4.5,19.9-0.6c2.9-3.5,19.5-23.1,38.7-46c27.3-32.6,58.3-69.4,65.7-77.8l5.5-6.1c7.6-8.4,10.4-11.8,10.4-15.3C990,391,989.9,390.4,989.7,389.8z"/>
-          <path fill="#9da0a2" d="M376.2,575.2c-13.8,21.6-32.3,33.6-52.3,33.6c-9.4,0-18.5-2.8-26.8-7.9c0,13.8,0,26,0,30.4c12.4,0,157.9,0,170.3,0c0-3.3,0-11.1,0-20.7c-25.5-13-55.5-28.2-86.5-44C379.4,569.6,377.9,572.5,376.2,575.2z"/>
-          <path fill="#9da0a2" d="M364.3,567.8c1.5-2.4,2.9-4.9,4.2-7.5c-35.4-18-71.3-36.3-102.7-52.2c3,48.7,27.9,86.8,58.1,86.8C339,594.8,353.2,585.3,364.3,567.8z"/>
-          <path fill="#9da0a2" d="M503.8,538.6l-2.7-1.5c-5.6-2.4-210.9-103.7-342.3-168.6c0,5.8,0,13.4,0,23.1c0,3.3,0,6.8,0,10.6c0,0.1,0,0.3,0,0.5c0,37.7,12.4,42.7,19,45.4c8.8,3.7,289.3,146.7,331.8,168.4c-0.1-1-0.1-2.2-0.1-3.4l1.9-70.9C508.5,541.2,505.8,539.7,503.8,538.6z"/>
-          <path fill="#717475" d="M543.1,505.5c15.4-19.9,86.8-102.4,90.5-106.9c2.2-2.9,33.8-42.2,88-39.4c38.1,1.9,165.3,8.1,229.3,11.1c-8.7-3.9-16.1-7.1-16.1-7.1l-94.1-41.8l-29.1-12.8l-56.3-24.9c-32.9-14.7-66.9-29.8-100.5-44.4l-61.2-27.2c-29.3-13.2-59.5-26.7-89.5-39.3c-13.5-5.6-61.4-27.5-74.4-33.4c-27-12.1-54.9-24.7-83.8-33.8c-7.5-2.3-41.6-8.9-50-9.4l-81.4-4c-47.4-2.3-101.1-5-113-5.7c-36.6-2.3-54,0-60.1,20c-3.4,11.1-20.9,101.1-27.1,125.1c-1.6,5.8-2.3,10.6-2.3,14.6c0,13.6,8.1,17.4,17.7,21.8l4.2,2c3.7,1.9,474.4,233.2,483.9,237.6c-0.1,0-0.1-0.1-0.1-0.1l0.1,0.1l0,0l3.8,1.9C528,512.9,533,515.6,543.1,505.5z"/>
-          <path fill="#9da0a2" d="M721,373.1c-47.5-2.5-76.1,33.8-76.4,34.1l-0.2,0.2c-0.9,1-87.3,105.2-101.8,123.9l-0.2,0.4L542,532c-6,6.1-11.6,9.3-16.6,10.7c-0.6,26.5-1.8,70.7-1.8,70.7c0,0.4-0.1,0.7-0.1,1c0,9.7,3.9,15.2,22.3,16.5c11,0.9,185.7,5.9,198.9,5.7c11-0.2,19.6-1.1,29.2-12.3c11.4-13.4,69.1-117,72.6-126.1c0.8-6,4.2-66.8,7-118.7C799.1,376.9,744,374.4,721,373.1z M772.2,460.5c-4.5,13.8-24.1,81.4-24.1,81.4s-2.5,11.9-8.6,15.7c-6,4.2-17.5,3.1-17.5,3.1c-11.3-0.5-22.8-1-34.1-1.4c-18.7-0.6-64.1-2.5-68.1-2.6c-4.2,0-12.8-2-14.6-6.5c-2.4-5.9-0.1-13.2,1.6-19.1c2.2-7.9,4.7-15.7,6.9-23.5c4.7-16.5,9.4-32.9,14.5-49.3c2.4-8.1,3.1-16.3,10.2-22.3c7.5-6.4,16.9-5.6,26-5.4c8.8,0.2,17.7,0.3,26.4,0.5c18.6,0.6,37.1,1.5,55.7,2.3c5.6,0.3,11.1,0.5,16.8,0.9C778.5,435.2,776.8,446.7,772.2,460.5z"/>
-          <path fill="#9da0a2" d="M297.1,664.1c0,14.2,0,21.9,0,21.9L55.3,769.2l-1.3-7.4c-8-44.6-20-115.2-22-124.7H10c0,34,0,246.8,0,277.3h26.5c2.9-18.4,18.4-85.9,18.6-87l0.7-4.2c0,0,325.5-134.3,334.9-137.4c0-6.1,0-9,0-21.7H297.1z"/></svg>`; ]]]
-        ########################
-      styles: 
-        custom_fields:
-          icon_hue:
-            [top: 9%, left: 35%, width: 3.55vw, position: absolute]
-      entity: cover.fibaro_system_fgrm223_roller_shutter_controller_3_level
-
-      style: |
-        :host {
-          transform: none;
-          left: 45.5%;
-          bottom: -3.5%;
-          width: 12%;
-        }
-        ha-card {
-          border-radius: 8px;
-          background: #2b2b2b;
-        }
-        :host .content {
-          margin: 0px;
-         }
-
-      tap_action:
-        action: call-service
-        service: browser_mod.popup
-        service_data:
-          title: []
-          deviceID:
-            - this
-          large: true
-          hide_header: true
-          style:
-            $: |
-              .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
-                border-radius: 25px;
-              }
-            .: |
+            styles:
+              custom_fields:
+                icon_hue:
+                  [top: 9%, left: 30%, width: 3.55vw, position: absolute]
+            style: |
               :host {
-                --mdc-theme-surface: rgba(0,0,0,0);
-                --secondary-background-color: rgba(0,0,0,0.5);
-                --ha-card-background: rgba(0,0,0,0.5);
+                transform: none;
+                left: 20.5%;
+                bottom: -3.5%;
+                width: 12%;
+              }
+              ha-card {
+                border-radius: 8px;
+                background: #2b2b2b;
               }
               :host .content {
 
                 margin: 0px;
-               }
-          card:
-            type: picture-elements
-            entity: camera.foscam_camera
-            camera_image: camera.foscam_camera
-            camera_view: live
-            elements:
-              - type: icon
-                icon: 'mdi:arrow-up'
+              }
+            tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: []
+                deviceID:
+                  - this
+                large: true
+                hide_header: true
                 style:
-                  background: 'rgba(255, 255, 255, 0.5)'
-                  right: 25px
-                  bottom: 50px
-                tap_action:
-                  action: call-service
-                  service: foscam.ptz
-                  service_data:
-                    entity_id: camera.foscam_camera
-                    movement: up
-                    travel_time: 0.25
-              - type: icon
-                icon: 'mdi:arrow-down'
+                  $: |
+                    .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
+                      border-radius: 25px;
+                    }
+                    .mdc-dialog__content {
+                      padding: 0px !important;
+                    }
+                  .: |
+                    :host {
+                      --mdc-theme-surface: rgba(0,0,0,0);
+                      --secondary-background-color: rgba(0,0,0,0.7);
+                      --ha-card-background: rgba(0,0,0,0.7);
+                    }
+                    .content {
+                      margin: 0px !important;
+                    }
+
+                  # :host .content {
+                  #   width: 90vw;
+                  #   height: 65vh;
+                  #   margin: -20px;
+                  #  }
+                card:
+                  type: horizontal-stack
+                  cards:
+                    - type: thermostat
+                      entity: climate.soggiorno
+                    - type: thermostat
+                      entity: climate.camera
+                    - type: thermostat
+                      entity: climate.daikinap06055
+
+          ######## TAPPARELLE ############
+          - type: "custom:button-card"
+            icon: mdi:blinds
+            entity: cover.fibaro_system_fgrm223_roller_shutter_controller_3_level
+            show_name: false
+            show_icon: false
+            aspect_ratio: 2/1
+            custom_fields:
+              # SVG ICON TAPPARELLE #
+              icon_hue: >
+                [[[ const state = entity.state === 'on' ? 'animate' : null;
+                return `<svg  viewBox="0 -2 512 512"  xmlns="http://www.w3.org/2000/svg">
+                <path d="m10.558594 501.410156h490.882812c1.667969 0 3.015625-1.351562 3.015625-3.015625v-487.84375c0-1.667969-1.347656-3.015625-3.015625-3.015625h-490.882812c-1.667969 0-3.015625 1.347656-3.015625 3.015625v487.84375c0 1.664063 1.347656 3.015625 3.015625 3.015625zm0 0" fill="#954c35"/>
+                <path d="m475.015625 342.441406v93.46875c0 2.777344-2.25 5.027344-5.027344 5.027344h-427.976562c-2.777344 0-5.027344-2.25-5.027344-5.027344v-93.46875zm0 0" fill="#44bfd7"/>
+                <path d="m475.015625 342.441406v93.46875c0 2.777344-2.25 5.027344-5.027344 5.027344h-398.363281c-2.773438 0-5.027344-2.25-5.027344-5.027344v-93.46875zm0 0" fill="#7cd2e3"/>
+                <path d="m504.460938 10.554688v38.84375h-496.921876v-38.84375c0-1.667969 1.359376-3.015626 3.015626-3.015626h490.890624c1.65625 0 3.015626 1.347657 3.015626 3.015626zm0 0" fill="#808080"/>
+                <path d="m7.542969 49.398438h496.914062v41.863281h-496.914062zm0 0" fill="#a0a0a0"/><path d="m7.542969 91.261719h496.914062v41.863281h-496.914062zm0 0" fill="#808080"/>
+                <path d="m7.542969 133.125h496.914062v41.863281h-496.914062zm0 0" fill="#a0a0a0"/><path d="m7.542969 174.988281h496.914062v41.867188h-496.914062zm0 0" fill="#707070"/>
+                <path d="m7.542969 216.851562h496.914062v41.867188h-496.914062zm0 0" fill="#a0a0a0"/><path d="m7.542969 258.71875h496.914062v41.863281h-496.914062zm0 0" fill="#808080"/>
+                <path d="m7.542969 300.582031h496.914062v41.863281h-496.914062zm0 0" fill="#a9a9a9"/><path d="m263.929688 342.445312h41.214843v98.492188h-41.214843zm0 0" fill="#44bfd7"/>
+                <path d="m235.390625 342.441406h41.21875v98.496094h-41.21875zm0 0" fill="#7c3f2c"/><path d="m348.246094 376.785156c-3.25-2.605468-7.992188-2.082031-10.597656 1.164063l-28.949219 36.09375c-3.984375 4.96875-.367188 12.257812 5.875 12.257812 2.210937 0 4.398437-.96875 5.886719-2.824219l28.949218-36.09375c2.605469-3.25 2.085938-7.992187-1.164062-10.597656zm0 0"/>
+                <path d="m390.359375 358.738281c-3.25-2.605469-7.992187-2.082031-10.597656 1.164063l-28.949219 36.09375c-3.984375 4.96875-.367188 12.257812 5.875 12.257812 2.210938 0 4.398438-.96875 5.886719-2.824218l28.949219-36.09375c2.605468-3.246094 2.085937-7.992188-1.164063-10.597657zm0 0"/>
+                <path d="m111.75 422.050781c2.109375 0 4.207031-.878906 5.699219-2.597656l39.613281-45.644531c2.730469-3.144532 2.394531-7.90625-.75-10.632813-3.144531-2.730469-7.910156-2.394531-10.636719.75l-39.617187 45.644531c-4.253906 4.902344-.695313 12.480469 5.691406 12.480469zm0 0"/>
+                <path d="m196.621094 376.785156c-3.25-2.605468-7.996094-2.082031-10.601563 1.164063l-14.472656 18.046875c-2.605469 3.25-2.082031 7.996094 1.164063 10.597656 3.269531 2.625 8.011718 2.0625 10.597656-1.164062l14.476562-18.046876c2.605469-3.25 2.082032-7.992187-1.164062-10.597656zm0 0"/>
+                <path d="m437.992188 394.832031c-3.25-2.605469-7.992188-2.082031-10.597657 1.164063l-14.476562 18.046875c-2.605469 3.25-2.082031 7.992187 1.164062 10.597656 3.269531 2.621094 8.011719 2.0625 10.601563-1.164063l14.472656-18.046874c2.605469-3.246094 2.082031-7.992188-1.164062-10.597657zm0 0"/>
+                <path d="m116.472656 362.984375c-3.25-2.605469-7.992187-2.082031-10.597656 1.164063l-14.476562 18.050781c-2.605469 3.246093-2.082032 7.992187 1.164062 10.597656 3.269531 2.621094 8.011719 2.0625 10.597656-1.164063l14.472656-18.046874c2.609376-3.25 2.085938-7.996094-1.160156-10.601563zm0 0"/>
+                <path d="m504.460938 0c-17.253907 0-466.59375 0-496.921876 0-4.160156 0-7.539062 3.367188-7.539062 7.539062v493.867188c0 4.171875 3.378906 7.539062 7.539062 7.539062h422.210938c4.160156 0 7.539062-3.367187 7.539062-7.539062 0-4.164062-3.378906-7.542969-7.539062-7.542969h-414.671875v-143.882812h14.367187v90.957031c0 4.164062 3.375 7.539062 7.539063 7.539062h126.402344c4.160156 0 7.539062-3.375 7.539062-7.539062 0-4.160156-3.378906-7.539062-7.539062-7.539062h-118.863281v-83.417969h14.539062v26.121093c0 4.164063 3.375 7.539063 7.539062 7.539063 4.164063 0 7.539063-3.375 7.539063-7.539063v-26.121093h153.710937v83.417969h-34.308593c-4.160157 0-7.539063 3.378906-7.539063 7.539062 0 4.164062 3.378906 7.539062 7.539063 7.539062h281.472656c4.164063 0 7.539063-3.375 7.539063-7.539062v-90.957031h14.367187v143.882812h-37.015625c-4.160156 0-7.539062 3.378907-7.539062 7.542969 0 4.171875 3.378906 7.539062 7.539062 7.539062h44.554688c4.160156 0 7.539062-3.367187 7.539062-7.539062 0-53.863281 0-437.496094 0-493.867188 0-4.171874-3.378906-7.539062-7.539062-7.539062zm-445.398438 334.902344c-13.714844 0-30.058594 0-43.984375 0 0-9.550782 0-16.257813 0-26.78125h43.984375zm0-41.859375h-43.984375v-26.789063h43.984375zm0-41.867188h-43.984375v-26.78125h43.984375zm0-41.859375h-43.984375v-26.789062h43.984375zm0-41.871094h-43.984375v-26.777343h43.984375zm0-41.859374c-9.703125 0-33.917969 0-43.984375 0v-26.789063h43.984375zm0-41.867188h-43.984375v-26.78125h43.984375zm0-41.859375h-43.984375v-26.78125h43.984375zm15.078125-26.78125h363.71875v26.78125h-363.71875zm0 83.71875h289.300781c4.164063 0 7.539063-3.367187 7.539063-7.539063 0-4.160156-3.375-7.539062-7.539063-7.539062-1.234375 0-282.941406 0-289.300781 0v-26.78125h363.71875v26.78125h-44.257813c-4.164062 0-7.539062 3.378906-7.539062 7.539062 0 4.171876 3.375 7.539063 7.539062 7.539063h44.257813v26.789063c-11.625 0-354.492187 0-363.71875 0zm0 41.871094h363.71875v26.777343h-363.71875zm0 41.859375h363.71875v26.789062h-363.71875zm0 41.867187h363.71875v26.78125h-363.71875zm0 41.859375h363.71875v26.789063h-363.71875zm0 68.648438v-26.78125h363.71875v26.78125c-35.617187 0-326.953125 0-363.71875 0zm393.335937 98.496094h-183.328124v-40.667969c0-4.164063-3.375-7.539063-7.539063-7.539063s-7.539063 3.375-7.539063 7.539063v40.667969h-26.140624v-83.414063h26.140624v12.585937c0 4.167969 3.375 7.539063 7.539063 7.539063s7.539063-3.371094 7.539063-7.539063v-12.589843h153.710937v26.121093c0 4.164063 3.375 7.539063 7.539063 7.539063 4.164062 0 7.539062-3.375 7.539062-7.539063v-26.121093h14.539062zm29.445313-98.496094c-13.789063 0-29.867187 0-43.984375 0v-26.78125h43.984375zm0-41.859375h-43.984375v-26.789063h43.984375zm0-41.867188h-43.984375v-26.78125h43.984375zm0-41.859375h-43.984375v-26.789062h43.984375zm0-41.871094h-43.984375v-26.777343h43.984375zm0-41.859374h-43.984375v-26.789063h43.984375zm0-41.867188h-43.984375v-26.78125h43.984375zm0-41.859375h-43.984375v-26.78125h43.984375zm0 0"/>
+                </svg>`; ]]]
+              ######################## 
+            styles: 
+              custom_fields:
+                icon_hue:
+                  [top: 9%, left: 31%, width: 3.55vw, position: absolute]
+            style: |
+              :host {
+                transform: none;
+                left: 33%;
+                bottom: -3.5%;
+                width: 12%;
+              }
+              ha-card {
+                border-radius: 8px;
+                background: #2b2b2b;
+              }
+              :host .content {
+
+                margin: 0px;
+              }
+            tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: []
+                deviceID:
+                  - this
+                large: true
+                hide_header: true
                 style:
-                  background: 'rgba(255, 255, 255, 0.5)'
-                  right: 25px
-                  bottom: 0px
-                tap_action:
-                  action: call-service
-                  service: foscam.ptz
-                  service_data:
-                    entity_id: camera.foscam_camera
-                    movement: down
-                    travel_time: 0.25
-              - type: icon
-                icon: 'mdi:arrow-left'
+                  $: |
+                    .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
+                      border-radius: 25px;
+                      padding: 0px !important;
+                    }
+                    .mdc-dialog__content {
+                      padding: 0px !important;
+                    }
+
+                  .: |
+                    :host {
+                      --mdc-theme-surface: rgba(0,0,0,0);
+                      --secondary-background-color: rgba(0,0,0,0.7);
+                      --ha-card-background: rgba(0,0,0,0.7);
+                    }
+                    .content {
+                      margin: 0px !important;
+                    }
+
+                card:
+                  type: custom:vertical-slider-cover-card
+                  title: Tapparelle
+                  sideColor1: '#f7f7f7'
+                  sideColor2: '#2b2b2b'
+                  positionWidth: 100px
+                  positionHeight: 325px
+                  closedBaseline: 11
+                  entities:
+                    - entity: cover.fibaro_system_fgrm223_roller_shutter_controller_3_level
+                      name: Soggiorno
+                    - entity: cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_2
+                      name: Studio
+                    - entity: cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_3                  
+                      name: Camera
+      
+            
+          ######## SOVERGLIANZA ################
+          - type: "custom:button-card"
+            aspect_ratio: 2/1
+            show_name: false
+            show_icon: false      
+            custom_fields:
+              # SVG ICON VIDEOCAMERA #
+              icon_hue: >
+                [[[ const state = entity.state === 'on' ? 'animate' : null;
+                return `<svg viewBox="0 0 1000 1000" xml:space="preserve">
+                <path fill="#9da0a2" d="M74.1,743.6c7.1-1.9,142.5-46.7,142.5-46.7s-13-41-14.6-48.8c-2-9.1-5.3-9.3-8-9.7h-0.7l-139.5-1.2C53.8,637.1,69.4,716.7,74.1,743.6z"/>
+                <path fill="#9da0a2" d="M404.6,695.8c0,0-317.7,131.7-325.6,134.2c-3.2,20.4-18.2,84.3-18.2,84.3h135.2c0,0,11.5,0.2,13.7-8.9c9-37.1,15.1-70.7,15.6-72c1-3.3,2.9-8.3,8.8-11.3c3.1-1.6,233.4-118.3,233.4-118.3s0-23.2,0-39.6h-62.9V695.8z"/>
+                <path fill="#9da0a2" d="M144.9,391.9c0-14.2-0.1-23.9-0.2-30.3c-22.3-11.1-93.1-47.6-108.6-55.2C36,320.6,36,336.5,36,336.5v0.1c-0.1,0.4-0.1,0.8-0.1,1.3c0,4.9,1.1,15.2,6.7,18.4c7.7,4.4,86.1,46.1,102.5,55c-0.2-2.8-0.2-5.7-0.2-8.6c0-0.2,0-0.3,0-0.5C144.9,398.5,144.9,395.2,144.9,391.9z"/>
+                <path fill="#9da0a2" d="M989.7,389.8c-0.3-1.2-1.9-2.5-4.5-3.9c-11.4-0.5-62.6-2.9-117.9-5.6c-2.3,42.9-6.3,116-7.3,120.9c-0.6,2.9-7.2,15.9-16.2,32.3c2.3,1.6,4.4,2.9,5.9,3.8c5.3,3,15.4,4.5,19.9-0.6c2.9-3.5,19.5-23.1,38.7-46c27.3-32.6,58.3-69.4,65.7-77.8l5.5-6.1c7.6-8.4,10.4-11.8,10.4-15.3C990,391,989.9,390.4,989.7,389.8z"/>
+                <path fill="#9da0a2" d="M376.2,575.2c-13.8,21.6-32.3,33.6-52.3,33.6c-9.4,0-18.5-2.8-26.8-7.9c0,13.8,0,26,0,30.4c12.4,0,157.9,0,170.3,0c0-3.3,0-11.1,0-20.7c-25.5-13-55.5-28.2-86.5-44C379.4,569.6,377.9,572.5,376.2,575.2z"/>
+                <path fill="#9da0a2" d="M364.3,567.8c1.5-2.4,2.9-4.9,4.2-7.5c-35.4-18-71.3-36.3-102.7-52.2c3,48.7,27.9,86.8,58.1,86.8C339,594.8,353.2,585.3,364.3,567.8z"/>
+                <path fill="#9da0a2" d="M503.8,538.6l-2.7-1.5c-5.6-2.4-210.9-103.7-342.3-168.6c0,5.8,0,13.4,0,23.1c0,3.3,0,6.8,0,10.6c0,0.1,0,0.3,0,0.5c0,37.7,12.4,42.7,19,45.4c8.8,3.7,289.3,146.7,331.8,168.4c-0.1-1-0.1-2.2-0.1-3.4l1.9-70.9C508.5,541.2,505.8,539.7,503.8,538.6z"/>
+                <path fill="#717475" d="M543.1,505.5c15.4-19.9,86.8-102.4,90.5-106.9c2.2-2.9,33.8-42.2,88-39.4c38.1,1.9,165.3,8.1,229.3,11.1c-8.7-3.9-16.1-7.1-16.1-7.1l-94.1-41.8l-29.1-12.8l-56.3-24.9c-32.9-14.7-66.9-29.8-100.5-44.4l-61.2-27.2c-29.3-13.2-59.5-26.7-89.5-39.3c-13.5-5.6-61.4-27.5-74.4-33.4c-27-12.1-54.9-24.7-83.8-33.8c-7.5-2.3-41.6-8.9-50-9.4l-81.4-4c-47.4-2.3-101.1-5-113-5.7c-36.6-2.3-54,0-60.1,20c-3.4,11.1-20.9,101.1-27.1,125.1c-1.6,5.8-2.3,10.6-2.3,14.6c0,13.6,8.1,17.4,17.7,21.8l4.2,2c3.7,1.9,474.4,233.2,483.9,237.6c-0.1,0-0.1-0.1-0.1-0.1l0.1,0.1l0,0l3.8,1.9C528,512.9,533,515.6,543.1,505.5z"/>
+                <path fill="#9da0a2" d="M721,373.1c-47.5-2.5-76.1,33.8-76.4,34.1l-0.2,0.2c-0.9,1-87.3,105.2-101.8,123.9l-0.2,0.4L542,532c-6,6.1-11.6,9.3-16.6,10.7c-0.6,26.5-1.8,70.7-1.8,70.7c0,0.4-0.1,0.7-0.1,1c0,9.7,3.9,15.2,22.3,16.5c11,0.9,185.7,5.9,198.9,5.7c11-0.2,19.6-1.1,29.2-12.3c11.4-13.4,69.1-117,72.6-126.1c0.8-6,4.2-66.8,7-118.7C799.1,376.9,744,374.4,721,373.1z M772.2,460.5c-4.5,13.8-24.1,81.4-24.1,81.4s-2.5,11.9-8.6,15.7c-6,4.2-17.5,3.1-17.5,3.1c-11.3-0.5-22.8-1-34.1-1.4c-18.7-0.6-64.1-2.5-68.1-2.6c-4.2,0-12.8-2-14.6-6.5c-2.4-5.9-0.1-13.2,1.6-19.1c2.2-7.9,4.7-15.7,6.9-23.5c4.7-16.5,9.4-32.9,14.5-49.3c2.4-8.1,3.1-16.3,10.2-22.3c7.5-6.4,16.9-5.6,26-5.4c8.8,0.2,17.7,0.3,26.4,0.5c18.6,0.6,37.1,1.5,55.7,2.3c5.6,0.3,11.1,0.5,16.8,0.9C778.5,435.2,776.8,446.7,772.2,460.5z"/>
+                <path fill="#9da0a2" d="M297.1,664.1c0,14.2,0,21.9,0,21.9L55.3,769.2l-1.3-7.4c-8-44.6-20-115.2-22-124.7H10c0,34,0,246.8,0,277.3h26.5c2.9-18.4,18.4-85.9,18.6-87l0.7-4.2c0,0,325.5-134.3,334.9-137.4c0-6.1,0-9,0-21.7H297.1z"/></svg>`; ]]]
+              ########################
+            styles: 
+              custom_fields:
+                icon_hue:
+                  [top: 9%, left: 35%, width: 3.55vw, position: absolute]
+            entity: cover.fibaro_system_fgrm223_roller_shutter_controller_3_level
+
+            style: |
+              :host {
+                transform: none;
+                left: 45.5%;
+                bottom: -3.5%;
+                width: 12%;
+              }
+              ha-card {
+                border-radius: 8px;
+                background: #2b2b2b;
+              }
+              :host .content {
+                margin: 0px;
+              }
+
+            tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: []
+                deviceID:
+                  - this
+                large: true
+                hide_header: true
                 style:
-                  background: 'rgba(255, 255, 255, 0.5)'
-                  right: 50px
-                  bottom: 25px
-                tap_action:
-                  action: call-service
-                  service: foscam.ptz
-                  service_data:
-                    entity_id: camera.foscam_camera
-                    movement: left
-                    travel_time: 0.25
-              - type: icon
-                icon: 'mdi:arrow-right'
-                style:
-                  background: 'rgba(255, 255, 255, 0.5)'
-                  right: 0px
-                  bottom: 25px
-                tap_action:
-                  action: call-service
-                  service: foscam.ptz
-                  service_data:
-                    entity_id: camera.foscam_camera
-                    movement: right
-                    travel_time: 0.25
-              - type: icon
-                icon: 'mdi:arrow-top-left'
-                style:
-                  background: 'rgba(255, 255, 255, 0.5)'
-                  right: 50px
-                  bottom: 50px
-                tap_action:
-                  action: call-service
-                  service: foscam.ptz
-                  service_data:
-                    entity_id: camera.foscam_camera
-                    movement: top_left
-                    travel_time: 0.25
-              - type: icon
-                icon: 'mdi:arrow-top-right'
-                style:
-                  background: 'rgba(255, 255, 255, 0.5)'
-                  right: 0px
-                  bottom: 50px
-                tap_action:
-                  action: call-service
-                  service: foscam.ptz
-                  service_data:
-                    entity_id: camera.foscam_camera
-                    movement: top_right
-                    travel_time: 0.25
-              - type: icon
-                icon: 'mdi:arrow-bottom-left'
-                style:
-                  background: 'rgba(255, 255, 255, 0.5)'
-                  right: 50px
-                  bottom: 0px
-                tap_action:
-                  action: call-service
-                  service: foscam.ptz
-                  service_data:
-                    entity_id: camera.foscam_camera
-                    movement: bottom_left
-                    travel_time: 0.25
-              - type: icon
-                icon: 'mdi:arrow-bottom-right'
-                style:
-                  background: 'rgba(255, 255, 255, 0.5)'
-                  right: 0px
-                  bottom: 0px
-                tap_action:
-                  action: call-service
-                  service: foscam.ptz
-                  service_data:
-                    entity_id: camera.foscam_camera
-                    movement: bottom_right
-                    travel_time: 0.25
+                  $: |
+                    .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
+                      border-radius: 25px;
+                    }
+                  .: |
+                    :host {
+                      --mdc-theme-surface: rgba(0,0,0,0);
+                      --secondary-background-color: rgba(0,0,0,0.5);
+                      --ha-card-background: rgba(0,0,0,0.5);
+                    }
+                    :host .content {
+
+                      margin: 0px;
+                    }
+                card:
+                  type: picture-elements
+                  entity: camera.foscam_camera
+                  camera_image: camera.foscam_camera
+                  camera_view: live
+                  elements:
+                    - type: icon
+                      icon: 'mdi:arrow-up'
+                      style:
+                        background: 'rgba(255, 255, 255, 0.5)'
+                        right: 25px
+                        bottom: 50px
+                      tap_action:
+                        action: call-service
+                        service: foscam.ptz
+                        service_data:
+                          entity_id: camera.foscam_camera
+                          movement: up
+                          travel_time: 0.25
+                    - type: icon
+                      icon: 'mdi:arrow-down'
+                      style:
+                        background: 'rgba(255, 255, 255, 0.5)'
+                        right: 25px
+                        bottom: 0px
+                      tap_action:
+                        action: call-service
+                        service: foscam.ptz
+                        service_data:
+                          entity_id: camera.foscam_camera
+                          movement: down
+                          travel_time: 0.25
+                    - type: icon
+                      icon: 'mdi:arrow-left'
+                      style:
+                        background: 'rgba(255, 255, 255, 0.5)'
+                        right: 50px
+                        bottom: 25px
+                      tap_action:
+                        action: call-service
+                        service: foscam.ptz
+                        service_data:
+                          entity_id: camera.foscam_camera
+                          movement: left
+                          travel_time: 0.25
+                    - type: icon
+                      icon: 'mdi:arrow-right'
+                      style:
+                        background: 'rgba(255, 255, 255, 0.5)'
+                        right: 0px
+                        bottom: 25px
+                      tap_action:
+                        action: call-service
+                        service: foscam.ptz
+                        service_data:
+                          entity_id: camera.foscam_camera
+                          movement: right
+                          travel_time: 0.25
+                    - type: icon
+                      icon: 'mdi:arrow-top-left'
+                      style:
+                        background: 'rgba(255, 255, 255, 0.5)'
+                        right: 50px
+                        bottom: 50px
+                      tap_action:
+                        action: call-service
+                        service: foscam.ptz
+                        service_data:
+                          entity_id: camera.foscam_camera
+                          movement: top_left
+                          travel_time: 0.25
+                    - type: icon
+                      icon: 'mdi:arrow-top-right'
+                      style:
+                        background: 'rgba(255, 255, 255, 0.5)'
+                        right: 0px
+                        bottom: 50px
+                      tap_action:
+                        action: call-service
+                        service: foscam.ptz
+                        service_data:
+                          entity_id: camera.foscam_camera
+                          movement: top_right
+                          travel_time: 0.25
+                    - type: icon
+                      icon: 'mdi:arrow-bottom-left'
+                      style:
+                        background: 'rgba(255, 255, 255, 0.5)'
+                        right: 50px
+                        bottom: 0px
+                      tap_action:
+                        action: call-service
+                        service: foscam.ptz
+                        service_data:
+                          entity_id: camera.foscam_camera
+                          movement: bottom_left
+                          travel_time: 0.25
+                    - type: icon
+                      icon: 'mdi:arrow-bottom-right'
+                      style:
+                        background: 'rgba(255, 255, 255, 0.5)'
+                        right: 0px
+                        bottom: 0px
+                      tap_action:
+                        action: call-service
+                        service: foscam.ptz
+                        service_data:
+                          entity_id: camera.foscam_camera
+                          movement: bottom_right
+                          travel_time: 0.25
 
 
 
 
 
-####  SCROLLING INFOTEXT   RIMOSSO PER TEST 
-#
-#    - type: custom:button-card
-#      tap-action:
-#        action: none
-#      hold-action:
-#        action: none
-#      style: |
-#        :host {
-#          transform: none !important;
-#          left: 0%;
-#          bottom: 0%;
-#          width: 100%;
-#        }
-#        ha-card.button-card-main {
-#          padding: 0px !important;
-#        }
-#        .ellipsis {
-#          justify-self: auto !important;
-#          margin: inherit;
-#          height: 30px;
-#        }
-#        span.dispositivo {
-#          color: red;
-#        }
-#        .scrolling-text {
-#          font-size: 14px;
-#          color: #FFF;
-#          position: absolute;
-#          width: 100%;
-#          height: 30px;
-#          overflow: hidden;
-#          margin: 0;
-#          line-height: 30px;
-#          text-align: left;
-#          /* Starting position */
-#          transform:translate3d(100%,0,0);
-#          /* Apply animation to this element */  
-#          animation: scrolling-text 20s linear infinite;
-#        }
-#        @keyframes scrolling-text {
-#          0%   { 
-#          transform: translate3d(100%,0,0);       
-#          }
-#          80% { 
-#          transform: translate3d(0%,0,0); 
-#          }
-#          90% { 
-#            transform: translate3d(0%,0,0); 
-#            }
-#          100% { 
-#            transform: translate3d(0%,100%,0); 
-#            }
-#        } 
-#      name: >
-#        [[[return `<div class="scrolling-text">Infotext -- ${states['sensor.frase_resoconto_spotify'].state} </div>`]]]
+        ####  SCROLLING INFOTEXT   RIMOSSO PER TEST 
+          #
+          #    - type: custom:button-card
+          #      tap-action:
+          #        action: none
+          #      hold-action:
+          #        action: none
+          #      style: |
+          #        :host {
+          #          transform: none !important;
+          #          left: 0%;
+          #          bottom: 0%;
+          #          width: 100%;
+          #        }
+          #        ha-card.button-card-main {
+          #          padding: 0px !important;
+          #        }
+          #        .ellipsis {
+          #          justify-self: auto !important;
+          #          margin: inherit;
+          #          height: 30px;
+          #        }
+          #        span.dispositivo {
+          #          color: red;
+          #        }
+          #        .scrolling-text {
+          #          font-size: 14px;
+          #          color: #FFF;
+          #          position: absolute;
+          #          width: 100%;
+          #          height: 30px;
+          #          overflow: hidden;
+          #          margin: 0;
+          #          line-height: 30px;
+          #          text-align: left;
+          #          /* Starting position */
+          #          transform:translate3d(100%,0,0);
+          #          /* Apply animation to this element */  
+          #          animation: scrolling-text 20s linear infinite;
+          #        }
+          #        @keyframes scrolling-text {
+          #          0%   { 
+          #          transform: translate3d(100%,0,0);       
+          #          }
+          #          80% { 
+          #          transform: translate3d(0%,0,0); 
+          #          }
+          #          90% { 
+          #            transform: translate3d(0%,0,0); 
+          #            }
+          #          100% { 
+          #            transform: translate3d(0%,100%,0); 
+          #            }
+          #        } 
+          #      name: >
+          #        [[[return `<div class="scrolling-text">Infotext -- ${states['sensor.frase_resoconto_spotify'].state} </div>`]]]
 
 
 
+      ################### TAVERNA  P -1 ######################
+      - type: picture-elements
+        image: /local/ui/home/taverna/main.png
+        elements:
+          - type: image
+            entity: light.cielo_rgb_light
+            hold_action:
+              action: none
+            image: /local/ui/home/taverna/cielo.png
+            state_filter:
+              'off': opacity(0%)
+              'on': opacity(100%)
+            style:
+              left: 50%
+              
+              top: 50%
+              width: 100%
+            tap_action:
+              action: none
+          - type: image
+            entity: light.torre_1
+            hold_action:
+              action: none
+            image: /local/ui/home/taverna/torreSopra.png
+            state_filter:
+              'off': opacity(0%)
+              'on': opacity(100%)
+            style:
+              left: 50%
+              
+              top: 50%
+              width: 100%
+            tap_action:
+              action: none
+          - type: image
+            entity: light.torre_2
+            hold_action:
+              action: none
+            image: /local/ui/home/taverna/torreSotto.png
+            state_filter:
+              'off': opacity(0%)
+              'on': opacity(100%)
+            style:
+              left: 50%
+              
+              top: 50%
+              width: 100%
+            tap_action:
+              action: none 
+          - type: image
+            entity: input_boolean.home_theatre_switch
+            hold_action:
+              action: none
+            image: /local/ui/home/taverna/epson.png
+            state_filter:
+              'off': opacity(0%)
+              'on': opacity(100%)
+            style:
+              left: 50%
+              
+              top: 50%
+              width: 100%
+            tap_action:
+              action: none 
+              
+          - type: custom:config-template-card
+            style:
+              left: 50%              
+              top: 50%
+              width: 100%
+              mix-blend-mode: screen
+              
+           
+            variables:
+              shield_state: states['media_player.nvidiashield'].attributes['app_id']
+            entities: 
+              - media_player.nvidiashield
+            card:
+              type: picture
+              entity: media_player.nvidiashield
+              hold_action:
+                action: none
+              image: >-                
+                ${ if (shield_state == 'com.netflix.ninja') '/local/ui/home/taverna/netflix.png';
+                      else if (shield_state == 'com.amazon.amazonvideo.livingroom') '/local/ui/home/taverna/primeVideo.png';
+                      else '/local/ui/home/taverna/emby.png'; }
+              state_filter:
+                'off': opacity(0%)
+                'on': opacity(100%)
+              tap_action:
+                action: none  
+              style: |
+                ha-card {
+                background-color: rgba(0,0,0,0) !important;
+                
+                 }
 
 
+          - type: image
+            entity: light.cielo_rgb_light
+            <<: *lightStateImage 
+            <<: *lightIconActions
+            style: 
+              <<: *lightIconCommonStyle
+              left: 48%
+              top: 36%
+          - type: image
+            entity: light.torre_1
+            <<: *lightStateImage 
+            <<: *lightIconActions
+            style: 
+              <<: *lightIconCommonStyle
+              left: 57%
+              top: 13%    
+          - type: image
+            entity: light.torre_2
+            <<: *lightStateImage 
+            <<: *lightIconActions
+            style: 
+              <<: *lightIconCommonStyle
+              left: 57%
+              top: 58%            
 
 
 

@@ -1,5 +1,9 @@
 digitalClock: true
 date: true
+width:
+  mobile: 0
+  tablet: 25
+  desktop: 25
 sidebarMenu:
   - action: navigate
     navigation_path: "/lovelace/home"

@@ -1,4 +1,6 @@
 - type: module
+  url: /local/jsModuliManuali/swipe-card.js
+- type: module
   url: /hacsfiles/button-card/button-card.js
 - type: module
   url: /hacsfiles/config-template-card/config-template-card.js    
@@ -35,7 +37,9 @@
 - type: module
   url: /local/jsModuliManuali/weather-card-chart.js
 - type: module
-  url: /local/jsModuliManuali/swipe-card.js
+  url: /hacsfiles/lovelace-card-templater/lovelace-card-templater.js
+  
+  
 #https://github.com/PiotrMachowski/lovelace-html-card   
 - type: module
   url: /local/jsModuliManuali/html-card.js 

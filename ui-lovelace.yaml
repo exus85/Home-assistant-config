@@ -41,7 +41,7 @@ views:
      
 ########################### SCHEDA METEO ###################################
   - title: Meteo
-    path: meteo
+    path: meteo 
     panel: true
     badges: []
     cards: 
@@ -63,4 +63,4 @@ views:
       - !include /config/www/monitoring.yaml                                                                              
                                                                                                                                                           
                                                                                 
-                                                                                           
+                                                                                                                                                            
