@@ -54,7 +54,7 @@ views:
     badges: []
     cards:   
       - !include /config/www/dispositivi.yaml 
-########################### SCHEDA TAVERNA #################################
+########################### SCHEDA MONITORING #################################
   - title: Monitoring  
     path: monitoring  
     panel: true
