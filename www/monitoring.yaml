@@ -461,10 +461,9 @@ card:
                       margin-right: 50%;
                     }
                 tap_action:
-                  action: call-service
-                  service: browser_mod.popup
-                  service_data:
-                    title: []
+                  action: fire-dom-event
+                  browser_mod: 
+                    command: popup
                     deviceID:
                       - this
                     large: true
@@ -502,10 +501,9 @@ card:
                       margin-right: 50%;
                     }
                 tap_action:
-                  action: call-service
-                  service: browser_mod.popup
-                  service_data:
-                    title: []
+                  action: fire-dom-event
+                  browser_mod: 
+                    command: popup
                     deviceID:
                       - this
                     large: true

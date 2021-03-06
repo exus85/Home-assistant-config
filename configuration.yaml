@@ -37,6 +37,8 @@ influxdb: !include www/configurations/influxdb.yaml
 #----------------------------------#
 logger:
   default: info
+  logs:
+    homeassistant.components.vacuum: debug
 #----------------------------------#
 #mercedesmeapi:
 #  username: !secret mercedes_user

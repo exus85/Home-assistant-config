@@ -34,9 +34,9 @@ light:
       transform: rotate(-90deg); transform-origin: 50% 50%; stroke-dasharray: ${circumference}; stroke-dashoffset: ${circumference - brightness / 100 * circumference};" />
       <text x="50%" y="54%" fill="#8d8e90" font-size="14" text-anchor="middle" alignment-baseline="middle">${brightness}<tspan font-size="10">%</tspan></text></svg>`; } ]]]
   hold_action:
-    action: call-service
-    service: browser_mod.popup
-    service_data:
+    action: fire-dom-event
+    browser_mod:
+      command: popup
       title: '[[[ return entity.attributes.friendly_name ]]]'
       deviceID: this
       hide_header: true
