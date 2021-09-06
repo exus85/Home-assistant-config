@@ -13,7 +13,7 @@ tts
 androidkeys
 node-red
 custom_components
-blueprints
+blueprints/*
 
 
 
@@ -27,6 +27,7 @@ mercedesme_status.json
 OZW_Log.txt
 home-assistant_v2.db
 home-assistant.log
+home-assistant.log.1
 zwcfg_0xc7e97c1e.xml
 zwscene.xml
 options.xml
