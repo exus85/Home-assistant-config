@@ -113,24 +113,52 @@
 
       rete_upload:
         friendly_name: "Velocità upload attuale totale"
-        value_template: "{{ ((state_attr('sensor.fritz_netmonitor','transmission_rate_up')) | int / 125000) | round (2)  }}"
+        value_template: "{{ ((states.sensor.fritz_box_3490_upload_throughput.state) | int / 125) | round (2)  }}"
         unit_of_measurement: Mbit/s
       rete_download:
         friendly_name: "Velocità download attuale totale"
-        value_template: "{{ ((state_attr('sensor.fritz_netmonitor','transmission_rate_down')) | int / 125000) | round (2)  }}"
+        value_template: "{{ ((states.sensor.fritz_box_3490_download_throughput.state) | int / 125) | round (2)  }}"
         unit_of_measurement: Mbit/s
       rete_gb_scaricati:
         friendly_name: GB scaricati durante questa connessione
-        value_template: "{{ ((state_attr('sensor.fritz_netmonitor','bytes_received')) | int / 1073741824) | round (1)  }}"
+        value_template: "{{ ((states.sensor.fritz_box_3490_gb_received.state) ) | round (2)  }}"
         unit_of_measurement: GB
       rete_gb_inviati:
         friendly_name: GB inviati durante questa connessione
-        value_template: "{{ ((state_attr('sensor.fritz_netmonitor','bytes_sent')) | int / 1073741824) | round (1)  }}"
+        value_template: "{{ ((states.sensor.fritz_box_3490_gb_sent.state) ) | round (2)  }}"
         unit_of_measurement: GB
       rete_uptime:
         friendly_name: Uptime minuti fritbox
-        value_template: "{{ (state_attr('sensor.fritz_netmonitor','uptime') | int / 60) | round (0)  }}"
-        unit_of_measurement: days
+        value_template: >-
+          {% set up_time =  as_timestamp(now()) - as_timestamp(states('sensor.fritz_box_3490_connection_uptime')) %}
+
+          {% if up_time == 0 %}
+            Just restarted...
+          {% else %}
+            {% set minutes = (up_time // 60) | int %}
+            {% set hours = (minutes // 60) %}
+            {% set days = (hours // 24) %}
+            {% set weeks = (days // 7) %}
+
+            {% set minutes = (minutes % 60) %}
+            {% set hours =  (hours % 24) %}
+            {% set days = (days % 7) %}
+
+            {% macro phrase(value, name) %}
+                      {%- set value = value %}
+                      {%- set end = '0' if value < 10 else '' %}
+                      {{- '{}{}{}'.format(end, value, name) if value | int > 0 else '' }}
+            {%- endmacro %}
+
+            {% set text = [ phrase(weeks, 'w'), phrase(days, 'd'), phrase(hours, 'h'), phrase(minutes, 'm') ] | select('!=','') | list | join(' ') %}
+            {% set last_comma = text.rfind('') %}
+            {% if last_comma != -1 %}
+              {% set text = text[:last_comma] + '' + text[last_comma + 1:] %}
+            {% endif %}
+
+          {{ text }}
+
+          {% endif %}
       qnas_uptime:
         friendly_name: Uptime
         value_template: "{{ state_attr('sensor.qnas_status','Uptime') }}"        

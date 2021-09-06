@@ -552,7 +552,7 @@ card:
 
               - type: entities                  
                 entities:
-                  - entity: sensor.fttc_uptime_templated
+                  - entity: sensor.rete_uptime
                     name: FTTC attiva da
                     icon: mdi:wan
                   - entity: sensor.qnas_uptime

@@ -77,11 +77,7 @@ spotcast:
 tts:
   - platform: google_translate
 #----------------------------------#
-#device_tracker:
-#  - platform: fritz
-#    host: !secret ip_fritz
-#    username: !secret fritz_user
-#    password: !secret fritz_psw
+
 #----------------------------------#
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:

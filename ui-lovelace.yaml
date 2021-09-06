@@ -62,5 +62,5 @@ views:
     cards:
       - !include /config/www/monitoring.yaml                                                                              
                                                                                                                                                           
-                                                                                
+                                                                                 
                    
