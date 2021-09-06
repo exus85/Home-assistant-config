@@ -13,6 +13,7 @@ tts
 androidkeys
 node-red
 custom_components
+blueprints
 
 
 
@@ -37,3 +38,4 @@ home-assistant_v2.db-wal
 ip_bans.yaml
 secrets.yaml
 known_devices.yaml
+scenes.yaml

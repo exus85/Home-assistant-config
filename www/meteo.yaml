@@ -18,6 +18,7 @@ elements:
         :host {
           transform: none !important;
           top: 0%;
+          width: 100%;
         }
         .card-header {
           display: none

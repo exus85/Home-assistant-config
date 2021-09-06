@@ -20,7 +20,7 @@ script: !include www/configurations/scripts.yaml
 sensor: !include www/configurations/sensors.yaml
 light: !include www/configurations/lights.yaml
 group: !include www/configurations/groups.yaml
-zwave: !include www/configurations/zwave.yaml
+#zwave: !include www/configurations/zwave.yaml
 cover: !include www/configurations/tapparelle.yaml
 media_player: !include www/configurations/media_players.yaml
 #----------------------------------------------------------------#
@@ -45,9 +45,11 @@ logger:
 #  password: !secret mercedes_password
 #  pin: !secret mercedes_pin
 #----------------------------------#
-variable:
-  nome_salvato:
-    value: ' '
+
+
+#variable:
+#  nome_salvato:
+#    value: ' '
 #----------------------------------#
 
 spotify:
@@ -58,25 +60,28 @@ spotcast:
   sp_dc: !secret sp_dc
   sp_key: !secret sp_key
 #----------------------------------#
-panel_custom:
-  - name: zwave-graph-panel
-    url_path: zwave-graph
-    sidebar_title: Z-Wave Graph
-    sidebar_icon: mdi:z-wave
-    module_url: /local/jsModuliManuali/zwavegraph3.js
-    config:
-      # ranker - pick one: network-simplex, tight-tree, longest-path
-      ranker: network-simplex
-      # edge_visibility - pick one: relevant, all
-      edge_visibility: relevant
-      # grouping - pick one: z-wave, ungrouped
-      grouping: z-wave
+#panel_custom:
+#  - name: zwave-graph-panel
+#    url_path: zwave-graph
+#    sidebar_title: Z-Wave Graph
+#    sidebar_icon: mdi:z-wave
+#    module_url: /local/jsModuliManuali/zwavegraph3.js
+#    config:
+#      # ranker - pick one: network-simplex, tight-tree, longest-path
+#      ranker: network-simplex
+#      # edge_visibility - pick one: relevant, all
+#      edge_visibility: relevant
+#      # grouping - pick one: z-wave, ungrouped
+#      grouping: z-wave
 #----------------------------------#
 tts:
   - platform: google_translate
 #----------------------------------#
-device_tracker:
-  - platform: fritz
+#device_tracker:
+#  - platform: fritz
+#    host: !secret ip_fritz
+#    username: !secret fritz_user
+#    password: !secret fritz_psw
 #----------------------------------#
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
@@ -98,10 +103,10 @@ binary_sensor:
   - platform: uptimerobot
     api_key: !secret uptimeRobotKey
 
-vacuum:
-  - platform: xiaomi_miio
-    host: !secret ip_vacuum
-    token: !secret roborockToken
+#vacuum:
+#  - platform: xiaomi_miio
+#    host: !secret ip_vacuum
+#    token: !secret roborockToken
 
 input_text:
   room_cleaning:

@@ -42,55 +42,77 @@ spegni_il_cinema:
         entity_id: media_player.nvidiashield
         command: "SLEEP"
 
+luci_cinema:
+  alias: "Imposta luci modalità cinema"
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.bulb_6_multi_color_2
+          - light.bulb_6_multi_color
+        rgb_color: [153, 0, 153]
+        brightness: 255
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.bulb_6_multi_color_3
+          - light.bulb_6_multi_color_4
+        rgb_color: [255, 51, 0]
+        brightness: 255        
+    - service: light.turn_on
+      data:
+        entity_id: light.cielo_rgb_light
+        rgb_color: [204,0,204]
+        brightness: 255
 
 
 ############## FIX AEOTEC ZWAVE BULB NON AGGIORNA COLORE 
-aggiorna_colore_luce_1:
-  alias: "Aggiorna il colore della luce rgb zwave 1"
-  sequence:
-    - condition: template
-      value_template: '{{ (states.sensor.minuti_da_restart.state) | int > 5 }}'
-    - delay:
-        seconds: 7
-    - service: zwave.refresh_entity
-      data_template:
-        entity_id: 'light.aeotec_limited_zwa002_led_bulb_6_multi_color_level'
+#aggiorna_colore_luce_1:
+#  alias: "Aggiorna il colore della luce rgb zwave 1"
+#  sequence:
+#    - condition: template
+#      value_template: '{{ (states.sensor.minuti_da_restart.state) | int > 5 }}'
+#    - delay:
+#        seconds: 7
+#    - service: zwave.refresh_entity
+#      data_template:
+#        entity_id: 'light.aeotec_limited_zwa002_led_bulb_6_multi_color_level'
 
 
-aggiorna_colore_luce_2:
-  alias: "Aggiorna il colore della luce rgb zwave 2"
-  sequence:
-    - condition: template
-      value_template: '{{ (states.sensor.minuti_da_restart.state) | int > 5 }}'
-    - delay:
-        seconds: 8
-    - service: zwave.refresh_entity
-      data_template:
-        entity_id: 'light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_2'
+#aggiorna_colore_luce_2:
+#  alias: "Aggiorna il colore della luce rgb zwave 2"
+#  sequence:
+#    - condition: template
+#      value_template: '{{ (states.sensor.minuti_da_restart.state) | int > 5 }}'
+#    - delay:
+#        seconds: 8
+#    - service: zwave.refresh_entity
+#      data_template:
+#        entity_id: 'light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_2'
 
 
-aggiorna_colore_luce_3:
-  alias: "Aggiorna il colore della luce rgb zwave 3"
-  sequence:
-    - condition: template
-      value_template: '{{ (states.sensor.minuti_da_restart.state) | int > 5 }}'
-    - delay:
-        seconds: 9
-    - service: zwave.refresh_entity
-      data_template:
-        entity_id: 'light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_3'
+#aggiorna_colore_luce_3:
+#  alias: "Aggiorna il colore della luce rgb zwave 3"
+#  sequence:
+#    - condition: template
+#      value_template: '{{ (states.sensor.minuti_da_restart.state) | int > 5 }}'
+#    - delay:
+#        seconds: 9
+#    - service: zwave.refresh_entity
+#      data_template:
+#        entity_id: 'light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_3'
 
 
-aggiorna_colore_luce_4:
-  alias: "Aggiorna il colore della luce rgb zwave 4"
-  sequence:
-    - condition: template
-      value_template: '{{ (states.sensor.minuti_da_restart.state) | int > 5 }}'
-    - delay:
-        seconds: 10
-    - service: zwave.refresh_entity
-      data_template:
-        entity_id: 'light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_4'
+#aggiorna_colore_luce_4:
+#  alias: "Aggiorna il colore della luce rgb zwave 4"
+#  sequence:
+#    - condition: template
+#      value_template: '{{ (states.sensor.minuti_da_restart.state) | int > 5 }}'
+#    - delay:
+#        seconds: 10
+#    - service: zwave.refresh_entity
+#      data_template:
+#        entity_id: 'light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_4'
 
 
 ############## QUESTI SCRIPT NON LI STO USANDO

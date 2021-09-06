@@ -1,10 +1,10 @@
 Torri:
   name: Torri
   entities:
-    - light.aeotec_limited_zwa002_led_bulb_6_multi_color_level
-    - light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_2
-    - light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_3
-    - light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_4
+    - light.bulb_6_multi_color_2
+    - light.bulb_6_multi_color
+    - light.bulb_6_multi_color_3
+    - light.bulb_6_multi_color_4
 VanoScala:
   name: Vano scala
   entities:
@@ -32,6 +32,6 @@ Luci_taverna:
 Tapparelle:
   name: Tapparelle
   entities:
-    - cover.fibaro_system_fgrm223_roller_shutter_controller_3_level
-    - cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_2
-    - cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_3
+    - cover.roller_shutter_3
+    - cover.roller_shutter_3_3
+    - cover.roller_shutter_3_4                 

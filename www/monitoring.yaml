@@ -166,7 +166,10 @@ card:
 
         ########### PRIMA COLONNA
           - type: custom:layout-card
-            layout: vertical
+            layout_type: custom:vertical-layout
+            layout:
+              max_cols: 1
+              width: 220
             style:
               transform: none
               left: 1%
@@ -202,33 +205,33 @@ card:
                 style:
                   *graph_style_dsl
 
-              - type: custom:mini-graph-card
-                icon: mdi:signal-4g
-                name: LTE Download/Upload ultima ora            
-                entities:          
-                  - entity: sensor.rete_lte_download_current
-                    name: LTE DL
-                    show_state: true
-                    show_legend: false
-                    state_adaptive_color: true
-                  - entity: sensor.rete_lte_upload_current
-                    name: LTE UP
-                    show_state: true
-                    show_legend: false
-                    state_adaptive_color: true
-                    color: *graph_color_secondary_fixed
-                <<: *graph_common_1
-                color_thresholds:
-                  - value: 5
-                    color: *graph_color_1
-                  - value: 10
-                    color: *graph_color_2
-                  - value: 15
-                    color: *graph_color_3
-                  - value: 25
-                    color: *graph_color_4
-                style:
-                  *graph_style_dsl
+#              - type: custom:mini-graph-card
+#                icon: mdi:signal-4g
+#                name: LTE Download/Upload ultima ora            
+#                entities:          
+#                  - entity: sensor.rete_lte_download_current
+#                    name: LTE DL
+#                    show_state: true
+#                    show_legend: false
+#                    state_adaptive_color: true
+#                  - entity: sensor.rete_lte_upload_current
+#                    name: LTE UP
+#                    show_state: true
+#                    show_legend: false
+#                    state_adaptive_color: true
+#                    color: *graph_color_secondary_fixed
+#                <<: *graph_common_1
+#                color_thresholds:
+#                  - value: 5
+#                    color: *graph_color_1
+#                  - value: 10
+#                    color: *graph_color_2
+#                  - value: 15
+#                    color: *graph_color_3
+#                  - value: 25
+#                    color: *graph_color_4
+#                style:
+#                  *graph_style_dsl
               - type: custom:mini-graph-card
                 icon: mdi:nas
                 name: NAS Download/Upload ultima ora            
@@ -322,11 +325,53 @@ card:
                     color: *graph_color_4
                 style:
                   *graph_style_dsl  
+              - type: custom:button-card
+                entity: sensor.placeholder
+                name: Log Viewer
+                icon: mdi:shield-bug
+                aspect_ratio: 5/1
+                layout: icon_name
+                styles:
+                  card:
+                    - background-color: '#324A5F'
+                style: |
+                    .ellipsis {
+                      margin-right: 50%;
+                    }
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod: 
+                    command: popup
+                    deviceID:
+                      - this
+                    large: true
+                    hide_header: true
+                    style:
+                      $: |
+                        .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
+                          border-radius: 25px;
+                        }
+                      .: |
+                        :host {
+                          --mdc-theme-surface: rgba(0,0,0,0);
+                          --secondary-background-color: rgba(0,0,0,0.5);
+                          --ha-card-background: rgba(0,0,0,0.5);
+                        }
+                        :host .content {
+        
+                          margin: 0px;
+                        }
+                    card:
+                      type: iframe
+                      url: !secret log_viewer_url                  
 
         ######### SECONDA COLONNA
 
           - type: custom:layout-card
-            layout: vertical
+            layout_type: custom:vertical-layout
+            layout:
+              max_cols: 1
+              width: 220
             style:
               transform: none
               left: 32%
@@ -338,7 +383,7 @@ card:
                 icon: mdi:home
                 name: Consumo Watt Casa 24H
                 entities:          
-                  - entity: sensor.aeon_labs_zw095_home_energy_meter_gen5_power
+                  - entity: sensor.home_energy_meter_gen5_electric_consumed_w
                     name: Watt
                     show_state: true
                     show_legend: false
@@ -487,52 +532,17 @@ card:
                       type: iframe
                       url: !secret zwave_graph_url   
 
-              - type: custom:button-card
-                entity: sensor.placeholder
-                name: Log Viewer
-                icon: mdi:shield-bug
-                aspect_ratio: 5/1
-                layout: icon_name
-                styles:
-                  card:
-                    - background-color: '#324A5F'
-                style: |
-                    .ellipsis {
-                      margin-right: 50%;
-                    }
-                tap_action:
-                  action: fire-dom-event
-                  browser_mod: 
-                    command: popup
-                    deviceID:
-                      - this
-                    large: true
-                    hide_header: true
-                    style:
-                      $: |
-                        .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
-                          border-radius: 25px;
-                        }
-                      .: |
-                        :host {
-                          --mdc-theme-surface: rgba(0,0,0,0);
-                          --secondary-background-color: rgba(0,0,0,0.5);
-                          --ha-card-background: rgba(0,0,0,0.5);
-                        }
-                        :host .content {
-        
-                          margin: 0px;
-                        }
-                    card:
-                      type: iframe
-                      url: !secret log_viewer_url
+
 
 
 
 
         ########### TERZA COLONNA
           - type: custom:layout-card
-            layout: vertical
+            layout_type: custom:vertical-layout
+            layout:
+              max_cols: 1
+              width: 220
             style:
               transform: none
               left: 63.5%
@@ -560,12 +570,12 @@ card:
               - type: entities
                 style: *list_style_1
                 entities:
-                  - entity: sensor.rete_lte_download_month
-                    name: LTE download mensile
-                    icon: mdi:signal-4g
-                  - entity: sensor.rete_lte_upload_month
-                    name: LTE upload mensile
-                    icon: mdi:signal-4g
+                  - entity: sensor.rete_gb_scaricati
+                    name: FTTC download sessione
+                    icon: mdi:download-network-outline
+                  - entity: sensor.rete_gb_inviati
+                    name: FTTC upload sessione
+                    icon: mdi:upload-network-outline
                   - type: custom:template-entity-row
                     entity: binary_sensor.emby_check
                     name: Emby dns/vpn Link

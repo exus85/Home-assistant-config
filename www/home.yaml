@@ -258,7 +258,7 @@
 
 
           - type: 'custom:bar-card'
-            entity: sensor.aeon_labs_zw095_home_energy_meter_gen5_power
+            entity: sensor.home_energy_meter_gen5_electric_consumed_w
             max: 4500
             name: ""
             severity:
@@ -336,7 +336,7 @@
                     icon: mdi:home
                     name: Consumo Watt Casa 24H
                     entities:          
-                      - entity: sensor.aeon_labs_zw095_home_energy_meter_gen5_power
+                      - entity: sensor.home_energy_meter_gen5_electric_consumed_w
                         name: Watt
                         show_state: true
                         show_legend: false
@@ -590,7 +590,7 @@
           ######## TAPPARELLE ############
           - type: "custom:button-card"
             icon: mdi:blinds
-            entity: cover.fibaro_system_fgrm223_roller_shutter_controller_3_level
+            entity: cover.roller_shutter_3
             show_name: false
             show_icon: false
             aspect_ratio: 2/1
@@ -672,11 +672,11 @@
                   positionHeight: 325px
                   closedBaseline: 11
                   entities:
-                    - entity: cover.fibaro_system_fgrm223_roller_shutter_controller_3_level
+                    - entity: cover.roller_shutter_3
                       name: Soggiorno
-                    - entity: cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_2
+                    - entity: cover.roller_shutter_3_3
                       name: Studio
-                    - entity: cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_3                  
+                    - entity: cover.roller_shutter_3_4                 
                       name: Camera
       
             
@@ -705,7 +705,7 @@
               custom_fields:
                 icon_hue:
                   [top: 9%, left: 35%, width: 3.55vw, position: absolute]
-            entity: cover.fibaro_system_fgrm223_roller_shutter_controller_3_level
+            entity: cover.roller_shutter_3
 
             style: |
               :host {

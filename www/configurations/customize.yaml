@@ -11,4 +11,13 @@ sensor.aeon_labs_zw095_home_energy_meter_gen5_unknown_2:
   hidden: true
 
 
+#sensor.qnas_network_down_eth4:
+#  IP Address: 0.0.0.0
+#  Max Speed: 1000
+#sensor.qnas_network_down_eth5:
+#  IP Address: !secret ip_nas
+#  Mask: 255.255.255.0
+#  MAC Address: !secret mac_nas
+#  Max Speed: 10000
+
   

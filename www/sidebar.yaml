@@ -48,7 +48,9 @@ style: |
   
 bottomCard:
   type: custom:layout-card
-  layout: vertical
+  layout_type: custom:vertical-layout
+  layout:
+    max_cols: 1
   cardStyle: |
     :host {
       width: 100% !important;

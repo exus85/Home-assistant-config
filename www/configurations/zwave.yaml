@@ -1,3 +1,0 @@
-usb_path: /dev/ttyACM0
-device_config: !include zwave_device_config.yaml  #QUI IMPOSTA ENTITIES DA NASCONDERE
-polling_interval: 2857  #7 dispositivi da controllare con refresh ogni 20 secondi

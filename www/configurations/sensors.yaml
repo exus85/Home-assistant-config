@@ -1,11 +1,10 @@
   - platform: uptime
-    unit_of_measurement: minutes
     name: Minuti da restart
   - platform: uptime
-    unit_of_measurement: days
     name: Giorni da restart
   - platform: qnap
     host: !secret ip_nas
+    port: !secret qnap_port
     username: !secret qnap_user
     password: !secret qnap_psw
     monitored_conditions:
@@ -24,7 +23,8 @@
     display_options:
       - 'time'
       - 'date'
-  - platform: fritzbox_netmonitor
+  #- platform: fritzbox_netmonitor
+  #  host: !secret ip_fritz
 
   #- platform: openhardwaremonitor
   #  host: !secret ip_media_server
@@ -69,18 +69,18 @@
         friendly_name: "Liquido refrigerante"
         value_template: "{{ state_attr('binary_sensor.fe270je_engine_light_warning','warningcoolantlevellow') }}"
 
-      stato_luce_camera:
-        friendly_name: "Stato luce camera"
-        value_template: "{{ (states.switch.fibaro_system_fgs223_double_relay_switch_8.state) }}"
-      posizione_tapparella_soggiorno:
-        friendly_name: "Trigger tapparella posizione soggiorno"
-        value_template: "{{ state_attr('cover.fibaro_system_fgrm223_roller_shutter_controller_3_level','power_consumption') }}"
-      posizione_tapparella_studio:
-        friendly_name: "Trigger tapparella posizione studio"
-        value_template: "{{ state_attr('cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_2','power_consumption') }}"
-      posizione_tapparella_camera:
-        friendly_name: "Trigger tapparella posizione camera"
-        value_template: "{{ state_attr('cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_3','power_consumption') }}"
+      #stato_luce_camera:
+      #  friendly_name: "Stato luce camera"
+      #  value_template: "{{ (states.switch.fibaro_system_fgs223_double_relay_switch_8.state) }}"
+      #posizione_tapparella_soggiorno:
+      #  friendly_name: "Trigger tapparella posizione soggiorno"
+      #  value_template: "{{ state_attr('cover.fibaro_system_fgrm223_roller_shutter_controller_3_level','power_consumption') }}"
+      #posizione_tapparella_studio:
+      #  friendly_name: "Trigger tapparella posizione studio"
+      #  value_template: "{{ state_attr('cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_2','power_consumption') }}"
+      #posizione_tapparella_camera:
+      #  friendly_name: "Trigger tapparella posizione camera"
+      #  value_template: "{{ state_attr('cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_3','power_consumption') }}"
  
 
 
@@ -104,27 +104,29 @@
 
       qnas_network_down_mbps:
         friendly_name: "NAS Download Mbps"
-        value_template: "{{ ((states.sensor.qnas_network_down_eth4.state) | float * 8.388608) | round (2)  }}"
+        value_template: "{{ ((states.sensor.qnas_network_down_eth5.state) | float * 8.388608) | round (2)  }}"
         unit_of_measurement: Mbit/s
       qnas_network_up_mbps:
         friendly_name: "NAS Upload Mbps"
-        value_template: "{{ ((states.sensor.qnas_network_up_eth4.state) | float * 8.388608) | round (2)  }}"
+        value_template: "{{ ((states.sensor.qnas_network_up_eth5.state) | float * 8.388608) | round (2)  }}"
         unit_of_measurement: Mbit/s
 
       rete_upload:
         friendly_name: "Velocità upload attuale totale"
-        value_template: "{{ ((states.sensor.internetgatewaydevicev2_fritz_box_3490_kib_sec_sent.state) | int / 122.07031) | round (2)  }}"
+        value_template: "{{ ((state_attr('sensor.fritz_netmonitor','transmission_rate_up')) | int / 125000) | round (2)  }}"
         unit_of_measurement: Mbit/s
       rete_download:
         friendly_name: "Velocità download attuale totale"
-        value_template: "{{ ((states.sensor.internetgatewaydevicev2_fritz_box_3490_kib_sec_received.state) | int / 122.07031) | round (2)  }}"
+        value_template: "{{ ((state_attr('sensor.fritz_netmonitor','transmission_rate_down')) | int / 125000) | round (2)  }}"
         unit_of_measurement: Mbit/s
       rete_gb_scaricati:
         friendly_name: GB scaricati durante questa connessione
-        value_template: "{{ ((states.sensor.internetgatewaydevicev2_fritz_box_3490_bytes_received.state) | int / 1073741824) | round (1)  }}"
+        value_template: "{{ ((state_attr('sensor.fritz_netmonitor','bytes_received')) | int / 1073741824) | round (1)  }}"
+        unit_of_measurement: GB
       rete_gb_inviati:
         friendly_name: GB inviati durante questa connessione
-        value_template: "{{ ((states.sensor.internetgatewaydevicev2_fritz_box_3490_bytes_sent.state) | int / 1073741824) | round (1)  }}"
+        value_template: "{{ ((state_attr('sensor.fritz_netmonitor','bytes_sent')) | int / 1073741824) | round (1)  }}"
+        unit_of_measurement: GB
       rete_uptime:
         friendly_name: Uptime minuti fritbox
         value_template: "{{ (state_attr('sensor.fritz_netmonitor','uptime') | int / 60) | round (0)  }}"
@@ -134,13 +136,35 @@
         value_template: "{{ state_attr('sensor.qnas_status','Uptime') }}"        
       hassio_uptime_templated:
         value_template: >-
-          {% set uptime = states.sensor.minuti_da_restart.state | int %}
-          {% set minutes = ((uptime % 60) / 1) | int %} 
-          {% set hours = ((uptime % 1440) / 60) | int %}
-          {% set days = (uptime /1440) | int %}
-          {%- if days < 10 -%}0{{ days }}d{{ ' ' }}{%- endif -%}{%- if days >= 10 -%}{{ days }}d{{ ' ' }}{%- endif -%}
-          {%- if hours < 10 -%}0{{ hours }}h{{ ' ' }}{%- endif -%}{%- if hours >= 10 -%}{{ hours }}h{{ ' ' }}{%- endif -%}
-          {%- if minutes < 10 -%}0{{ minutes }}m{%- endif -%}{%- if minutes >= 10 -%}{{ minutes }}m{%- endif -%} 
+          {% set up_time =  as_timestamp(now()) - as_timestamp(states('sensor.hassio_uptime')) %}
+
+                  {% if up_time == 0 %}
+                    Just restarted...
+                  {% else %}
+                    {% set minutes = (up_time // 60) | int %}
+                    {% set hours = (minutes // 60) %}
+                    {% set days = (hours // 24) %}
+                    {% set weeks = (days // 7) %}
+
+                    {% set minutes = (minutes % 60) %}
+                    {% set hours =  (hours % 24) %}
+                    {% set days = (days % 7) %}
+
+                    {% macro phrase(value, name) %}
+                              {%- set value = value %}
+                              {%- set end = '0' if value < 10 else '' %}
+                              {{- '{}{}{}'.format(end, value, name) if value | int > 0 else '' }}
+                    {%- endmacro %}
+
+                    {% set text = [ phrase(weeks, 'w'), phrase(days, 'd'), phrase(hours, 'h'), phrase(minutes, 'm') ] | select('!=','') | list | join(' ') %}
+                    {% set last_comma = text.rfind('') %}
+                    {% if last_comma != -1 %}
+                      {% set text = text[:last_comma] + '' + text[last_comma + 1:] %}
+                    {% endif %}
+
+                  {{ text }}
+
+                  {% endif %}
 
       fttc_uptime_templated:
         value_template: >-

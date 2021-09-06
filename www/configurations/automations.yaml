@@ -72,25 +72,25 @@
         - light.cielo_rgb_light
 
     
-- alias: 'Luci cinema'
-  trigger:
-    platform: event
-    event_type: luci_cinema
-  action:
-    - service: light.turn_on
-      data:
-        entity_id:
-          - light.aeotec_limited_zwa002_led_bulb_6_multi_color_level
-          - light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_4
-        rgb_color: [153, 0, 153]
-        brightness: 255
-    - service: light.turn_on
-      data:
-        entity_id:
-          - light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_2
-          - light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_3
-        rgb_color: [255, 51, 0]
-        brightness: 255
+#- alias: 'Luci cinema'
+#  trigger:
+#    platform: event
+#    event_type: luci_cinema
+#  action:
+#    - service: light.turn_on
+#      data:
+#        entity_id:
+#          - light.aeotec_limited_zwa002_led_bulb_6_multi_color_level
+#          - light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_4
+#        rgb_color: [153, 0, 153]
+#        brightness: 255
+#    - service: light.turn_on
+#      data:
+#        entity_id:
+#          - light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_2
+#          - light.aeotec_limited_zwa002_led_bulb_6_multi_color_level_3
+#        rgb_color: [255, 51, 0]
+#        brightness: 255
 
 
 - alias: 'Play/resume mode'
@@ -245,37 +245,37 @@
 
 ############### FIX FIBARO ROLLER   #############
 
-- alias: 'aggiorna_posizione_cover_soggiorno'
-  trigger:
-  - platform: state
-    entity_id: sensor.posizione_tapparella_soggiorno
-    to: '0.0'
-  action:
-    - service: zwave.refresh_entity
-      data_template:
-        entity_id: 'cover.fibaro_system_fgrm223_roller_shutter_controller_3_level'
+#- alias: 'aggiorna_posizione_cover_soggiorno'
+#  trigger:
+#  - platform: state
+#    entity_id: sensor.posizione_tapparella_soggiorno
+#    to: '0.0'
+#  action:
+#    - service: zwave.refresh_entity
+#      data_template:
+#        entity_id: 'cover.fibaro_system_fgrm223_roller_shutter_controller_3_level'
 
 
-- alias: 'aggiorna_posizione_cover_studio'
-  trigger:
-  - platform: state
-    entity_id: sensor.posizione_tapparella_studio
-    to: '0.0'
-  action:
-    - service: zwave.refresh_entity
-      data_template:
-        entity_id: 'cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_2'
+#- alias: 'aggiorna_posizione_cover_studio'
+#  trigger:
+#  - platform: state
+#    entity_id: sensor.posizione_tapparella_studio
+#    to: '0.0'
+#  action:
+#    - service: zwave.refresh_entity
+#      data_template:
+#        entity_id: 'cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_2'
 
 
-- alias: 'aggiorna_posizione_cover_camera'
-  trigger:
-  - platform: state
-    entity_id: sensor.posizione_tapparella_camera
-    to: '0.0'
-  action:
-    - service: zwave.refresh_entity
-      data_template:
-        entity_id: 'cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_3'
+#- alias: 'aggiorna_posizione_cover_camera'
+#  trigger:
+#  - platform: state
+#    entity_id: sensor.posizione_tapparella_camera
+#    to: '0.0'
+#  action:
+#    - service: zwave.refresh_entity
+#      data_template:
+#        entity_id: 'cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_3'
 
 
 

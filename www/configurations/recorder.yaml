@@ -4,6 +4,13 @@ include:
     - media_player
     - weather
   entities:
+    - sensor.home_energy_meter_gen5_electric_consumed_kwh
+    - sensor.double_switch_2_electric_consumed_kwh_3
+    - sensor.double_switch_2_electric_consumed_kwh_5
+    - sensor.double_switch_2_electric_consumed_kwh
+    - sensor.double_switch_2_electric_consumed_kwh_4
+    - sensor.metered_wall_plug_switch_electric_consumed_kwh
+    - sensor.home_energy_meter_gen5_electric_consumed_w
     - sensor.aeon_labs_zw095_home_energy_meter_gen5_power
     - sensor.aeon_labs_zw095_home_energy_meter_gen5_energy
     - sensor.aeon_labs_zw095_home_energy_meter_gen5_previous_reading
@@ -13,6 +20,8 @@ include:
     - sensor.qnas_memory_usage
     - sensor.qnas_network_down_eth4
     - sensor.qnas_network_up_eth4
+    - sensor.qnas_network_down_eth5
+    - sensor.qnas_network_up_eth5  
     - sensor.qnas_status
     - sensor.qnas_used_space_datavol1
     - sensor.qnas_system_temperature
@@ -21,6 +30,7 @@ include:
     - sensor.qnas_network_up_mbps
     - sensor.rete_upload
     - sensor.rete_download
+    - sensor.fritz_netmonitor
     - sensor.inside_temperature_soggiorno_inside_temperature
     - sensor.cpu_temperature
     - sensor.internetgatewaydevicev2_fritz_box_3490_kib_sec_received
