@@ -1,0 +1,35 @@
+  - platform: switch
+    name: camera
+    entity_id: switch.double_switch_2_5
+  - platform: switch
+    name: Luce dello studio
+    entity_id: switch.double_switch_2_4
+  - platform: switch
+    name: Lampada dello studio
+    entity_id: switch.double_switch_2_2_3
+  - platform: switch
+    name: Faretti
+    entity_id: switch.double_switch_2_2_5
+  - platform: switch
+    name: Luce del tavolo
+    entity_id: switch.double_switch_2_6
+  - platform: switch
+    name: Luce del bagno
+    entity_id: switch.double_switch_2_2_2
+  - platform: switch
+    name: Luce del corridoio
+    entity_id: switch.double_switch_2_3
+  - platform: switch
+    name: Luce della scala
+    entity_id: switch.double_switch_2
+  - platform: group
+    name: Torre 1
+    entities:
+      - light.bulb_6_multi_color_3
+      - light.bulb_6_multi_color
+  - platform: group
+    name: Torre 2
+    entities:
+      - light.bulb_6_multi_color_2
+      - light.bulb_6_multi_color_4
+

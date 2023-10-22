@@ -1,0 +1,156 @@
+##### !!! I SENSORI TEMPLATE ORA SONO IN TEMPLATES.YAML !!! #####
+##### !!! I SENSORI TEMPLATE ORA SONO IN TEMPLATES.YAML !!! #####
+
+
+#  - platform: uptime
+#    name: Minuti da restart
+#  - platform: uptime
+#    name: Giorni da restart
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+
+
+
+
+  - platform: tautulli
+    api_key: !secret tautulli_key
+    host: !secret ip_media_server
+
+#  - platform: systemmonitor
+#    resources:
+#      - type: memory_use
+#      - type: memory_free
+#      - type: load_5m
+#      - type: load_15m
+#      - type: processor_use
+#      - type: processor_temperature
+#      - type: last_boot
+
+#  - platform: netdata
+#    host: !secret ip_nas
+#    port: !secret netdata_port
+#    name: qnas
+#    resources:
+#      nas_uptime:
+#        data_group: system.uptime
+#        element: uptime
+#      nas_system_load1:
+#        data_group: system.load
+#        element: load1
+#      nas_system_load5:
+#        data_group: system.load
+#        element: load5       
+#      nas_download:
+#        data_group: net.eth5
+#        element: received
+#      nas_upload:
+#        data_group: net.eth5
+#        element: sent
+#      nas_hdd_available:
+#        data_group: disk_space._share_cachedev1_data
+#        element: avail
+#      nas_hdd_used:
+#        data_group: disk_space._share_cachedev1_data
+#        element: used
+
+  - platform: unifigateway
+    host: !secret ip_dreammachine
+    username: !secret user_dreammachine
+    password: !secret psw_dreammachine
+    port: 443
+    version: UDMP-unifiOS
+    monitored_conditions:
+      - www
+      - wlan
+      - firmware
+      - wan
+      - lan
+
+
+
+####### USED FOR EVOTRANSPIRATION CALC ########
+
+#max outdoor temp over the last 24h
+#  - platform: statistics
+#    name: "outdoor max temp 24h"
+#    entity_id: sensor.outdoor_temperature
+#    state_characteristic: value_max
+#    sampling_size: 1500
+#    max_age:
+#      hours: 24
+#min outdoor temp over the last 24h    
+#  - platform: statistics
+#    name: "outdoor min temp 24h"
+#    entity_id: sensor.outdoor_temperature
+#    state_characteristic: value_min
+#    sampling_size: 1500
+#    max_age:
+#      hours: 24 
+#average temp over the last 24h
+#  - platform: statistics
+#    name: "outdoor mean temp 24h"
+#    entity_id: sensor.outdoor_temperature
+#    state_characteristic: average_linear
+#    sampling_size: 1500
+#    max_age:
+#      hours: 24  
+#average dewpoint over the last 24h
+#  - platform: statistics
+#    name: outdoor mean dewpoint 24h
+#    entity_id: sensor.dewpoint
+#    state_characteristic: average_linear
+#    sampling_size: 1500
+#    max_age:
+#      hours: 24
+#average solar radiation over the last 24h ( W/m^2 )  
+#  - platform: statistics  #This sensor is Optional!
+#    name: outdoor mean solar radiation 24h
+#    entity_id: sensor.solar_radiation
+#    state_characteristic: average_linear
+#    sampling_size: 1500
+#    max_age:
+#      hours: 24
+
+###############################################
+      
+  - platform: statistics
+    name: outdoor mean pressure 24h
+    entity_id: sensor.relative_pressure
+    state_characteristic: average_linear
+    sampling_size: 1500
+    max_age:
+      hours: 24            
+
+  - platform: statistics
+    name: "outdoor max humidity 24h"
+    entity_id: sensor.humidity
+    state_characteristic: value_max
+    sampling_size: 1500
+    max_age:
+      hours: 24        
+  - platform: statistics
+    name: "outdoor min humidity 24h"
+    entity_id: sensor.humidity
+    state_characteristic: value_min
+    sampling_size: 1500
+    max_age:
+      hours: 24   
+  - platform: statistics
+    name: "outdoor mean humidity 24h"
+    entity_id: sensor.humidity
+    state_characteristic: average_linear
+    sampling_size: 1500
+    max_age:
+      hours: 24
+
+
+
+  - platform: average
+    name: outdoor temp advanced
+    duration:
+      days: 1
+    entities:
+      - sensor.outdoor_temperature
+

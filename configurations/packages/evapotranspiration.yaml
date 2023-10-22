@@ -1,0 +1,236 @@
+#########################################             EVAPOTRANSPIRATION CALC        ####################################################
+#                                                                                                                                       #
+#                                                                                                                                       #
+#                                                       Requirements:                                                                   #
+#                    1)                   !!!- 5 Required sensors (see below)  -!!!                                                     #
+#                    2)                   1 Optional sensor (solar radiation sensor)                                                    #
+#                    3)  HACS average sensor integration https://github.com/Limych/ha-average (you can use native statistics platform)  #
+#                                                                                                                                       #
+#     Required sensors:                                                                                                                 #
+#     sensor.outdoor_temperature C° 1-> sensor.outdoor_mean_temp_24h 2-> sensor.outdoor_min_temp_24h 3-> sensor.outdoor_max_temp_24h    #
+#     input_number.altitude (meters) 4-> set location altitude                                                                          #
+#     sensor.dewpoint C° 5-> sensor.outdoor_mean_dewpoint_24h (C°)                                                                      #
+#                                                                                                                                       #
+#     Optional:                                                                                                                         #
+#     sensor.outdoor_radiation -> sensor.outdoor_mean_solar_radiation_24h                                                               #
+#                                                                                                                                       #
+#                                                                                                                                       #
+#                                  Using metric system / C° and FAO average wind speed 2.0 m/s                                          #
+#                                                            ExUs                                                                       #
+#                                         Credits: https://github.com/sherzodr/agriclimuz                                               #
+#########################################################################################################################################
+
+############################### EVAPOTRANSPIRATION SENSORS (Personal weather station or online) ############################
+sensor:
+
+##### EXAMPLE IF YOU WANT TO USE STATISTICS PLATFORM
+  # 1- max outdoor temp over the last 24h 
+  - platform: statistics
+    name: "outdoor max temp 24h"
+    entity_id: sensor.outdoor_temperature
+    state_characteristic: value_max
+    sampling_size: 1500
+    max_age:
+      hours: 24
+  # 2- min outdoor temp over the last 24h    
+  - platform: statistics
+    name: "outdoor min temp 24h"
+    entity_id: sensor.outdoor_temperature
+    state_characteristic: value_min
+    sampling_size: 1500
+    max_age:
+      hours: 24 
+  # 3- average temp over the last 24h
+  - platform: statistics
+    name: "outdoor mean temp 24h"
+    entity_id: sensor.outdoor_temperature
+    state_characteristic: average_linear
+    sampling_size: 1500
+    max_age:
+      hours: 24  
+  # 4- average dewpoint over the last 24h
+  - platform: statistics
+    name: outdoor mean dewpoint 24h
+    entity_id: sensor.dewpoint
+    state_characteristic: average_linear
+    sampling_size: 1500
+    max_age:
+      hours: 24
+  # Optional- average solar radiation over the last 24h ( W/m^2 )  ATM BUGGED IF YOU USE STATISTICS PLATFORM 
+  - platform: statistics  #This sensor is Optional!
+    name: outdoor mean solar radiation 24h
+    entity_id: sensor.solar_radiation
+    state_characteristic: average_linear
+    sampling_size: 1500
+    max_age:
+      hours: 24
+############## END EXAMPLE ##########################
+
+############## SENSORS I'M ACTUALLY USING Hacs Average sensor https://github.com/Limych/ha-average ################
+  - platform: average
+    name: "outdoor solar radiation stats 24h"
+    duration:
+      hours: 24
+    entities:
+      - sensor.solar_radiation
+
+  - platform: average
+    name: "outdoor temp stats 24h"
+    duration:
+      hours: 24
+    entities: 
+      - sensor.outdoor_temperature
+  
+  - platform: average
+    name: "outdoor dewpoint stats 24h"
+    duration:
+      hours: 24
+    entities: 
+      - sensor.dewpoint
+############################### EVAPOTRANSPIRATION INPUT NUMBER ################################
+  # 5- Altitude
+input_number:
+  altitude: 
+    name: Altitudine  # <---- Needed for Evapotranspiration calc
+    min: 0
+    max: 5000
+    step: 10
+    initial: 170 # <----- My home altitude      
+
+############################### EVAPOTRANSPIRATION TEMPLATE SENSORS ############################
+template:
+- sensor:
+  - name: evapo 00 recorded solar radiation 24h #Optional!
+    unique_id: evapo_00_recorded_solar_radiation_24h
+    state: "{{ (86400 * (states('sensor.outdoor_solar_radiation_stats_24h') | float)) / 1000000 }}"
+    unit_of_measurement: MJ/m^2
+    # j (day n current year)
+  - name: evapo 01 numero giorno anno
+    unique_id: evapo_01_numero_giorno_anno
+    state: "{{ (as_timestamp(now(),0)) | timestamp_custom ('%j') | int}}"
+    # p
+  - name: evapo 02 calculated atmo pressure elevation
+    unique_id: evapo_02_calculated_atmo_pressure_elevation
+    state: "{{ (101.3 * (((293-0.0065 * (states('input_number.altitude') | float))/293)**5.26)) | round(2) }}"
+     # γ
+  - name: evapo 03 psychrometric constant
+    unique_id: evapo_03_psychrometric_constant
+    state: "{{  (states('sensor.evapo_02_calculated_atmo_pressure_elevation') | int * 0.001013) / (0.622*2.45) }}"
+    # Δ
+  - name: evapo 04 saturation vapour pressure 
+    unique_id: evapo_04_saturation_vapour_pressure
+    state: "{{ ((4098*( 0.6108 * e**((17.27 * (states('sensor.outdoor_temp_stats_24h') | float )) / ((states('sensor.outdoor_temp_stats_24h') | float ) + 237.3)))) / (((states('sensor.outdoor_temp_stats_24h') | float ) + 237.3 )**2)) | round(4) }}"
+    # δ (rad)
+  - name: evapo 05 sun declination 
+    unique_id: evapo_05_sun_declination
+    state: "{{ (0.409 * ((2*pi / 365) * (as_timestamp(now(),0)) | timestamp_custom ('%j') | int -1.39) | sin) | round(4) }}"
+    # dr 
+  - name: evapo 06 sherzodr
+    unique_id: evapo_06_sherzodr
+    state: "{{ (1 +0.033 * ((2*pi / 365) * (as_timestamp(now(),0)) | timestamp_custom ('%j') | int ) | cos) | round(4) }}"
+    # φ
+  - name: evapo 07 latitude radians
+    unique_id: evapo_07_latitude_radians
+    state: "{{(state_attr('zone.home','latitude') / 180 *pi ) | round(3)}}"
+    # ωs
+  - name: evapo 08 sunset hour angle
+    unique_id: evapo_08_sunset_hour_angle
+    state: "{{ ((-1 * (states('sensor.evapo_07_latitude_radians') | tan) * (states('sensor.evapo_05_sun_declination') | tan)) | acos ) | round(2) }}"
+    # Ra
+  - name: evapo 09 extraterrestrial solar radiation
+    unique_id: evapo_09_extraterrestrial_solar_radiation
+    state: "{{ ((24*60) /3.1416)*0.082 * (states('sensor.evapo_06_sherzodr') | float) *
+            (((states('sensor.evapo_08_sunset_hour_angle') | float) * (states('sensor.evapo_07_latitude_radians') | sin) * (states('sensor.evapo_05_sun_declination') | sin)) +
+            ((states('sensor.evapo_08_sunset_hour_angle') | sin) * (states('sensor.evapo_07_latitude_radians') | cos) * (states('sensor.evapo_05_sun_declination') | cos)))
+            }}"
+    # N
+  - name: evapo 10 daylight hours
+    unique_id: evapo_10_daylight_hours
+    state: "{{ ((24/pi)* (states('sensor.evapo_08_sunset_hour_angle') | float)) | round(2)}}"
+    # e° (Tmin)
+  - name: evapo 11 saturation pressure at Tmin
+    unique_id: evapo_11_staturation_pressure_at_Tmin
+    state: "{{ (( 0.6108 * e**((17.27 * (state_attr('sensor.outdoor_temp_stats_24h','min_value') | float )) / ((state_attr('sensor.outdoor_temp_stats_24h','min_value') | float ) + 237.3)))) | round(2) }}"
+    # e° (Tmax)
+  - name: evapo 12 saturation pressure at Tmax
+    unique_id: evapo_12_staturation_pressure_at_Tmax
+    state: "{{ (( 0.6108 * e**((17.27 * (state_attr('sensor.outdoor_temp_stats_24h','max_value') | float )) / ((state_attr('sensor.outdoor_temp_stats_24h','max_value') | float ) + 237.3)))) | round(2) }}"
+    # es
+  - name: evapo 13 saturation pressure mean
+    unique_id: evapo_13_saturation_pressure_mean
+    state: "{{ (((states('sensor.evapo_12_saturation_pressure_at_Tmax') | float ) + (states('sensor.evapo_11_saturation_pressure_at_Tmin') | float )) / 2) | round(2)}}"
+    # e° (Tdew) / ea
+  - name: evapo 14 saturation pressure at dewpoint  # uguale anche ad actual vapour pressure
+    unique_id: evapo_14_saturation_pressure_at_dewpoint
+    state: "{{ (( 0.6108 * e**((17.27 * (states('sensor.outdoor_dewpoint_stats_24h') | float )) / ((states('sensor.outdoor_dewpoint_stats_24h') | float ) + 237.3)))) | round(3) }}"
+    # es - ea
+  - name: evapo 15 vapour pressure deficit
+    unique_id: evapo_15_vapour_pressure_deficit
+    state: "{{(states('sensor.evapo_13_saturation_pressure_mean')| float) - (states('sensor.evapo_14_saturation_pressure_at_dewpoint')| float)}}"
+    # Rso
+  - name: evapo 16 clear sky solar radiation
+    unique_id: evapo_16_clear_sky_solar_radiation
+    state: "{{states('sensor.evapo_09_extraterrestrial_solar_radiation') |float * 0.75}}"
+    # Rs
+  - name: evapo 17 solar radiation calculated #IF solar radiation sensor does not exists THEN estimate the value, ELSE use it
+    unique_id: evapo_17_solar_radiation_calculated
+    state: "{% if states('sensor.evapo_00_recorded_solar_radiation_24h') in ['unavailable', 'unknown', 'none'] %}
+            {{ (0.16 * (((state_attr('sensor.outdoor_temp_stats_24h','max_value') | float ) - (state_attr('sensor.outdoor_temp_stats_24h','min_value') | float ) ) | sqrt) * (states('sensor.evapo_09_extraterrestrial_solar_radiation') | float )) | round(2) }}
+            {% else %}
+            {{ states('sensor.evapo_00_recorded_solar_radiation_24h') | round(2)}}
+            {% endif %}"
+    # Rns
+  - name: evapo 18 net shortwave radiation
+    unique_id: evapo_18_net_shortwave_radiation
+    state: "{{ ((1 - 0.23 ) * (states('sensor.evapo_17_solar_radiation_calculated') | float ) )| round (2)}}"
+    # Rnl
+  - name: evapo 19 net longwave radiation
+    unique_id: evapo_19_net_longwave_radiation
+    state: "{{
+            ((4.903 * (10**-9)) *
+            ((((state_attr('sensor.outdoor_temp_stats_24h','max_value') | float + 273.16)**4 ) + ((state_attr('sensor.outdoor_temp_stats_24h','min_value') | float + 273.16)**4 )) /2 ) *
+            (0.34 - 0.14 * (states('sensor.evapo_14_saturation_pressure_at_dewpoint') | float ) | sqrt) *
+            ((1.35 * states('sensor.evapo_17_solar_radiation_calculated') | float / states('sensor.evapo_16_clear_sky_solar_radiation') | float) -0.35)) 
+            | round(3)
+            }}"
+    # Rn
+  - name: evapo 20 net radiation
+    unique_id: evapo_20_net_radiation
+    state: "{{ states('sensor.evapo_18_net_shortwave_radiation') | float - states('sensor.evapo_19_net_longwave_radiation') | float }}"
+    # ET (FAO)
+  - name: evapotranspiration #(the 2* line is the average fao wind speed 2 m/s)
+    unique_id: evapotranspiration
+    unit_of_measurement: mm
+    state: "{{ 
+              (((0.408 * (states('sensor.evapo_04_saturation_vapour_pressure') | float) * (states('sensor.evapo_20_net_radiation') | float)) +
+              (states('sensor.evapo_03_psychrometric_constant') | float) *
+              ( 900 / (( states('sensor.outdoor_temp_stats_24h') | float) + 273)) *
+              2 * 
+              (states('sensor.evapo_15_vapour_pressure_deficit')|float)) /
+              ((states('sensor.evapo_04_saturation_vapour_pressure') | float) +
+              (states('sensor.evapo_03_psychrometric_constant') | float) *
+              (1+0.34*2))) | round(2)
+            }}"
+
+############## EVAPOTRANSPIRATION TIME PATTERN TEMPLATE TRIGGER  #################
+# Save Et daily value at 00:00 (recorded)
+- trigger:
+    - platform: time_pattern
+      hours: 0
+      minutes: 0
+  sensor:
+    - name: evapotranspiration_daily 
+      unique_id: evapotranspiration_daily
+      unit_of_measurement: mm
+      state: "{{ 
+                (((0.408 * (states('sensor.evapo_04_saturation_vapour_pressure') | float) * (states('sensor.evapo_20_net_radiation') | float)) +
+                (states('sensor.evapo_03_psychrometric_constant') | float) *
+                ( 900 / (( states('sensor.outdoor_temp_stats_24h') | float) + 273)) *
+                2 *
+                (states('sensor.evapo_15_vapour_pressure_deficit')|float)) /
+                ((states('sensor.evapo_04_saturation_vapour_pressure') | float) +
+                (states('sensor.evapo_03_psychrometric_constant') | float) *
+                (1+0.34*2))) | round(2)
+              }}"    
+
+              

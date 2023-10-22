@@ -1,0 +1,86 @@
+- type: css
+  url: /local/style/style.css?v=1.0.0
+- type: css
+  url: /local/style/fontstyle.css
+
+
+- type: module
+  url: /local/jsModuliManuali/swipe-card.js
+- type: module
+  url: /hacsfiles/button-card/button-card.js
+#- type: module
+#  url: /hacsfiles/config-template-card/config-template-card.js    
+- type: module
+  url: /hacsfiles/lovelace-card-mod/card-mod.js
+- type: module
+  url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
+- type: module
+  url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
+- type: module      
+  url: /hacsfiles/simple-thermostat/simple-thermostat.js
+- type: module
+  url: /hacsfiles/vacuum-card/vacuum-card.js
+- type: module
+  url: /hacsfiles/hass-shutter-card/hass-shutter-card.js
+- type: module
+  url: /hacsfiles/spotify-card/spotify-card.js
+- type: module
+  url: /hacsfiles/simple-weather-card/simple-weather-card-bundle.js
+- type: module
+  url: /hacsfiles/weather-card/weather-card.js 
+- type: module         
+  url: /hacsfiles/decluttering-card/decluttering-card.js
+- type: module
+  url: /hacsfiles/lovelace-card-tools/card-tools.js      
+- type: module
+  url: /hacsfiles/sidebar-card/sidebar-card.js?v=1.0.2
+- type: module
+  url: /hacsfiles/bar-card/bar-card.js  
+- type: module
+  url: /hacsfiles/light-popup-card/light-popup-card.js
+- type: module
+  url: /hacsfiles/light-entity-card/light-entity-card.js
+- type: module
+  url: /local/jsModuliManuali/weather-chart-card.js
+- type: module
+  url: /hacsfiles/lovelace-card-templater/lovelace-card-templater.js
+- type: module  
+  url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js
+- type: module
+  url: /hacsfiles/lovelace-time-picker-card/time-picker-card.js
+- type: module
+  url: /hacsfiles/timer-bar-card/timer-bar-card.js              
+- type: module
+  url: /hacsfiles/kiosk-mode/kiosk-mode.js
+         
+                  
+  
+  
+#https://github.com/PiotrMachowski/lovelace-html-card   
+#- type: module
+#  url: /local/jsModuliManuali/html-card.js 
+- type: module
+  url: /hacsfiles/lovelace-vertical-slider-cover-card/vertical-slider-cover-card.js
+  
+  
+
+- type: module 
+  url: /hacsfiles/lovelace-multiple-entity-row/multiple-entity-row.js
+- type: module
+  url: /hacsfiles/lovelace-layout-card/layout-card.js
+- type: module
+  url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
+- type: module
+  url: /hacsfiles/lovelace-template-entity-row/template-entity-row.js
+#- type: module
+#  url: /local/jsModuliManuali/wired-card.js
+#- type: module
+#  url: /local/jsModuliManuali/test-card.js  
+#- type: js
+#  url: https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js
+
+
+
+####### NON PIU' AGGIORNATO - USO TEMA TABLET ORA PER "KIOSK" vedi themes.yaml
+#- type: module
+#  url: /hacsfiles/custom-header/custom-header.js

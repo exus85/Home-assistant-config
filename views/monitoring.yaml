@@ -1,0 +1,520 @@
+anchors:            
+<<1: &title
+  entity: sensor.placeholder
+  tap_action:
+    action: none
+  hold_action:
+    action: none
+  type: state-label
+<<2.1: &title-style2
+  color: '#bcbebf'
+  #font-family: SF Text
+  font-size: 2vw
+  font-weight: 500
+  max-width: 1px
+  cursor: default
+
+<<11: &graph_style_dsl >                     
+                    ha-card, ha-card > div {
+                      padding: 0px !important;
+                    }
+                    ha-card > .header.flex > div, ha-card > .states.flex > div {
+                      padding: 5px !important;
+                      font-weight: 500;
+                    } 
+                    ha-card > .info.flex > .info__item > .info__item__time {
+                      display: none;
+                    }
+                    ha-card {
+                      background-color: rgba(40,40,40,0.6);
+                    }
+                    .name > span {
+                      font-weight: 500 !important;
+                    }
+
+
+<<12: &graph_common_1
+  font_size: 35 
+  #height: 250
+  #aggregate_func: max
+  update_interval: 15
+  font_size_header: 9
+  hours_to_show: 1
+  points_per_hour: 60
+  line_width: 3
+  show:
+    extrema: false
+
+
+<<13: &graph_color_1 "#b9fffc"
+<<14: &graph_color_2 "#a3d8f4"
+<<15: &graph_color_3 "#ff9933"
+<<16: &graph_color_4 "#ff5050"
+<<16.1: &graph_color_secondary_fixed "#ff4fd3"
+
+<<17: &list_style_1 >
+                  .card-content {
+                    padding: 0px;
+                    margin-right: 10px;
+                  }
+                  #states.card-content > div {
+                    margin: 0px;
+                  }
+                  ha-card {
+                    background-color: rgba(40,40,40,0.6);
+                    font-size: 10px;
+                  }
+                  multiple-entity-row {
+                    height: 30px;
+                  }
+<<18: &list_style_2 >
+                  .card-content {
+                    padding: 0px;
+                    margin-right: -10px;
+                  }
+                  ha-card {
+                    background: none;
+                    box-shadow: none;
+                  }
+                  bar-card-background {
+                    margin: 0 !important;
+                  }
+                  .contentbar-direction-right {
+                    flex-direction: column;
+                  }
+                  .min-direction-right {
+                    margin: 0px;
+                    margin-left: 4px;
+                    margin-right: auto;
+                    margin-bottom: -20px;
+                    bottom: 10px;
+                  }
+                    bar-card-value {
+                    margin: 0px;
+                  }
+                  bar-card-name {
+                    margin: 0px;
+                  }
+                  bar-card-max {
+                    margin: 0px;
+                    margin-left: auto;
+                    margin-top: -20px;
+                    margin-right: 10px;
+                    top: 10px;
+                  }
+                  bar-card-divider {
+                    display: none;
+                  }
+
+
+
+type: custom:mod-card
+style: 
+  swipe-card:
+    $: |
+      .swiper-scrollbar-drag {            
+        background-color: rgba(255,79,211,0.6) !important;
+      }
+card:
+    type: custom:swipe-card
+    parameters:
+      scrollbar:
+        hide: false
+        draggable: true
+        snapOnRelease: true
+    
+    cards:
+    ################ PAGINA 1 MONITORS ##################################
+
+      - type: picture-elements
+        image: /local/ui/dispositivi/backgroundStatic2.png
+        elements:
+        ############# TITOLI
+          - type: state-label
+            prefix: Network
+            entity: sensor.placeholder
+            tap-action: 
+              action: none
+            hold-action:
+              action: none
+            style:
+              top: 3%
+              left: 10%
+              <<: *title-style2
+          - type: state-label
+            prefix: Load and Temp
+            entity: sensor.placeholder
+            tap-action: 
+              action: none
+            hold-action:
+              action: none
+            style:
+              top: 3%
+              left: 36.5%
+              <<: *title-style2
+          - type: state-label
+            prefix: Stats
+            entity: sensor.placeholder
+            tap-action: 
+              action: none
+            hold-action:
+              action: none
+            style:
+              top: 3%
+              left: 77%
+              <<: *title-style2          
+
+        ########### PRIMA COLONNA
+          - type: custom:layout-card
+            layout_type: custom:vertical-layout
+            layout:
+              max_cols: 1
+              width: 220
+            style:
+              transform: none
+              left: 1%
+              top: 5%
+              width: 30%
+            cards:
+
+              - type: custom:mini-graph-card
+                icon: mdi:wan
+                name: FTTC Download/Upload ultima ora            
+                entities:          
+                  - entity: sensor.rete_download
+                    name: Ftcc DL
+                    show_state: true
+                    show_legend: false
+                    state_adaptive_color: true
+                  - entity: sensor.rete_upload
+                    name: Fttc UP
+                    show_state: true
+                    show_legend: false
+                    state_adaptive_color: true
+                    color: *graph_color_secondary_fixed
+                <<: *graph_common_1
+                color_thresholds:
+                  - value: 5
+                    color: *graph_color_1
+                  - value: 10
+                    color: *graph_color_2
+                  - value: 15
+                    color: *graph_color_3
+                  - value: 25
+                    color: *graph_color_4
+                style:
+                  *graph_style_dsl
+
+#              - type: custom:mini-graph-card
+#                icon: mdi:signal-4g
+#                name: LTE Download/Upload ultima ora            
+#                entities:          
+#                  - entity: sensor.rete_lte_download_current
+#                    name: LTE DL
+#                    show_state: true
+#                    show_legend: false
+#                    state_adaptive_color: true
+#                  - entity: sensor.rete_lte_upload_current
+#                    name: LTE UP
+#                    show_state: true
+#                    show_legend: false
+#                    state_adaptive_color: true
+#                    color: *graph_color_secondary_fixed
+#                <<: *graph_common_1
+#                color_thresholds:
+#                  - value: 5
+#                    color: *graph_color_1
+#                  - value: 10
+#                    color: *graph_color_2
+#                  - value: 15
+#                    color: *graph_color_3
+#                  - value: 25
+#                    color: *graph_color_4
+#                style:
+#                  *graph_style_dsl
+
+
+              - type: custom:button-card
+                entity: sensor.placeholder
+                name: Log Viewer
+                icon: mdi:shield-bug
+                aspect_ratio: 5/1
+                layout: icon_name
+                styles:
+                  card:
+                    - background-color: '#324A5F'
+                style: |
+                    .ellipsis {
+                      margin-right: 50%;
+                    }
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod: 
+                    service: browser_mod.popup
+                    data:                      
+                      deviceID:
+                        - this
+                      large: true
+                      hide_header: true
+                      card_mod:
+                        style: |
+                            ha-dialog {
+                                --mdc-dialog-min-width: 1000px !important;
+                                --mdc-dialog-max-width: 1500px !important;
+                              }
+                              .content {
+                                width: auto !important;
+                              }
+
+                      content:
+                        card:
+                        type: iframe
+                        url: !secret log_viewer_url                  
+
+        ######### SECONDA COLONNA
+
+          - type: custom:layout-card
+            layout_type: custom:vertical-layout
+            layout:
+              max_cols: 1
+              width: 220
+            style:
+              transform: none
+              left: 32%
+              top: 5%
+              width: 30%
+            cards:
+
+              - type: custom:mini-graph-card
+                icon: mdi:home
+                name: Consumo Watt Casa 24H
+                entities:          
+                  - entity: sensor.home_energy_meter_gen5_electric_consumption_w
+                    name: Watt
+                    show_state: true
+                    show_legend: false
+                    state_adaptive_color: true
+                font_size: 35 
+                #height: 250
+                #aggregate_func: max
+                update_interval: 15
+                font_size_header: 9
+                hours_to_show: 24
+                points_per_hour: 4
+                line_width: 3
+                show:
+                  extrema: false
+                                  
+                color_thresholds:
+                  - value: 500
+                    color: *graph_color_1
+                  - value: 1000
+                    color: *graph_color_2
+                  - value: 1500
+                    color: *graph_color_3
+                  - value: 2500
+                    color: *graph_color_4
+                style:
+                  *graph_style_dsl            
+
+              - type: custom:button-card
+                entity: sensor.placeholder
+                name: Energy
+                icon: mdi:lightning-bolt
+                aspect_ratio: 5/1
+                layout: icon_name
+                styles:
+                  card:
+                    - background-color: '#324A5F'
+                style: |
+                    .ellipsis {
+                      margin-right: 50%;
+                    }
+                tap_action:
+                  action: fire-dom-event
+                  browser_mod: 
+                    service: browser_mod.popup
+                    data:                      
+                      deviceID:
+                        - this
+                      large: true
+                      hide_header: true
+                      card_mod:
+                        style: |
+                            ha-dialog {
+                                --mdc-dialog-min-width: 1000px !important;
+                                --mdc-dialog-max-width: 1500px !important;
+                              }
+                              .content {
+                                width: auto !important;
+                              }
+
+                      content:
+                        card:
+                        type: iframe
+                        url: !secret energy_url 
+
+
+
+
+
+
+        ########### TERZA COLONNA
+          - type: custom:layout-card
+            layout_type: custom:vertical-layout
+            layout:
+              max_cols: 1
+              width: 220
+            style:
+              transform: none
+              left: 63.5%
+              top: 5%
+              width: 35%
+            cards:
+
+              - type: entities                  
+                entities:
+                  - entity: sensor.unifi_gateway_www_uptime
+                    name: FTTC attiva da
+                    icon: mdi:wan
+                  - entity: sensor.qnas_uptime
+                    name: NAS attivo da
+                    icon: mdi:nas
+                    unit_of_measurement: ''
+                  - entity: sensor.hassio_uptime_templated
+                    name: Hassio attivo da
+                    icon: mdi:home-assistant
+                          
+                style: 
+                  *list_style_1
+
+
+              - type: entities
+                style: *list_style_1
+                entities:
+                  #- entity: sensor.rete_gb_scaricati
+                  #  name: FTTC download sessione
+                  #  icon: mdi:download-network-outline
+                  #- entity: sensor.rete_gb_inviati
+                  #  name: FTTC upload sessione
+                  #  icon: mdi:upload-network-outline
+                  - type: custom:template-entity-row
+                    entity: binary_sensor.emby_check
+                    name: Emby dns/vpn Link
+                    icon: mdi:emby
+                    state: "{% if is_state('binary_sensor.emby_check', 'on')%} CONNESSO {% else %} !OFFLINE! {% endif %}"
+                    style: | 
+                          
+                          .state {
+                          color: {% if is_state('binary_sensor.emby_check', 'on')%} #33cc33 !important {% else %} red !important {% endif %}
+                            }
+
+                  - type: custom:template-entity-row
+                    entity: sensor.qnas_status
+                    name: NAS health status
+                    icon: mdi:nas
+                    state: "{% if is_state('sensor.qnas_status', 'good')%} GOOD {% else %} WARNING {% endif %}"
+                    style: | 
+                          
+                          .state {
+                          color: {% if is_state('sensor.qnas_status', 'good')%} #33cc33 !important {% else %} red !important {% endif %}
+                            } 
+                  - type: custom:template-entity-row
+                    entity: sensor.placeholder
+                    name: LAN Connected devices
+                    icon: mdi:lan-connect
+                    state: "{{ states.device_tracker | selectattr('state', 'eq', 'home')| list | count }}"
+                  - type: custom:template-entity-row
+                    entity: sensor.placeholder
+                    name: Luci rilevate
+                    icon: mdi:lightbulb-group-outline
+                    state: "{{ states.light | list | count }}" 
+                  - type: custom:template-entity-row
+                    entity: sensor.pi_hole_total_queries
+                    name: Last year pi-hole queries
+                    icon: mdi:pi-hole
+                    style: |
+                      #wrapper {
+                      --paper-item-icon-color: green;
+                          }
+                  - type: custom:template-entity-row
+                    entity: sensor.pi_hole_total_ads_blocked
+                    name: Last year pi-hole blocked
+                    icon: mdi:pi-hole
+                    style: |
+                      #wrapper {
+                      --paper-item-icon-color: red;
+                          }
+
+#              - type: entities
+#                style:
+#                  *list_style_1
+#                entities:
+#                  - type: custom:bar-card
+#                    entity: sensor.qnas_nas_hdd_used
+#                    min: 0
+#                    max: 39000
+#                    icon: mdi:nas
+#                    name: NAS Spazio Usato
+#                    color: '#5f84bd'
+#                    positions:
+#                      icon: 'off'
+#                      indicator: 'off'
+#                      minmax: inside
+#                      title: inside
+#                      value: inside
+#                    style:
+#                      *list_style_2
+
+
+              - type: custom:button-card
+                tap-action:
+                  action: none
+                hold-action:
+                  action: none
+                style: |
+                  :host {
+                    transform: none !important;
+                    left: 0%;
+                    bottom: 0%;
+                    width: 100%;
+                  }
+                  ha-card.button-card-main {
+                    padding: 0px !important;
+                  }
+                  .ellipsis {
+                    justify-self: auto !important;
+                    margin: inherit;
+                    height: 30px;
+                  }
+                  span.dispositivo {
+                    color: rgb(95, 132, 189);
+                  }
+                  .scrolling-text {
+                    font-size: 12px;
+                    color: #FFF;
+                    position: absolute;
+                    width: 100%;
+                    height: 30px;
+                    overflow: visible;
+                    margin: 0;
+                    line-height: 30px;
+                    text-align: left;
+                    /* Starting position */
+                    transform:translate3d(100%,0,0);
+                    /* Apply animation to this element */  
+                    animation: scrolling-text 30s linear infinite;
+                  }
+                  @keyframes scrolling-text {
+                    0%   { 
+                    transform: translate3d(100%,0,0);       
+                    }
+                    100% { 
+                      transform: translate3d(-200%,0%,0); 
+                      }
+                  } 
+                name: >
+                  [[[return `<div class="scrolling-text">Infotext -- ${states['sensor.infotext'].state} </div>`]]]
+                      
+
+

@@ -1,0 +1,348 @@
+
+accendi_il_cinema:
+  alias: "Accendi impianto home theatre nuova versione"
+  sequence:
+    - service: media_player.turn_on
+      entity_id: 
+        - media_player.amplificatore
+    - service: denonavr.get_command
+      data:
+        entity_id: media_player.amplificatore
+        command: "/goform/formiPhoneAppDirect.xml?SIMPLAY"
+    - service: input_boolean.turn_on
+      entity_id: 
+        - input_boolean.home_theatre_switch #comanda solo il proiettore (nodered)
+    - service: light.turn_on
+      entity_id: 
+        - group.torri
+        - light.cielo_rgb_light
+    - service: light.turn_off
+      entity_id: light.luce_della_scala
+
+    - service: androidtv.adb_command
+      data:
+        entity_id: media_player.nvidiashield
+        command: "POWER"
+
+spegni_il_cinema:
+  alias: "Spegni inpianto home theatre nuova versione"
+  sequence:
+    - service: media_player.turn_off
+      entity_id: 
+        - media_player.amplificatore
+    - service: input_boolean.turn_off
+      entity_id: 
+        - input_boolean.home_theatre_switch #comanda solo il proiettore (nodered)       
+    - service: light.turn_off
+      entity_id: 
+        - group.torri
+        - light.cielo_rgb_light
+
+    - service: light.turn_on
+      entity_id: light.luce_della_scala
+
+    - service: androidtv.adb_command
+      data:
+        entity_id: media_player.nvidiashield
+        command: "SLEEP"
+
+luci_cinema:
+  alias: "Imposta luci modalità cinema"
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.bulb_6_multi_color_3
+          - light.bulb_6_multi_color
+        rgb_color: [153, 0, 153]
+        brightness: 255
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.bulb_6_multi_color_2
+          - light.bulb_6_multi_color_4
+        rgb_color: [255, 51, 0]
+        brightness: 255        
+    - service: light.turn_on
+      data:
+        entity_id: light.cielo_rgb_light
+        rgb_color: [204,0,204]
+        brightness: 255
+
+
+############## QUESTI SCRIPT NON LI STO USANDO
+attiva_player_studio:
+  alias: attiva player studio 
+  sequence:
+  - service: spotcast.start
+    data_template:
+      entity_id: media_player.studio
+      uri: spotify:playlist:37i9dQZEVXcNHvNjYtA2pv
+      
+attiva_player_bagno:
+  alias: attiva player bagno 
+  sequence:
+  - service: spotcast.start
+    data_template:
+      entity_id: media_player.bagno
+      uri: spotify:playlist:37i9dQZEVXcNHvNjYtA2pv
+      
+attiva_player_soggiorno:
+  alias: attiva player soggiorno 
+  sequence:
+  - service: spotcast.start
+    data_template:
+      entity_id: media_player.soggiorno
+      uri: spotify:playlist:37i9dQZEVXcNHvNjYtA2pv
+      
+attiva_player_casa:
+  alias: attiva player casa 
+  sequence:
+
+  - service: spotcast.start
+    data_template:
+      entity_id: media_player.tutta_la_casa
+      uri: spotify:playlist:37i9dQZEVXcNHvNjYtA2pv
+     
+
+
+############### SCRIPT ATTIVA PULIZIA STANZE ########################
+
+pulisci_soggiorno:
+  alias: 'Pulisci soggiorno'
+  sequence:
+    - condition: template
+      value_template: "{{ is_state('sensor.vacuum_status','Charging') or is_state('input_text.room_cleaning','none') or is_state('input_text.room_cleaning','goinghome') or is_state('input_text.room_cleaning','paused')}}"
+
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.ambrogio
+        command: app_segment_clean
+        params:
+          - 19
+    - service: input_text.set_value
+      data_template:
+        entity_id: input_text.room_cleaning
+        value: "soggiorno"
+
+          
+pulisci_bagno:
+  alias: 'Pulisci bagno'
+  sequence:
+    - condition: template
+      value_template: "{{ is_state('sensor.vacuum_status','Charging') or is_state('input_text.room_cleaning','none') or is_state('input_text.room_cleaning','goinghome') or is_state('input_text.room_cleaning','paused') }}"
+
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.ambrogio
+        command: app_segment_clean
+        params:
+          - 17
+    - service: input_text.set_value
+      data_template:
+        entity_id: input_text.room_cleaning
+        value: "bagno"
+         
+          
+pulisci_studio:
+  alias: 'Pulisci studio'
+  sequence:
+    - condition: template
+      value_template: "{{ is_state('sensor.vacuum_status','Charging') or is_state('input_text.room_cleaning','none') or is_state('input_text.room_cleaning','goinghome') or is_state('input_text.room_cleaning','paused') }}"
+
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.ambrogio
+        command: app_segment_clean
+        params:
+          - 18
+    - service: input_text.set_value
+      data_template:
+        entity_id: input_text.room_cleaning
+        value: "studio"          
+         
+          
+pulisci_camera:
+  alias: 'Pulisci camera'
+  sequence:
+    - condition: template
+      value_template: "{{ is_state('sensor.vacuum_status','Charging') or is_state('input_text.room_cleaning','none') or is_state('input_text.room_cleaning','goinghome') or is_state('input_text.room_cleaning','paused') }}"
+
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.ambrogio
+        command: app_segment_clean
+        params:
+          - 16
+    - service: input_text.set_value
+      data_template:
+        entity_id: input_text.room_cleaning
+        value: "camera"
+         
+          
+pulisci_casa:
+  alias: 'Clean House'
+  sequence:
+    - condition: template
+      value_template: "{{ is_state('sensor.vacuum_status','Charging') or is_state('input_text.room_cleaning','none') or is_state('input_text.room_cleaning','goinghome') or is_state('input_text.room_cleaning','paused') }}"
+
+    - service: vacuum.start
+      data:
+        entity_id: vacuum.ambrogio
+    - service: input_text.set_value
+      data_template:
+        entity_id: input_text.room_cleaning
+        value: "casa"        
+       
+
+stop_cleaning:
+  alias: 'Stop Cleaning'
+  sequence:
+
+    - service: vacuum.return_to_base
+      data:
+        entity_id: vacuum.ambrogio   
+    - service: input_text.set_value
+      data_template:
+        entity_id: input_text.room_cleaning
+        value: "goinghome"
+      
+        
+clean_nothing:
+  alias: 'Clean Stopping'
+  sequence:
+    - service: input_text.set_value
+      data_template:
+        entity_id: input_text.room_cleaning
+        value: "none"    
+
+################### IRRIGAZIONE ######################
+################### IRRIGAZIONE ######################
+################### IRRIGAZIONE ######################
+irrigazione: 
+  sequence:
+    if: 
+      - alias: "verifica"
+        condition: or
+        conditions:
+          - condition: template
+            value_template: "{{ is_state('sensor.minuti_irrigazione','0')}}"    #Controllo che, per via della pioggia, i minuti necessari di irrigazione non siano scesi a 0, se così fosse cancello l'irrigazione (ma aggiorno la prossima data), altrimenti la avvio
+          - condition: state 
+            entity_id: input_boolean.onoff_programma_irrigazione
+            state: "off"
+    then:  
+      - alias: "Aggiorna prossima irrigazione"
+        service: script.aggiorna_data_irrigazione  
+           
+      - alias: "Notifica"
+        service: notify.notify
+        data: 
+          message: "Programma spento O Deve aver già piovuto a sufficienza, irrigazione rimandata al prossimo ciclo <br>
+                    Prossima irrigazione impostatata per il: {{as_timestamp(states('input_datetime.prossima_irrigazione')) | timestamp_custom('%d %B @ %H:%M')}} <br>"
+          title: "Irrigazione cancellata!"
+            
+    else:    
+      - alias: "Notifica"
+        service: notify.notify
+        data: 
+          message: "Il programma di irrigazione è partito"
+          title: "Irrigazione avviata!" 
+
+      - alias: "Zona 1 Retro on"
+        service: rainbird.start_zone
+        data:
+          entity_id: switch.rainbird_irrigazione_retro
+          zone_run_time: "{{(state_attr('sensor.minuti_irrigazione','retro') | int) | round(0) *60}}"
+      - delay: 
+          minutes: "{{ state_attr('sensor.minuti_irrigazione','retro')}}"
+      - alias: "Notifica"
+        service: notify.notify
+        data: 
+          message: "Terminata irrigazione Zona 1 Retro - Durata: {{ state_attr('sensor.minuti_irrigazione','retro')}} minuti"   
+          title: "Irrigazione"      
+      - delay:
+          seconds: 10     
+
+      - alias: "Zona 2 Fronte on"
+        service: rainbird.start_zone
+        data:
+          entity_id: switch.rainbird_irrigazione_fronte
+          zone_run_time: "{{(state_attr('sensor.minuti_irrigazione','fronte') | int) | round(0) *60}}"
+      - delay: 
+          minutes: "{{ state_attr('sensor.minuti_irrigazione','fronte')}}" 
+      - alias: "Notifica"
+        service: notify.notify
+        data: 
+          message: "Terminata irrigazione Zona 2 Fronte - Durata: {{ state_attr('sensor.minuti_irrigazione','fronte')}} minuti"         
+          title: "Irrigazione"   
+      - delay:
+          seconds: 10
+                  
+      - alias: "Zona 3 Siepe on"
+        service: rainbird.start_zone
+        data:
+          entity_id: switch.rainbird_irrigazione_siepe
+          zone_run_time: "{{(state_attr('sensor.minuti_irrigazione','siepe') | int) | round(0) *60}}"
+      - delay: 
+          minutes: "{{ state_attr('sensor.minuti_irrigazione','siepe')}}"  
+      #AGGIORNO LA DATA (non l'ora) DELLA PROSSIMA IRRIGAZIONE A FINE CICLO
+      - alias: "Aggiorna prossima irrigazione"
+        service: script.aggiorna_data_irrigazione     
+
+      - alias: "Notifica"
+        service: notify.notify
+        data: 
+          message: "Terminata irrigazione Zona 3 Siepe - Durata: {{ state_attr('sensor.minuti_irrigazione','siepe')}} minuti <br>
+                    In totale oggi ho irrigato per {{ states('sensor.minuti_irrigazione')}} minuti <br>
+                    Prossima irrigazione impostatata per il: {{as_timestamp(states('input_datetime.prossima_irrigazione')) | timestamp_custom('%d %B @ %H:%M')}} <br>" 
+          title: "Irrigazione completata!"            
+ 
+
+
+
+aggiorna_data_irrigazione:  #aggiorna la data e non l'orario, quello segue solo il time picker nella pagina garden
+  sequence:
+    service: input_datetime.set_datetime
+    target:
+      entity_id: input_datetime.prossima_irrigazione
+    data: 
+      date: "{{ (as_timestamp(now(),0) + ((states('input_number.ciclo_irrigazione')) |int * 86400 )) | timestamp_custom ('%Y-%m-%d')}}"
+
+
+
+###################  FINE IRRIGAZIONE ######################
+###################  FINE IRRIGAZIONE ######################
+###################  FINE IRRIGAZIONE ######################
+
+test_if:
+  sequence:
+      if: 
+        - alias: "verifica"
+          condition: template
+          value_template: "{{ is_state('sensor.minuti_irrigazione','0')}}"
+      then:
+        - alias: "è zero"
+          service: notify.notify
+          data: 
+            message: "è zero" 
+            title: "è zero"
+      else: 
+        - alias: "NON è zero"
+          service: notify.notify
+          data: 
+            message: "NON è zero" 
+            title: "NON è zero"
+
+
+
+
+
+
+test_notifica:
+  sequence:
+    service: notify.notify
+    data: 
+      message: "Terminata irrigazione Zona 3 - Durata: {{ state_attr('sensor.minuti_irrigazione','fronte') }} minuti <br>
+                In totale oggi ho irrigato per  {{ state_attr('sensor.minuti_irrigazione','fronte') | int + state_attr('sensor.minuti_irrigazione','retro') | int + state_attr('sensor.minuti_irrigazione','siepe') | int}} minuti <br>" 
+      title: "Irrigazione completata!" 
+

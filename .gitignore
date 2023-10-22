@@ -13,9 +13,9 @@ tts
 androidkeys
 node-red
 custom_components
-blueprints/*
-
-
+#blueprints/automation/homeassistant
+#blueprints/script/homeassistant
+blueprints
 
 # Ensure these YAML files are ignored, otherwise your secret data/credentials will leak.
 .spotify-token-cache
@@ -35,7 +35,12 @@ zwave_device_config.yaml
 home-assistant_v2.db-shm
 home-assistant_v2.db-wal
 *.old
-
+*.log
+/automations.yaml
+/customize.yaml
+home-assistant-log.fault
+*.fault
+*.db
 ip_bans.yaml
 secrets.yaml
 known_devices.yaml

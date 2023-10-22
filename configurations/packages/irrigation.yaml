@@ -1,0 +1,158 @@
+sensor:
+  - platform: average
+    name: outdoor rain info cycle   # dati relativi alla pioggia nel ciclo impostato (average, min, max)
+    start: "{{ (as_timestamp( now()) - (states('input_number.ciclo_irrigazione')| float *86400))}}" 
+    end: "{{now()}}"
+    entities:
+     - sensor.total_rain_rate
+  - platform: average
+    name: outdoor rain since last irrigation   # dati relativi alla pioggia a partire dall'ultima irrigazione (average, min, max)
+    start: "{{  as_timestamp(state_attr('script.irrigazione','last_triggered'),0) }}"    
+    end: "{{now()}}"
+    entities:
+     - sensor.total_rain_rate
+
+  - platform: average
+    name: evapotranspiration info cycle #valore MEDIO GIORNALIERO di evapotraspirazione nel ciclo impostato (average, min, max)
+    start: "{{ (as_timestamp( now()) - (states('input_number.ciclo_irrigazione')| float *86400))}}" 
+    end: "{{now()}}"
+    entities:
+      - sensor.evapotranspiration  
+  - platform: average
+    name: evapotranspiration since last irrigation #valore MEDIO di evapotraspirazione dall'ultima irrigazione (average, min, max)
+    start: "{{  as_timestamp(state_attr('script.irrigazione','last_triggered'),0) }}"
+    end: "{{now()}}"
+    entities:
+      - sensor.evapotranspiration  
+
+template:
+
+- sensor:
+  - name: outdoor total rain this cycle #tot mm pioggia caduta nel ciclo impostato
+    unit_of_measurement: mm 
+    state: "{{ (state_attr('sensor.outdoor_rain_info_cycle','max_value')  - state_attr('sensor.outdoor_rain_info_cycle','min_value')) | round(2)   }}"
+
+  - name: outdoor total rain since last irrigation
+    unit_of_measurement: mm 
+    state: "{{ (state_attr('sensor.outdoor_rain_since_last_irrigation','max_value')  - state_attr('sensor.outdoor_rain_since_last_irrigation','min_value')) | round(2)   }}"
+
+  - name: evapotranspiration total this cycle
+    unit_of_measurement: mm
+    state: "{{  ((states('input_number.ciclo_irrigazione') | int * states('sensor.evapotranspiration_info_cycle') | float )) }}"
+
+  - name: fabbisogno irrigazione calcolato #se Manual utilizzo il valore impostato manualmente in "fabbisogno mm/giorno altrimenti uso i calcoli di evapotraspirazione"
+    unit_of_measurement: mm
+    state: >
+          {% if states('input_select.irrigation_mode') == "Manual"  %}
+          {{  ((states('input_number.ciclo_irrigazione') | int * states('input_number.fabbisogno_giornaliero_irrigazione') | float ) - (states('sensor.outdoor_total_rain_since_last_irrigation') | float )  ) | round(2)}}
+          {% else %}
+          {{  ((states('input_number.ciclo_irrigazione') | int * states('sensor.evapotranspiration_info_cycle') | float ) - (states('sensor.outdoor_total_rain_since_last_irrigation') | float )  ) | round(2)  }}
+          {% endif %}
+
+  - name: minuti irrigazione
+    unit_of_measurement: m
+    state: > #somma delle zone
+            {% if 
+              (((states('sensor.fabbisogno_irrigazione_calcolato') | float / states('input_number.zona1_litri_mq_min') | float) | round(0)) +
+              ((states('sensor.fabbisogno_irrigazione_calcolato') | float / states('input_number.zona2_litri_mq_min') | float) | round(0)) +
+              ((states('sensor.fabbisogno_irrigazione_calcolato') | float / states('input_number.zona3_litri_mq_min') | float) | round(0))) <= 0
+            %}
+              0
+            {% else %}
+              {{  ((states('sensor.fabbisogno_irrigazione_calcolato') | float / states('input_number.zona1_litri_mq_min') | float) | round(0)) +
+                  ((states('sensor.fabbisogno_irrigazione_calcolato') | float / states('input_number.zona2_litri_mq_min') | float) | round(0)) +
+                  ((states('sensor.fabbisogno_irrigazione_calcolato') | float / states('input_number.zona3_litri_mq_min') | float) | round(0))
+              }}
+            {% endif %}            
+    attributes: #tempo delle singole zone
+      retro:  > 
+            {% if ((states('sensor.fabbisogno_irrigazione_calcolato') | float / states('input_number.zona1_litri_mq_min') | float) | round(0)) < 0  %}
+              0
+            {% else %}
+            {{ (states('sensor.fabbisogno_irrigazione_calcolato') | float / states('input_number.zona1_litri_mq_min') | float) | round(0) }}
+            {% endif %}
+      fronte: >
+            {% if ((states('sensor.fabbisogno_irrigazione_calcolato') | float / states('input_number.zona2_litri_mq_min') | float) | round(0)) < 0  %}
+              0
+            {% else %}
+            {{ (states('sensor.fabbisogno_irrigazione_calcolato') | float / states('input_number.zona2_litri_mq_min') | float) | round(0) }}
+            {% endif %}      
+      siepe:  >
+            {% if ((states('sensor.fabbisogno_irrigazione_calcolato') | float / states('input_number.zona3_litri_mq_min') | float) | round(0)) < 0  %}
+              0
+            {% else %}
+            {{ (states('sensor.fabbisogno_irrigazione_calcolato') | float / states('input_number.zona3_litri_mq_min') | float) | round(0) }}
+            {% endif %}      
+
+  - name: info irrigazione
+    unique_id: info_irrigazione
+    state: "Info irrigazione"
+    attributes:
+      ultima_irrigazione: "{{ ((as_timestamp(now(),0) - as_timestamp(state_attr('script.irrigazione','last_triggered'),0)) / 3600) | round (0) }} ore fa ( {{ as_timestamp(state_attr('script.irrigazione','last_triggered'),0) | timestamp_custom('%d %B @ %H:%M', default=0)  }} )"
+      prossima_irrigazione: "tra {{((as_timestamp(states('input_datetime.prossima_irrigazione')) - as_timestamp(now())) /3600) | round(0)}} ore ( {{ as_timestamp(states('input_datetime.prossima_irrigazione')) | timestamp_custom('%d %B @ %H:%M')}} )"
+
+
+
+
+   
+
+########################################################################################
+
+input_number:
+  ######################### IRRIGATION ##########################
+  ciclo_irrigazione:
+    name: Ciclo di irrigazione
+    min: 1
+    max: 7
+    step: 1
+    icon: mdi:calendar-clock
+## Rilevazioni effettive impianto di irrigazione fatte con pluviometro manuale https://www.amazon.it/s?k=pluviometro
+  zona1_litri_mq_min:
+    name: Zona 1 Litri/mq/min
+    min: 0.1
+    max: 1
+    step: 0.1
+    icon: mdi:sprinkler
+  zona2_litri_mq_min:
+    name: Zona 2 Litri/mq/min
+    min: 0.1
+    max: 1
+    step: 0.1
+    icon: mdi:sprinkler-variant
+  zona3_litri_mq_min:
+    name: Zona 3 Litri/mq/min
+    min: 0.1
+    max: 1
+    step: 0.1   
+    icon: mdi:sprinkler-fire   
+  fabbisogno_giornaliero_irrigazione:
+    name: Fabbisogno giornaliero per mq in mm
+    initial: 5
+    min: 0
+    max: 10
+    step: 0.1
+    icon: mdi:watering-can
+  timer_manuale_irrigazione:
+    name: Durata irrigazione manuale
+    initial: 5
+    min: 1
+    max: 30
+    step: 1
+    icon: mdi:timer  
+input_datetime:
+  prossima_irrigazione: 
+    name: Data e ora prossima irrigazione
+    has_date: true
+    has_time: true
+
+input_select:
+  irrigation_mode:
+    name: Calcolo fabbisogno
+    options:
+      - Auto (Evapotranspiration)
+      - Manual
+
+input_boolean:
+   onoff_programma_irrigazione:
+    name: Attiva/Disattiva Programmazione Automatica
+    

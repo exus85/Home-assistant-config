@@ -1,0 +1,481 @@
+#      Credit
+###### Some images and code from https://github.com/lukevink/hass-config-lajv   
+
+
+type: picture-elements
+image: /local/ui/pulizia/mainview_ambrogio.png
+style: |
+  ha-card {
+    background: rgba(42, 46, 48, 1)
+  }
+elements:
+################  IMMAGINI DI STATO DELLE STANZE ##############################
+  - type: conditional
+    conditions:
+      - entity: sensor.vacuum_status
+        state_not: 'Charging'
+    elements:
+      - type: image
+        action: none
+        hold_action: none
+        tap_action: none
+        entity: input_text.room_cleaning
+        state_image:
+          soggiorno: /local/ui/pulizia/clean_soggiornoSelected.png
+          bagno: /local/ui/pulizia/clean_bagnoSelected.png
+          camera: /local/ui/pulizia/clean_cameraSelected.png
+          studio: /local/ui/pulizia/clean_studioSelected.png
+          casa: /local/ui/pulizia/clean_casa_intera.png
+          charging: /local/transparent.png
+          goinghome: /local/transparent.png
+          none: /local/transparent.png
+        style:
+          left: 50%
+          top: 50%
+          width: 100%
+     
+
+  - type: conditional
+    conditions:
+      - entity: sensor.vacuum_status
+        state: 'Charging'
+    elements:
+      - type: image
+        action: none
+        hold_action: none
+        tap_action: none
+        entity: input_text.room_cleaning
+        image: /local/ui/pulizia/clean_casa_interaStandby.png
+        style:
+          left: 50%
+          top: 50%
+          width: 100%          
+####################### MENU SINISTRO #############################################
+  
+    ######### ICONA BATTERIA SU IMMAGINE ROBOT E TESTO DI STATO SOTTO SCRITTA AMBROGIO ############
+  - entity: sensor.vacuum_battery_icon
+    style:
+      '--iron-icon-height': 1.5vw
+      '--iron-icon-width': 1.5vw
+      left: 13.5%
+      top: 17.5%
+    type: state-icon
+  - entity: sensor.vacuum_status
+    style:
+      color: 'rgba(255,255,255,0.6)'
+      font-size: 1.3vw
+      font-weight: 300
+      left: 13.4%
+      text-align: center
+      top: 28.5%
+      width: 15%
+    type: state-label
+
+################## RIQUADRO / IMMAGINE SE STA PULENDO ######################
+  - type: conditional
+    conditions:
+      - entity: sensor.vacuum_status
+        state: 'Charging'
+    elements:
+      - type: image
+        image: /local/ui/pulizia/cleaningStatusWait.png
+        style:
+          left: 13.5%
+          top: 46%
+          width: 23%
+  - type: conditional
+    conditions:
+      - entity: sensor.vacuum_status
+        state_not: 'Charging'
+    elements:
+      - type: image
+        entity: input_text.room_cleaning
+        hold_action:
+          action: none
+        tap_action:
+          action: none
+        state_image:
+          soggiorno: /local/ui/pulizia/cleaningStatusLive.png
+          bagno: /local/ui/pulizia/cleaningStatusLive.png
+          camera: /local/ui/pulizia/cleaningStatusLive.png
+          studio: /local/ui/pulizia/cleaningStatusLive.png
+          charging: /local/ui/pulizia/cleaningStatusWait.png
+          goinghome: /local/ui/pulizia/cleaningStatusWait.png
+          none: /local/ui/pulizia/cleaningStatusWait.png
+          casa: /local/ui/pulizia/cleaningStatusLive.png
+        style:
+          left: 13.5%
+          top: 46%
+          width: 23%
+        action: none
+
+
+    ############# TESTO SE STA PULENDO (STANZA - DA QUANTO  e QUANTI MQ ################
+  - conditions:
+      - entity: sensor.vacuum_status
+        state_not: Charging
+      - entity: input_text.room_cleaning
+        state_not: goinghome
+      - entity: input_text.room_cleaning
+        state_not: none
+    elements:
+      - entity: sensor.vacuum_cleaning_status
+        style:
+          color: 'rgba(255,255,255,1)'
+          font-size: 1.3vw
+          font-weight: 300
+          left: 13.4%
+          text-align: center
+          top: 51.5%
+          width: 15%
+        type: state-label
+    type: conditional
+  - conditions:
+      - entity: sensor.vacuum_status
+        state_not: Charging
+      - entity: input_text.room_cleaning
+        state_not: goinghome
+      - entity: input_text.room_cleaning
+        state_not: none
+    elements:
+      - entity: sensor.ambrogio_current_clean_duration
+        style:
+          color: 'rgba(255,255,255,1)'
+          font-size: 1.5vw
+          font-weight: 300
+          left: 8%
+          text-align: center
+          top: 45%
+          width: 15%
+        type: state-label
+    type: conditional
+  - conditions:
+      - entity: sensor.vacuum_status
+        state_not: Charging
+      - entity: input_text.room_cleaning
+        state_not: goinghome
+      - entity: input_text.room_cleaning
+        state_not: none
+    elements:
+      - entity: sensor.ambrogio_current_clean_area
+        style:
+          color: 'rgba(255,255,255,1)'
+          font-size: 1.5vw
+          font-weight: 300
+          left: 18%
+          text-align: center
+          top: 45%
+          width: 15%
+        type: state-label
+    type: conditional    
+    
+
+#######################   PULSANTI MENU  GRANDI ###################################
+  - action: none
+    hold_action:
+      action: none
+    image: /local/ui/pulizia/btns/ring.png
+    style:
+      left: 6.8%
+      top: 72.5%
+      width: 12%
+    tap_action:
+      action: call-service
+      service: vacuum.locate
+      service_data:
+        entity_id: vacuum.ambrogio
+    type: image
+  - action: none
+    hold_action:
+      action: none
+    image: /local/ui/pulizia/btns/gohome.png
+    style:
+      left: 19.5%
+      top: 72.5%
+      width: 12%
+    tap_action:
+      action: call-service
+      service: script.stop_cleaning
+      service_data:
+        entity_id: vacuum.ambrogio
+    type: image
+  - action: none
+    hold_action:
+      action: none
+    image: /local/ui/pulizia/btns/start.png
+    style:
+      left: 6.8%
+      top: 88%
+      width: 12%
+    tap_action:
+      action: call-service
+      service: script.pulisci_casa
+      service_data:
+        entity_id: vacuum.ambrogio
+    type: image
+  - action: none
+    hold_action:
+      action: none
+    image: /local/ui/pulizia/btns/pause.png
+    style:
+      left: 19.5%
+      top: 88%
+      width: 12%
+    tap_action:
+      action: call-service
+      service: vacuum.pause
+      service_data:
+        entity_id: vacuum.ambrogio
+    type: image
+
+
+###################### PULSANTI MENU POTENZA VENTOLA ##############################
+
+  - action: none
+    entity: sensor.vacuum_fan
+    hold_action:
+      action: none
+    state_image:
+      Medium: local/ui/pulizia/btns/fan_1.png
+      Standard: local/ui/pulizia/btns/fan_1.png
+      Silent: local/ui/pulizia/btns/fan_1_selected.png
+      Turbo: local/ui/pulizia/btns/fan_1.png
+    style:
+      left: 7.22%
+      top: 60.5%
+      width: 4.1796875%
+    tap_action:
+      action: call-service
+      service: vacuum.set_fan_speed
+      service_data:
+        entity_id: vacuum.ambrogio
+        fan_speed: Silent
+    type: image
+  - action: none
+    entity: sensor.vacuum_fan
+    hold_action:
+      action: none
+    state_image:
+      Standard: local/ui/pulizia/btns/fan_2_selected.png
+      Medium: local/ui/pulizia/btns/fan_2.png
+      Silent: local/ui/pulizia/btns/fan_2.png
+      Turbo: local/ui/pulizia/btns/fan_2.png
+    style:
+      left: 11.48%
+      top: 60.5%
+      width: 4.1796875%
+    tap_action:
+      action: call-service
+      service: vacuum.set_fan_speed
+      service_data:
+        entity_id: vacuum.ambrogio
+        fan_speed: Standard
+    type: image
+  - action: none
+    entity: sensor.vacuum_fan
+    hold_action:
+      action: none
+    state_image:
+      Standard: local/ui/pulizia/btns/fan_3.png
+      Turbo: local/ui/pulizia/btns/fan_3.png
+      Silent: local/ui/pulizia/btns/fan_3.png
+      Medium: local/ui/pulizia/btns/fan_3_selected.png
+    style:
+      left: 15.74%
+      top: 60.5%
+      width: 4.1796875%
+    tap_action:
+      action: call-service
+      service: vacuum.set_fan_speed
+      service_data:
+        entity_id: vacuum.ambrogio
+        fan_speed: Medium
+    type: image
+  - action: none
+    entity: sensor.vacuum_fan
+    hold_action:
+      action: none
+    state_image:
+      Standard: local/ui/pulizia/btns/fan_4.png
+      Turbo: local/ui/pulizia/btns/fan_4_selected.png
+      Silent: local/ui/pulizia/btns/fan_4.png
+      Medium: local/ui/pulizia/btns/fan_4.png
+    style:
+      left: 20%
+      top: 60.5%
+      width: 4.1796875%
+    tap_action:
+      action: call-service
+      service: vacuum.set_fan_speed
+      service_data:
+        entity_id: vacuum.ambrogio
+        fan_speed: Turbo
+    type: image
+
+########################   PULSANTI SU MAPPA STANZE ###############################
+  
+  - type: conditional
+    conditions:
+      - entity: sensor.vacuum_status
+        state_not: 'Charging'
+    elements:
+      - type: image
+        entity: input_text.room_cleaning 
+        state_image:
+          soggiorno: local/ui/pulizia/btns/cleanIconActive.svg
+          bagno: local/ui/pulizia/btns/cleanIconStandby.svg
+          camera: local/ui/pulizia/btns/cleanIconStandby.svg
+          studio: local/ui/pulizia/btns/cleanIconStandby.svg
+          charging: local/ui/pulizia/btns/cleanIconStandby.svg
+          goinghome: local/ui/pulizia/btns/cleanIconStandby.svg
+          none: local/ui/pulizia/btns/cleanIconStandby.svg
+          casa: local/ui/pulizia/btns/cleanIconActive.svg
+        action: none
+        tap_action:
+          action: call-service
+          service: script.pulisci_soggiorno 
+
+        style:
+          left: 80%
+          top: 50%
+          z-index: 10
+      - type: image
+        entity: input_text.room_cleaning 
+        state_image:
+          soggiorno: local/ui/pulizia/btns/cleanIconStandby.svg
+          bagno: local/ui/pulizia/btns/cleanIconActive.svg
+          camera: local/ui/pulizia/btns/cleanIconStandby.svg
+          studio: local/ui/pulizia/btns/cleanIconStandby.svg
+          charging: local/ui/pulizia/btns/cleanIconStandby.svg
+          goinghome: local/ui/pulizia/btns/cleanIconStandby.svg
+          none: local/ui/pulizia/btns/cleanIconStandby.svg
+          casa: local/ui/pulizia/btns/cleanIconActive.svg
+        action: none
+        tap_action:
+          action: call-service
+          service: script.pulisci_bagno
+        style:
+          left: 61%
+          top: 28%
+          z-index: 10      
+      - type: image
+        entity: input_text.room_cleaning 
+        state_image:
+          soggiorno: local/ui/pulizia/btns/cleanIconStandby.svg
+          bagno: local/ui/pulizia/btns/cleanIconStandby.svg
+          camera: local/ui/pulizia/btns/cleanIconStandby.svg
+          studio: local/ui/pulizia/btns/cleanIconActive.svg
+          charging: local/ui/pulizia/btns/cleanIconStandby.svg
+          goinghome: local/ui/pulizia/btns/cleanIconStandby.svg
+          none: local/ui/pulizia/btns/cleanIconStandby.svg
+          casa: local/ui/pulizia/btns/cleanIconActive.svg
+        action: none
+        tap_action:
+          action: call-service
+          service: script.pulisci_studio
+        style:
+          left: 45%
+          top: 68%
+          z-index: 10
+      - type: image
+        entity: input_text.room_cleaning 
+        state_image:
+          soggiorno: local/ui/pulizia/btns/cleanIconStandby.svg
+          bagno: local/ui/pulizia/btns/cleanIconStandby.svg
+          camera: local/ui/pulizia/btns/cleanIconActive.svg
+          studio: local/ui/pulizia/btns/cleanIconStandby.svg
+          charging: local/ui/pulizia/btns/cleanIconStandby.svg
+          goinghome: local/ui/pulizia/btns/cleanIconStandby.svg
+          none: local/ui/pulizia/btns/cleanIconStandby.svg
+          casa: local/ui/pulizia/btns/cleanIconActive.svg
+        action: none
+        tap_action:
+          action: call-service
+          service: script.pulisci_camera
+        style:
+          left: 40%
+          top: 35%
+          z-index: 10      
+    ######################################################
+
+  - type: conditional
+    conditions:
+      - entity: sensor.vacuum_status
+        state: 'Charging'
+    elements:
+      - type: image
+        entity: input_text.room_cleaning 
+        state_image:
+          soggiorno: local/ui/pulizia/btns/cleanIconStandby.svg
+          bagno: local/ui/pulizia/btns/cleanIconStandby.svg
+          camera: local/ui/pulizia/btns/cleanIconStandby.svg
+          studio: local/ui/pulizia/btns/cleanIconStandby.svg
+          charging: local/ui/pulizia/btns/cleanIconStandby.svg
+          goinghome: local/ui/pulizia/btns/cleanIconStandby.svg
+          none: local/ui/pulizia/btns/cleanIconStandby.svg
+          casa: local/ui/pulizia/btns/cleanIconStandby.svg
+        action: none
+        tap_action:
+          action: call-service
+          service: script.pulisci_soggiorno
+        style:
+          left: 80%
+          top: 50%
+          z-index: 10
+      - type: image
+        entity: input_text.room_cleaning 
+        state_image:
+          soggiorno: local/ui/pulizia/btns/cleanIconStandby.svg
+          bagno: local/ui/pulizia/btns/cleanIconStandby.svg
+          camera: local/ui/pulizia/btns/cleanIconStandby.svg
+          studio: local/ui/pulizia/btns/cleanIconStandby.svg
+          charging: local/ui/pulizia/btns/cleanIconStandby.svg
+          goinghome: local/ui/pulizia/btns/cleanIconStandby.svg
+          none: local/ui/pulizia/btns/cleanIconStandby.svg
+          casa: local/ui/pulizia/btns/cleanIconStandby.svg
+        action: none
+        tap_action:
+          action: call-service
+          service: script.pulisci_bagno
+        style:
+          left: 61%
+          top: 28%
+          z-index: 10      
+      - type: image
+        entity: input_text.room_cleaning 
+        state_image:
+          soggiorno: local/ui/pulizia/btns/cleanIconStandby.svg
+          bagno: local/ui/pulizia/btns/cleanIconStandby.svg
+          camera: local/ui/pulizia/btns/cleanIconStandby.svg
+          studio: local/ui/pulizia/btns/cleanIconStandby.svg
+          charging: local/ui/pulizia/btns/cleanIconStandby.svg
+          goinghome: local/ui/pulizia/btns/cleanIconStandby.svg
+          none: local/ui/pulizia/btns/cleanIconStandby.svg
+          casa: local/ui/pulizia/btns/cleanIconStandby.svg
+        action: none
+        tap_action:
+          action: call-service
+          service: script.pulisci_studio
+        style:
+          left: 45%
+          top: 68%
+          z-index: 10
+      - type: image
+        entity: input_text.room_cleaning 
+        state_image:
+          soggiorno: local/ui/pulizia/btns/cleanIconStandby.svg
+          bagno: local/ui/pulizia/btns/cleanIconStandby.svg
+          camera: local/ui/pulizia/btns/cleanIconStandby.svg
+          studio: local/ui/pulizia/btns/cleanIconStandby.svg
+          charging: local/ui/pulizia/btns/cleanIconStandby.svg
+          goinghome: local/ui/pulizia/btns/cleanIconStandby.svg
+          none: local/ui/pulizia/btns/cleanIconStandby.svg
+          casa: local/ui/pulizia/btns/cleanIconStandby.svg
+        action: none
+        tap_action:
+          action: call-service
+          service: script.pulisci_camera
+        style:
+          left: 40%
+          top: 35%
+          z-index: 10                

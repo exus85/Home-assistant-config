@@ -1,0 +1,150 @@
+digitalClock: true
+date: true
+hideTopMenu: true
+width:
+  mobile: 0
+  tablet: 25
+  desktop: 25
+sidebarMenu:
+  - action: navigate
+    navigation_path: "/lovelace/home"
+    name: "Home"
+    active: true
+  - action: navigate
+    navigation_path: "/lovelace/pulizia"
+    name: "Pulizia"
+    active: true
+  - action: navigate
+    navigation_path: "/lovelace/musica"
+    name: "Musica"
+    active: true   
+  - action: navigate
+    navigation_path: "/lovelace/meteo"
+    name: "Meteo"
+    active: true   
+  - action: navigate
+    navigation_path: "/lovelace/dispositivi"
+    name: "Dispositivi"
+    active: true
+  - action: navigate
+    navigation_path: "/lovelace/monitoring"
+    name: "Monitoring"
+    active: true
+  - action: navigate
+    navigation_path: "/lovelace/garden"
+    name: "Giardino"
+    active: true
+style: |
+    :host {
+        --sidebar-background: #2b2b2b;
+        --sidebar-text-color: #FFF;
+        --face-color: #FFF;
+        --face-border-color: #FFF;
+        --clock-hands-color: #000;
+        --clock-seconds-hand-color: #FF4B3E;
+        --clock-middle-background: #FFF;
+        --clock-middle-border: #000;
+        
+
+    }  
+    .sidebar-inner {
+      bottom: 0px;
+      height: 100% !important;
+      max-height: 1200px;
+    }
+    .sidebarMenu li {
+      padding: 5px 20px !important;
+      font-size: 12px !important;
+    }
+    .bottom {
+    width: 100% ;
+    height: 100%;
+    }
+
+
+    
+  
+bottomCard:
+  type: custom:layout-card
+  layout_type: custom:vertical-layout
+  layout:
+    max_cols: 1
+  cardStyle: |
+      :host {
+        width: 100% !important;
+        position: absolute;
+        bottom: 0%;
+        left: 0%; 
+      }
+
+
+
+  cardOptions:
+    cards:
+      - type: 'custom:simple-weather-card'
+        backdrop: false
+        entity: weather.openweathermap
+        name: ' '
+        tap_action:
+          action: navigate
+          navigation_path: "/lovelace/meteo"
+        style: |
+          ha-card {
+            background: none  !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            margin: 4px;
+            font-size: 12px;
+            border-style: none;
+          }        
+#          :host {
+#            position: absolute;
+#            bottom: 13%;
+#            width: 90%;
+#            left: 5%;            
+#          }
+      - type: 'custom:mini-graph-card'
+        tap_action: 
+          action: none
+        show:
+          icon: false
+          legend: false
+          name: false        
+        entities:
+          - sensor.inside_temperature_soggiorno_inside_temperature  
+          - sensor.openweathermap_temperature
+        font_size: 35 
+        #height: 250
+        #aggregate_func: max
+        update_interval: 15
+        font_size_header: 9
+        hours_to_show: 24
+        points_per_hour: 1
+        icon: 'mdi:home-thermometer-outline'                
+        color_thresholds:
+          - color: '#4dd2ff'
+            value: 10
+          - color: '#ffa31a'
+            value: 20
+          - color: '#ff1a1a'
+            value: 30
+        style: |
+          ha-card, ha-card > div {
+            padding: 0px !important;
+            
+          }
+          ha-card > .header.flex > div, ha-card > .states.flex > div {
+            padding: 5px !important;
+            font-weight: 500;
+          } 
+          ha-card > .info.flex > .info__item > .info__item__time {
+            display: none;
+          }
+          ha-card {
+            background-color: rgba(40,40,40,0);
+            border-style: none;
+
+          }
+          .name > span {
+            font-weight: 500 !important;
+          }

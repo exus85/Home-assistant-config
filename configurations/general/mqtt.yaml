@@ -1,0 +1,10 @@
+light:
+  - name: cielo rgb light
+    command_topic: cielo/rgb1/light/switch
+    state_topic: cielo/rgb1/light/status
+    brightness_command_topic: cielo/rgb1/brightness/set
+    brightness_state_topic: cielo/rgb1/brightness/status
+    rgb_state_topic: cielo/rgb1/rgb/status
+    rgb_command_topic: cielo/rgb1/rgb/set
+    brightness_scale: 100
+    optimistic: false  

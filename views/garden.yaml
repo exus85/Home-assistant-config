@@ -1,0 +1,506 @@
+anchors:            
+<<3: &list_style_1 >
+                  .card-header {
+                  justify-content: center !important;
+                  font-size: 14px;
+                  padding: 0;
+                  font-weight: 500;
+                  }
+                  .card-content {
+                    padding: 0px;
+                    margin-right: 10px;
+                    margin-left: 10px;
+                  }
+                  #states.card-content > div {
+                    margin: 0px;
+                  }
+                  ha-card {
+                    background-color: rgba(40,40,40,0.6);
+                    font-size: 11px;
+                  }
+                  multiple-entity-row {
+                    height: 30px;
+                  }
+<<4: &slider_row_style 
+  hui-generic-entity-row:
+    $: |
+      .info {
+      margin-left: 1px !important;
+      }
+      :host {
+      --paper-item-icon-color: lightblue;
+          }   
+      state-badge {
+      flex: 0 0 30px !important;
+      }    
+    .: |
+      .state {
+      min-width: 0px !important;
+      }
+    ha-slider:
+      $: |
+        #sliderContainer {
+        margin-left: 5px !important;
+        margin-right: 10px !important;
+        }
+
+<<4.1: &slider_row_style2
+    slider-entity-row:
+      $:
+        hui-generic-entity-row:
+          $: |
+            .info {
+            margin-left: 1px !important;
+            }
+            :host {
+            --paper-item-icon-color: lightblue;
+                }   
+            state-badge {
+            flex: 0 0 30px !important;
+            }    
+          .: |
+            .state {
+            min-width: 0px !important;
+            }
+          ha-slider:
+            $: |
+              #sliderContainer {
+              margin-left: 5px !important;
+              margin-right: 10px !important;
+              }        
+<<5: &row_style 
+  hui-generic-entity-row:
+    $: |
+      :host {
+      --paper-item-icon-color: lightblue;
+          }   
+      state-badge {
+      flex: 0 0 30px !important;
+      } 
+<<6: &row_style2 >     
+      :host {
+      --paper-item-icon-color: lightblue;
+          }   
+      #wrapper > state-badge {
+      flex: 0 0 30px !important;
+      }
+
+
+<<7: &divider_style
+                  height: 2px
+                  width: 90%
+                  margin-left: 20px;
+                  margin-right: 20px;
+                  margin-bottom: 10px;
+                  background: '#5abdff' 
+
+
+
+
+
+type: 'custom:swipe-card'
+parameters: 
+  allowTouchMove: false
+  effect: 'cube'
+  cubeEffect: 
+    shadow: true
+    slideShadows: true
+    shadowOffset: 20
+    shadowScale: 0.94
+  pagination:
+    #type: 'fraction'  
+    clickable: true        
+    hide: false 
+cards:
+- type: picture-elements
+  image: /local/ui/dispositivi/backgroundStatic2.png
+  elements:
+
+######## PRIMA COLONNA ############
+######## PRIMA COLONNA ############
+######## PRIMA COLONNA ############
+
+    - type: custom:layout-card
+      layout_type: custom:vertical-layout
+      layout:
+        max_cols: 1
+        width: 340
+      style:
+        transform: none
+        left: 8%
+        top: 0%
+        width: 30%
+      cards:
+        - type: entities
+          style: *list_style_1
+          title: Configura irrigazione
+          entities:
+            - type: divider
+              style: *divider_style
+            - type: custom:slider-entity-row
+              entity: input_number.zona1_litri_mq_min
+              name: Retro L/mq/min
+              hide_state: false
+              style: *slider_row_style
+
+            - type: custom:slider-entity-row
+              entity: input_number.zona2_litri_mq_min
+              name: Fronte L/mq/min
+              hide_state: false
+              style: *slider_row_style
+            - type: custom:slider-entity-row
+              entity: input_number.zona3_litri_mq_min
+              name: Siepe L/mq/min
+              hide_state: false
+              style: *slider_row_style 
+
+
+
+
+
+
+            - entity: input_select.irrigation_mode
+              name: Modalità di calcolo
+              card_mod:
+                style: 
+                  hui-generic-entity-row $: |
+                    state-badge {
+                      display: none;
+                    }
+                  ha-select $: |
+                    .mdc-select__anchor{
+                      height: 40px !important;
+                      border-top-left-radius: 0 !important;
+                      border-top-right-radius: 0 !important;
+                    }
+                    .mdc-select__selected-text-container{
+                      align-self: flex-end;
+                    }
+                    .mdc-select__selected-text{
+                      color: white !important;
+                      font-family: Oswald !important;
+                      font-size: 12px !important;
+                    }
+                    span#label{
+                      font-family: Oswald !important;
+                      font-size: 10px !important;
+                      --mdc-theme-primary: black;
+                    }
+                  .: |
+                    :host {
+                      --mdc-menu-item-height: 25px;
+                      --mdc-select-fill-color: #03a9f4;
+                    } 
+                    hui-generic-entity-row {
+                      margin-bottom: 10px;
+                    }
+                    ha-select{
+                      height: 40px;
+                    }
+                  ha-select:
+                    $:
+                      mwc-menu:
+                        $:
+                          mwc-menu-surface:
+                            $: |
+                              .mdc-menu-surface {
+                                background-color: #171717ba !important;
+                              }                            
+            - type: conditional #########################################################################################################################
+              conditions: 
+                - entity: input_select.irrigation_mode
+                  state: "Manual"
+              row:
+                type: custom:slider-entity-row
+                entity: input_number.fabbisogno_giornaliero_irrigazione
+                name: Fabbisogno mm/giorno
+                hide_state: false
+              card_mod:
+                style: *slider_row_style2
+            - type: custom:template-entity-row
+              entity: sensor.evapotranspiration_total_this_cycle
+              name: "Evapotraspirazione negli ultimi {{states('input_number.ciclo_irrigazione') | round(0)}} giorni"
+              condition: "{{ states('input_select.irrigation_mode') == 'Auto (Evapotranspiration)'}}"
+              icon: mdi:water-minus-outline 
+              state: "{{states('sensor.evapotranspiration_total_this_cycle')}} {{state_attr('sensor.evapotranspiration_total_this_cycle', 'unit_of_measurement')}} "  
+              style: *row_style2
+              
+            - type: custom:template-entity-row
+              entity: sensor.evapotranspiration
+              name: "Evapotraspirazione Recente"
+              condition: "{{ states('input_select.irrigation_mode') == 'Auto (Evapotranspiration)'}}"
+              icon: mdi:water-minus-outline 
+              state: "{{states('sensor.evapotranspiration')}} {{state_attr('sensor.evapotranspiration', 'unit_of_measurement')}} "  
+              style: *row_style2   
+
+
+        - type: entities
+          style: *list_style_1
+          title: Imposta ciclo di irrigazione
+          entities:
+            - type: divider
+              style: *divider_style
+            - type: 'custom:time-picker-card'
+              entity: input_datetime.prossima_irrigazione
+              name: Orario di irrigazione
+              minute_step: 10
+              layout:
+                name: inside
+                align_controls: right
+              style: 
+                .: | 
+                  ha-card {
+                    background: none;
+                    box-shadow: none;
+                    font-size: 11px;
+                    --paper-item-icon-color: lightblue;
+                      }
+                  .time-picker-row {
+                    padding: 0px !important;
+                  }
+                  .entity-name-inside{
+                    margin-left: 0px !important;
+                  }
+                  state-badge{
+                    width: 30px !important;
+                  }
+                time-unit:
+                  $: |
+                    .time-picker-icon {
+                    padding: 0px !important;
+                    }                  
+            - type: custom:slider-entity-row
+              entity: input_number.ciclo_irrigazione
+              name: Irriga ogni (giorni)
+              hide_state: false
+              style: *slider_row_style
+              tap_action:
+                action: call-service
+                service: homeassistant.update_entity
+                data:
+                  entity_id: sensor.outdoor_rain_info_cycle
+              hold_action:
+                action: call-service
+                service: homeassistant.update_entity
+                data:
+                  entity_id: sensor.outdoor_rain_info_cycle                  
+
+            - type: custom:mod-card
+              style: |
+                ha-card {
+                display: grid;
+                justify-content: center;
+                margin-bottom: 10px;
+                }
+              card:
+                type: horizontal-stack
+                cards: 
+                  - type: 'custom:button-card'                      
+                    tap_action: 
+                      action: call-service
+                      service: script.aggiorna_data_irrigazione
+                    color_type: card
+                    color: var(--primary-color)
+                    name: Aggiorna data irrigazione
+                    styles:
+                      card: 
+                        - height: 30px
+                        - width: 120px
+                        - font-size: 12px
+                        - border-radius: 0%
+            - entity: input_boolean.onoff_programma_irrigazione
+              name: Accendi o Spegni la programmazione automatica
+
+
+
+######## SECONDA COLONNA ############
+######## SECONDA COLONNA ############
+######## SECONDA COLONNA ############
+
+    - type: custom:layout-card
+      layout_type: custom:vertical-layout
+      layout:
+        max_cols: 1
+        width: 340
+      style:
+        transform: none
+        left: 55%
+        top: 0%
+        width: 30%
+      cards:
+        - type: entities
+          style: *list_style_1
+          title: Informazioni irrigazione automatica
+          entities:
+            - type: divider
+              style: *divider_style 
+
+            - type: custom:template-entity-row  
+              entity: sensor.outdoor_total_rain_this_cycle
+              name: "Pioggia accumulata negli ultimi {{states('input_number.ciclo_irrigazione') | round(0)}} giorni"
+              icon: mdi:weather-pouring 
+              state: "{{states('sensor.outdoor_total_rain_this_cycle')}} {{state_attr('sensor.outdoor_total_rain_this_cycle', 'unit_of_measurement')}} "                  
+              style: *row_style2
+            - type: custom:template-entity-row  
+              entity: sensor.outdoor_total_rain_this_cycle
+              name: "Pioggia accumulata dall'ultima irrigazione: "
+              icon: mdi:weather-pouring 
+              state: "{{states('sensor.outdoor_total_rain_since_last_irrigation')}} {{state_attr('sensor.outdoor_total_rain_since_last_irrigation', 'unit_of_measurement')}}"
+              style: *row_style2 
+              
+
+            - entity: sensor.minuti_irrigazione
+              type: attribute
+              attribute: retro
+              suffix: minuti
+              name: Zona 1 (Retro) sarà irrigata per
+              style: *row_style
+              icon: mdi:timer-outline
+            - entity: sensor.minuti_irrigazione
+              type: attribute
+              attribute: fronte
+              suffix: minuti
+              name: Zona 2 (Fronte) sarà irrigata per
+              style: *row_style
+              icon: mdi:timer-outline      
+            - entity: sensor.minuti_irrigazione
+              type: attribute
+              attribute: siepe
+              suffix: minuti
+              name: Zona 3 (Siepe) sarà irrigata per
+              style: *row_style
+              icon: mdi:timer-outline
+            - entity: sensor.info_irrigazione
+              type: attribute
+              attribute: ultima_irrigazione
+              name: "Ultima irrigazione avvenuta:"
+              style: *row_style
+              icon: mdi:history
+            - entity: sensor.info_irrigazione
+              type: attribute
+              attribute: prossima_irrigazione
+              name: "Prossima irrigazione:"
+              style: *row_style
+              icon: mdi:calendar-clock
+
+
+
+
+        - type: entities
+          style: *list_style_1
+          title: Avvio Manuale
+          entities:
+            - type: divider
+              style: *divider_style                               
+            - type: custom:slider-entity-row
+              entity: input_number.timer_manuale_irrigazione
+              name: Imposta durata (minuti)
+              hide_state: false
+              style: *slider_row_style
+                
+            - type: custom:mod-card
+              style: |
+                ha-card {
+                display: grid;
+                justify-content: center;
+                margin: 10px;
+                }
+              card:
+                type: horizontal-stack
+                cards: 
+                  - type: 'custom:button-card'   
+                    entity: switch.rainbird_irrigazione_retro
+                    color_type: card
+                    color: var(--primary-color)
+                    name: Retro
+                    icon: mdi:numeric-1-box-outline
+                    tap_action:
+                      action: call-service
+                      service: rainbird.start_zone
+                      service_data:
+                        entity_id: switch.rainbird_irrigazione_retro
+                        zone_run_time: >
+                          [[[ return (states['input_number.timer_manuale_irrigazione'].state * 60)  ]]]
+                    styles:
+                      card: 
+                        - height: 50px
+                        - width: 70px
+                        - font-size: 12px
+                        - border-radius: 0%
+                    
+                  - type: 'custom:button-card'   
+                    entity: switch.rainbird_irrigazione_fronte
+                    color_type: card
+                    color: var(--primary-color)
+                    name: Fronte
+                    icon: mdi:numeric-2-box-outline
+                    tap_action:
+                      action: call-service
+                      service: rainbird.start_zone
+                      service_data:
+                        entity_id: switch.rainbird_irrigazione_fronte
+                        zone_run_time: >
+                          [[[ return (states['input_number.timer_manuale_irrigazione'].state * 60)  ]]]
+                    styles:
+                      card: 
+                        - height: 50px
+                        - width: 70px
+                        - font-size: 12px
+                        - border-radius: 0%  
+
+                  - type: 'custom:button-card'   
+                    entity: switch.rainbird_irrigazione_siepe
+                    color_type: card
+                    color: var(--primary-color)
+                    name: Siepe
+                    icon: mdi:numeric-3-box-outline
+                    tap_action:
+                      action: call-service
+                      service: rainbird.start_zone
+                      service_data:
+                        entity_id: switch.rainbird_irrigazione_siepe
+                        zone_run_time: >
+                          [[[ return (states['input_number.timer_manuale_irrigazione'].state * 60)  ]]]
+                    styles:
+                      card: 
+                        - height: 50px
+                        - width: 70px
+                        - font-size: 12px
+                        - border-radius: 0%
+
+
+
+
+
+        
+############ SECONDA PAGINA
+
+
+- type: picture-elements
+  image: /local/ui/dispositivi/backgroundStatic2.png
+  elements:
+  ############# TITOLI
+
+    - type: custom:layout-card
+      layout_type: custom:vertical-layout
+      layout:
+        max_cols: 1
+        width: 340
+      style:
+        transform: none
+        left: 8%
+        top: 1%
+        width: 30%
+      cards:
+        - type: entities
+          style: *list_style_1
+          title: Configura irrigazione
+          entities:
+            - type: divider
+              style: *divider_style
+        - type: custom:bar-card
+          direction: up
+          height: 200px
+          title: Bucket
+          entities:
+            

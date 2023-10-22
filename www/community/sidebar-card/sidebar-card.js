@@ -14,7 +14,8 @@
 /**
  * True if the custom elements polyfill is in use.
  */
-const isCEPolyfill = window.customElements !== undefined &&
+const isCEPolyfill = typeof window !== 'undefined' &&
+    window.customElements != null &&
     window.customElements.polyfillWrapFlushCallback !==
         undefined;
 /**
@@ -28,7 +29,6 @@ const removeNodes = (container, start, end = null) => {
         start = n;
     }
 };
-//# sourceMappingURL=dom.js.map
 
 /**
  * @license
@@ -59,7 +59,7 @@ const markerRegex = new RegExp(`${marker}|${nodeMarker}`);
  */
 const boundAttributeSuffix = '$lit$';
 /**
- * An updateable Template that tracks the location of dynamic parts.
+ * An updatable Template that tracks the location of dynamic parts.
  */
 class Template {
     constructor(result, element) {
@@ -241,8 +241,9 @@ const createMarker = () => document.createComment('');
  *    * (") then any non-("), or
  *    * (') then any non-(')
  */
-const lastAttributeNameRegex = /([ \x09\x0a\x0c\x0d])([^\0-\x1F\x7F-\x9F "'>=/]+)([ \x09\x0a\x0c\x0d]*=[ \x09\x0a\x0c\x0d]*(?:[^ \x09\x0a\x0c\x0d"'`<>=]*|"[^"]*|'[^']*))$/;
-//# sourceMappingURL=template.js.map
+const lastAttributeNameRegex = 
+// eslint-disable-next-line no-control-regex
+/([ \x09\x0a\x0c\x0d])([^\0-\x1F\x7F-\x9F "'>=/]+)([ \x09\x0a\x0c\x0d]*=[ \x09\x0a\x0c\x0d]*(?:[^ \x09\x0a\x0c\x0d"'`<>=]*|"[^"]*|'[^']*))$/;
 
 /**
  * @license
@@ -367,7 +368,6 @@ function insertNodeIntoTemplate(template, node, refNode = null) {
         }
     }
 }
-//# sourceMappingURL=modify-template.js.map
 
 /**
  * @license
@@ -386,7 +386,6 @@ const directives = new WeakMap();
 const isDirective = (o) => {
     return typeof o === 'function' && directives.has(o);
 };
-//# sourceMappingURL=directive.js.map
 
 /**
  * @license
@@ -410,7 +409,6 @@ const noChange = {};
  * A sentinel value that signals a NodePart to fully clear its content.
  */
 const nothing = {};
-//# sourceMappingURL=part.js.map
 
 /**
  * @license
@@ -471,7 +469,7 @@ class TemplateInstance {
         // Given these constraints, with full custom elements support we would
         // prefer the order: Clone, Process, Adopt, Upgrade, Update, Connect
         //
-        // But Safari dooes not implement CustomElementRegistry#upgrade, so we
+        // But Safari does not implement CustomElementRegistry#upgrade, so we
         // can not implement that order and still have upgrade-before-update and
         // upgrade disconnected fragments. So we instead sacrifice the
         // process-before-upgrade constraint, since in Custom Elements v1 elements
@@ -543,7 +541,6 @@ class TemplateInstance {
         return fragment;
     }
 }
-//# sourceMappingURL=template-instance.js.map
 
 /**
  * @license
@@ -558,6 +555,16 @@ class TemplateInstance {
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
  */
+/**
+ * Our TrustedTypePolicy for HTML which is declared using the html template
+ * tag function.
+ *
+ * That HTML is a developer-authored constant, and is parsed with innerHTML
+ * before any untrusted expressions have been mixed in. Therefor it is
+ * considered safe by construction.
+ */
+const policy = window.trustedTypes &&
+    trustedTypes.createPolicy('lit-html', { createHTML: (s) => s });
 const commentMarker = ` ${marker} `;
 /**
  * The return type of `html`, which holds a Template and the values from
@@ -582,7 +589,7 @@ class TemplateResult {
             // For each binding we want to determine the kind of marker to insert
             // into the template source before it's parsed by the browser's HTML
             // parser. The marker type is based on whether the expression is in an
-            // attribute, text, or comment poisition.
+            // attribute, text, or comment position.
             //   * For node-position bindings we insert a comment with the marker
             //     sentinel as its text content, like <!--{{lit-guid}}-->.
             //   * For attribute bindings we insert just the marker sentinel for the
@@ -602,13 +609,13 @@ class TemplateResult {
             // be false positives.
             isCommentBinding = (commentOpen > -1 || isCommentBinding) &&
                 s.indexOf('-->', commentOpen + 1) === -1;
-            // Check to see if we have an attribute-like sequence preceeding the
+            // Check to see if we have an attribute-like sequence preceding the
             // expression. This can match "name=value" like structures in text,
             // comments, and attribute values, so there can be false-positives.
             const attributeMatch = lastAttributeNameRegex.exec(s);
             if (attributeMatch === null) {
                 // We're only in this branch if we don't have a attribute-like
-                // preceeding sequence. For comments, this guards against unusual
+                // preceding sequence. For comments, this guards against unusual
                 // attribute values like <div foo="<!--${'bar'}">. Cases like
                 // <!-- foo=${'bar'}--> are handled correctly in the attribute branch
                 // below.
@@ -628,11 +635,18 @@ class TemplateResult {
     }
     getTemplateElement() {
         const template = document.createElement('template');
-        template.innerHTML = this.getHTML();
+        let value = this.getHTML();
+        if (policy !== undefined) {
+            // this is secure because `this.strings` is a TemplateStringsArray.
+            // TODO: validate this when
+            // https://github.com/tc39/proposal-array-is-template-object is
+            // implemented.
+            value = policy.createHTML(value);
+        }
+        template.innerHTML = value;
         return template;
     }
 }
-//# sourceMappingURL=template-result.js.map
 
 /**
  * @license
@@ -653,12 +667,12 @@ const isPrimitive = (value) => {
 };
 const isIterable = (value) => {
     return Array.isArray(value) ||
-        // tslint:disable-next-line:no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         !!(value && value[Symbol.iterator]);
 };
 /**
  * Writes attribute values to the DOM for a group of AttributeParts bound to a
- * single attibute. The value is only set once even if there are multiple parts
+ * single attribute. The value is only set once even if there are multiple parts
  * for an attribute.
  */
 class AttributeCommitter {
@@ -681,10 +695,33 @@ class AttributeCommitter {
     _getValue() {
         const strings = this.strings;
         const l = strings.length - 1;
+        const parts = this.parts;
+        // If we're assigning an attribute via syntax like:
+        //    attr="${foo}"  or  attr=${foo}
+        // but not
+        //    attr="${foo} ${bar}" or attr="${foo} baz"
+        // then we don't want to coerce the attribute value into one long
+        // string. Instead we want to just return the value itself directly,
+        // so that sanitizeDOMValue can get the actual value rather than
+        // String(value)
+        // The exception is if v is an array, in which case we do want to smash
+        // it together into a string without calling String() on the array.
+        //
+        // This also allows trusted values (when using TrustedTypes) being
+        // assigned to DOM sinks without being stringified in the process.
+        if (l === 1 && strings[0] === '' && strings[1] === '') {
+            const v = parts[0].value;
+            if (typeof v === 'symbol') {
+                return String(v);
+            }
+            if (typeof v === 'string' || !isIterable(v)) {
+                return v;
+            }
+        }
         let text = '';
         for (let i = 0; i < l; i++) {
             text += strings[i];
-            const part = this.parts[i];
+            const part = parts[i];
             if (part !== undefined) {
                 const v = part.value;
                 if (isPrimitive(v) || !isIterable(v)) {
@@ -795,6 +832,9 @@ class NodePart {
         this.__pendingValue = value;
     }
     commit() {
+        if (this.startNode.parentNode === null) {
+            return;
+        }
         while (isDirective(this.__pendingValue)) {
             const directive = this.__pendingValue;
             this.__pendingValue = noChange;
@@ -991,7 +1031,7 @@ class PropertyCommitter extends AttributeCommitter {
     commit() {
         if (this.dirty) {
             this.dirty = false;
-            // tslint:disable-next-line:no-any
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             this.element[this.name] = this._getValue();
         }
     }
@@ -999,24 +1039,29 @@ class PropertyCommitter extends AttributeCommitter {
 class PropertyPart extends AttributePart {
 }
 // Detect event listener options support. If the `capture` property is read
-// from the options object, then options are supported. If not, then the thrid
+// from the options object, then options are supported. If not, then the third
 // argument to add/removeEventListener is interpreted as the boolean capture
 // value so we should only pass the `capture` property.
 let eventOptionsSupported = false;
-try {
-    const options = {
-        get capture() {
-            eventOptionsSupported = true;
-            return false;
-        }
-    };
-    // tslint:disable-next-line:no-any
-    window.addEventListener('test', options, options);
-    // tslint:disable-next-line:no-any
-    window.removeEventListener('test', options, options);
-}
-catch (_e) {
-}
+// Wrap into an IIFE because MS Edge <= v41 does not support having try/catch
+// blocks right into the body of a module
+(() => {
+    try {
+        const options = {
+            get capture() {
+                eventOptionsSupported = true;
+                return false;
+            }
+        };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        window.addEventListener('test', options, options);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        window.removeEventListener('test', options, options);
+    }
+    catch (_e) {
+        // event options not supported
+    }
+})();
 class EventPart {
     constructor(element, eventName, eventContext) {
         this.value = undefined;
@@ -1072,7 +1117,6 @@ const getOptions = (o) => o &&
     (eventOptionsSupported ?
         { capture: o.capture, passive: o.passive, once: o.once } :
         o.capture);
-//# sourceMappingURL=parts.js.map
 
 /**
  * @license
@@ -1120,7 +1164,6 @@ function templateFactory(result) {
     return template;
 }
 const templateCaches = new Map();
-//# sourceMappingURL=template-factory.js.map
 
 /**
  * @license
@@ -1161,7 +1204,6 @@ const render = (result, container, options) => {
     part.setValue(result);
     part.commit();
 };
-//# sourceMappingURL=render.js.map
 
 /**
  * @license
@@ -1213,7 +1255,6 @@ class DefaultTemplateProcessor {
     }
 }
 const defaultTemplateProcessor = new DefaultTemplateProcessor();
-//# sourceMappingURL=default-template-processor.js.map
 
 /**
  * @license
@@ -1231,13 +1272,14 @@ const defaultTemplateProcessor = new DefaultTemplateProcessor();
 // IMPORTANT: do not change the property name or the assignment expression.
 // This line will be used in regexes to search for lit-html usage.
 // TODO(justinfagnani): inject version number at build time
-(window['litHtmlVersions'] || (window['litHtmlVersions'] = [])).push('1.1.2');
+if (typeof window !== 'undefined') {
+    (window['litHtmlVersions'] || (window['litHtmlVersions'] = [])).push('1.4.1');
+}
 /**
  * Interprets a template literal as an HTML template that can efficiently
  * render to and update a container.
  */
 const html = (strings, ...values) => new TemplateResult(strings, values, 'html', defaultTemplateProcessor);
-//# sourceMappingURL=lit-html.js.map
 
 /**
  * @license
@@ -1507,7 +1549,6 @@ const render$1 = (result, container, options) => {
         window.ShadyCSS.styleElement(container.host);
     }
 };
-//# sourceMappingURL=shady-render.js.map
 
 /**
  * @license
@@ -2181,7 +2222,6 @@ _a = finalized;
  * Marks class as having finished creating properties.
  */
 UpdatingElement[_a] = true;
-//# sourceMappingURL=updating-element.js.map
 
 /**
 @license
@@ -2260,7 +2300,6 @@ const css = (strings, ...values) => {
     const cssText = values.reduce((acc, v, idx) => acc + textFromCSSResult(v) + strings[idx + 1], strings[0]);
     return new CSSResult(cssText, constructionToken);
 };
-//# sourceMappingURL=css-tag.js.map
 
 /**
  * @license
@@ -2486,7 +2525,6 @@ LitElement['finalized'] = true;
  * @nocollapse
  */
 LitElement.render = render$1;
-//# sourceMappingURL=lit-element.js.map
 
 function hass() {
   if(document.querySelector('hc-main'))
@@ -2552,8 +2590,6 @@ async function _selectTree(root, path, all=false) {
   if(typeof(path) === "string") {
     path = path.split(/(\$| )/);
   }
-  if(path[path.length-1] === "")
-     path.pop();
   for(const [i, p] of path.entries()) {
     if(!p.trim().length) continue;
     if(!el) return null;
@@ -2626,7 +2662,7 @@ if(params.get('deviceID')) {
   setDeviceID(params.get('deviceID'));
 }
 
-function subscribeRenderTemplate(conn, onChange, params, stringify=true) {
+function subscribeRenderTemplate(conn, onChange, params) {
   // params = {template, entity_ids, variables}
   if(!conn)
     conn = hass().connection;
@@ -2641,15 +2677,11 @@ function subscribeRenderTemplate(conn, onChange, params, stringify=true) {
 
   return conn.subscribeMessage(
     (msg) => {
-      if(stringify) {
-        let res = String(msg.result);
-        // Localize "_(key)" if found in template results
-        const localize_function = /_\([^)]*\)/g;
-        res = res.replace(localize_function, (key) => hass().localize(key.substring(2, key.length-1)) || key);
-        onChange(res);
-      } else {
-        onChange(msg.result);
-      }
+      let res = msg.result;
+      // Localize "_(key)" if found in template results
+      const localize_function = /_\([^)]*\)/g;
+      res = res.replace(localize_function, (key) => hass().localize(key.substring(2, key.length-1)) || key);
+      onChange(res);
     },
     { type: "render_template",
       template,
@@ -17804,9 +17836,8 @@ var fecha = {
     setGlobalDateI18n: setGlobalDateI18n,
     setGlobalDateMasks: setGlobalDateMasks
 };
-//# sourceMappingURL=fecha.js.map
 
-var a=function(){try{(new Date).toLocaleDateString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleDateString(t,{year:"numeric",month:"long",day:"numeric"})}:function(t){return fecha.format(t,"mediumDate")},r=function(){try{(new Date).toLocaleString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleString(t,{year:"numeric",month:"long",day:"numeric",hour:"numeric",minute:"2-digit"})}:function(t){return fecha.format(t,"haDateTime")},n=function(){try{(new Date).toLocaleTimeString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleTimeString(t,{hour:"numeric",minute:"2-digit"})}:function(t){return fecha.format(t,"shortTime")};function f(e){return e.substr(0,e.indexOf("."))}var D=["closed","locked","off"],q=function(e,t,a,r){r=r||{},a=null==a?{}:a;var n=new Event(t,{bubbles:void 0===r.bubbles||r.bubbles,cancelable:Boolean(r.cancelable),composed:void 0===r.composed||r.composed});return n.detail=a,e.dispatchEvent(n),n};var B=function(e){q(window,"haptic",e);},U=function(e,t,a){void 0===a&&(a=!1),a?history.replaceState(null,"",t):history.pushState(null,"",t),q(window,"location-changed",{replace:a});},V=function(e,t,a){void 0===a&&(a=!0);var r,n=f(t),s="group"===n?"homeassistant":n;switch(n){case"lock":r=a?"unlock":"lock";break;case"cover":r=a?"open_cover":"close_cover";break;default:r=a?"turn_on":"turn_off";}return e.callService(s,r,{entity_id:t})},W=function(e,t){var a=D.includes(e.states[t].state);return V(e,t,a)};var X=function(){var e=document.querySelector("home-assistant");if(e=(e=(e=(e=(e=(e=(e=(e=e&&e.shadowRoot)&&e.querySelector("home-assistant-main"))&&e.shadowRoot)&&e.querySelector("app-drawer-layout partial-panel-resolver"))&&e.shadowRoot||e)&&e.querySelector("ha-panel-lovelace"))&&e.shadowRoot)&&e.querySelector("hui-root")){var t=e.lovelace;return t.current_view=e.___curView,t}return null};//# sourceMappingURL=index.m.js.map
+var a=function(){try{(new Date).toLocaleDateString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleDateString(t,{year:"numeric",month:"long",day:"numeric"})}:function(t){return fecha.format(t,"mediumDate")},r=function(){try{(new Date).toLocaleString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleString(t,{year:"numeric",month:"long",day:"numeric",hour:"numeric",minute:"2-digit"})}:function(t){return fecha.format(t,"haDateTime")},n=function(){try{(new Date).toLocaleTimeString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleTimeString(t,{hour:"numeric",minute:"2-digit"})}:function(t){return fecha.format(t,"shortTime")};function f(e){return e.substr(0,e.indexOf("."))}var D=["closed","locked","off"],q=function(e,t,a,r){r=r||{},a=null==a?{}:a;var n=new Event(t,{bubbles:void 0===r.bubbles||r.bubbles,cancelable:Boolean(r.cancelable),composed:void 0===r.composed||r.composed});return n.detail=a,e.dispatchEvent(n),n};var B=function(e){q(window,"haptic",e);},U=function(e,t,a){void 0===a&&(a=!1),a?history.replaceState(null,"",t):history.pushState(null,"",t),q(window,"location-changed",{replace:a});},V=function(e,t,a){void 0===a&&(a=!0);var r,n=f(t),s="group"===n?"homeassistant":n;switch(n){case"lock":r=a?"unlock":"lock";break;case"cover":r=a?"open_cover":"close_cover";break;default:r=a?"turn_on":"turn_off";}return e.callService(s,r,{entity_id:t})},W=function(e,t){var a=D.includes(e.states[t].state);return V(e,t,a)};
 
 // ------------------------------------------------------------------------------------------
 //  SIDEBAR-CARD
@@ -17817,7 +17848,7 @@ var a=function(){try{(new Date).toLocaleDateString("i");}catch(e){return "RangeE
 // ###   Global constants
 // ##########################################################################################
 const SIDEBAR_CARD_TITLE = 'SIDEBAR-CARD';
-const SIDEBAR_CARD_VERSION = '0.1.7.9';
+const SIDEBAR_CARD_VERSION = '0.1.8.4';
 // ##########################################################################################
 // ###   The actual Sidebar Card element
 // ##########################################################################################
@@ -17854,7 +17885,7 @@ class SidebarCard extends LitElement {
     render() {
         const sidebarMenu = this.config.sidebarMenu;
         const title = 'title' in this.config ? this.config.title : false;
-        const addStyle = 'style' in this.config ? true : false;
+        const addStyle = 'style' in this.config;
         this.clock = this.config.clock ? this.config.clock : false;
         this.digitalClock = this.config.digitalClock ? this.config.digitalClock : false;
         this.digitalClockWithSeconds = this.config.digitalClockWithSeconds ? this.config.digitalClockWithSeconds : false;
@@ -17938,8 +17969,10 @@ class SidebarCard extends LitElement {
     `;
     }
     _runClock() {
+        let hoursampm;
+        let digitalTime;
         const date = new Date();
-        var fullhours = date.getHours().toString();
+        let fullHours = date.getHours().toString();
         const realHours = date.getHours();
         const hours = ((realHours + 11) % 12) + 1;
         const minutes = date.getMinutes();
@@ -17954,7 +17987,7 @@ class SidebarCard extends LitElement {
         }
         if (this.digitalClock && !this.twelveHourVersion) {
             const minutesString = minutes.toString();
-            var digitalTime = fullhours.length < 2 ? '0' + fullhours + ':' : fullhours + ':';
+            digitalTime = fullHours.length < 2 ? '0' + fullHours + ':' : fullHours + ':';
             if (this.digitalClockWithSeconds) {
                 digitalTime += minutesString.length < 2 ? '0' + minutesString + ':' : minutesString + ':';
                 const secondsString = seconds.toString();
@@ -17966,12 +17999,12 @@ class SidebarCard extends LitElement {
             this.shadowRoot.querySelector('.digitalClock').textContent = digitalTime;
         }
         else if (this.digitalClock && this.twelveHourVersion && !this.period) {
-            var hoursampm = date.getHours();
+            hoursampm = date.getHours();
             hoursampm = hoursampm % 12;
             hoursampm = hoursampm ? hoursampm : 12;
-            fullhours = hoursampm.toString();
+            fullHours = hoursampm.toString();
             const minutesString = minutes.toString();
-            var digitalTime = fullhours.length < 2 ? '0' + fullhours + ':' : fullhours + ':';
+            digitalTime = fullHours.length < 2 ? '0' + fullHours + ':' : fullHours + ':';
             if (this.digitalClockWithSeconds) {
                 digitalTime += minutesString.length < 2 ? '0' + minutesString + ':' : minutesString + ':';
                 const secondsString = seconds.toString();
@@ -17985,12 +18018,12 @@ class SidebarCard extends LitElement {
         }
         else if (this.digitalClock && this.twelveHourVersion && this.period) {
             var ampm = realHours >= 12 ? 'pm' : 'am';
-            var hoursampm = date.getHours();
+            hoursampm = date.getHours();
             hoursampm = hoursampm % 12;
             hoursampm = hoursampm ? hoursampm : 12;
-            fullhours = hoursampm.toString();
+            fullHours = hoursampm.toString();
             const minutesString = minutes.toString();
-            var digitalTime = fullhours.length < 2 ? '0' + fullhours + ':' : fullhours + ':';
+            digitalTime = fullHours.length < 2 ? '0' + fullHours + ':' : fullHours + ':';
             if (this.digitalClockWithSeconds) {
                 digitalTime += minutesString.length < 2 ? '0' + minutesString + ':' : minutesString + ':';
                 const secondsString = seconds.toString();
@@ -18006,18 +18039,23 @@ class SidebarCard extends LitElement {
     _runDate() {
         const now = momentWithLocales();
         now.locale(this.hass.language);
-        const date = now.format(this.dateFormat);
-        this.shadowRoot.querySelector('.date').textContent = date;
+        this.shadowRoot.querySelector('.date').textContent = now.format(this.dateFormat);
     }
     updateSidebarSize(root) {
         const sidebarInner = this.shadowRoot.querySelector('.sidebar-inner');
         const header = root.shadowRoot.querySelector('ch-header') || root.shadowRoot.querySelector('app-header');
+        const offParam = getParameterByName('sidebarOff');
+        let headerHeightPx = getHeaderHeightPx();
         if (sidebarInner) {
             sidebarInner.style.width = this.offsetWidth + 'px';
-            let headerHeight = this.config.hideTopMenu ? 0 : header.offsetHeight;
-            log2console('updateSidebarSize', 'headerHeight', headerHeight);
-            sidebarInner.style.height = `calc(${window.innerHeight}px - ${headerHeight}px)`; //100 * _1vh - headerHeight + 'px';
-            sidebarInner.style.top = headerHeight + 'px';
+            if (this.config.hideTopMenu) {
+                sidebarInner.style.height = `${window.innerHeight}px`;
+                sidebarInner.style.top = '0px';
+            }
+            else {
+                sidebarInner.style.height = `calc(${window.innerHeight}px - `+headerHeightPx+`)`;
+                sidebarInner.style.top = headerHeightPx;
+            }
         }
     }
     firstUpdated() {
@@ -18146,10 +18184,9 @@ class SidebarCard extends LitElement {
         this.config = config;
         if (this.config.template) {
             subscribeRenderTemplate(null, (res) => {
-                var result = res.match(/<li>([^]*?)<\/li>/g).map(function (val) {
+                this.templateLines = res.match(/<li>([^]*?)<\/li>/g).map(function (val) {
                     return val.replace(/<\/?li>/g, '');
                 });
-                this.templateLines = result;
                 this.requestUpdate();
             }, {
                 template: this.config.template,
@@ -18179,7 +18216,7 @@ class SidebarCard extends LitElement {
         // --sidebar-icon-color: #000;
         // --sidebar-selected-text-color: #000;
         // --sidebar-selected-icon-color: #000;
-        background-color: var(--paper-listbox-background-color, var(--primary-background-color, var(--sidebar-background, #fff)));
+        background-color:  var(--sidebar-background, var(--paper-listbox-background-color, var(--primary-background-color, #fff)));
       }
       .sidebar-inner {
         padding: 20px;
@@ -18197,7 +18234,7 @@ class SidebarCard extends LitElement {
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
       }
       .sidebarMenu li {
-        color: var(--sidebar-text-color, var(--sidebar-text-color, #000));
+        color: var(--sidebar-text-color, #000);
         position: relative;
         padding: 10px 20px;
         border-radius: 12px;
@@ -18372,6 +18409,8 @@ function createCSS(sidebarConfig, width) {
     let sidebarWidth = 25;
     let contentWidth = 75;
     let sidebarResponsive = false;
+	let headerHeightPx = getHeaderHeightPx();
+	
     if (sidebarConfig.width) {
         if (typeof sidebarConfig.width == 'number') {
             sidebarWidth = sidebarConfig.width;
@@ -18394,7 +18433,7 @@ function createCSS(sidebarConfig, width) {
       display:none!important;
       width:0!important;
     }
-    #contentContainer.hideSidebar {
+    #view.hideSidebar {
       width:100%!important;
     }
   `;
@@ -18409,11 +18448,13 @@ function createCSS(sidebarConfig, width) {
                         `%;
             overflow:hidden;
             display:none;
+            ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc('+headerHeightPx+' + env(safe-area-inset-top));'}
           } 
-          #contentContainer {
+          #view {
             width:` +
                         (100 - sidebarConfig.width.mobile) +
                         `%;
+          ${sidebarConfig.hideTopMenu ? 'padding-top:0!important;margin-top:0!important;' : ''}
           }
         `;
             }
@@ -18425,11 +18466,13 @@ function createCSS(sidebarConfig, width) {
                         sidebarConfig.width.mobile +
                         `%;
             overflow:hidden;
+            ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc('+headerHeightPx+' + env(safe-area-inset-top));'}
           } 
-          #contentContainer {
+          #view {
             width:` +
                         (100 - sidebarConfig.width.mobile) +
                         `%;
+          ${sidebarConfig.hideTopMenu ? 'padding-top:0!important;margin-top:0!important;' : ''}
           }
         `;
             }
@@ -18444,11 +18487,13 @@ function createCSS(sidebarConfig, width) {
                         `%;
             overflow:hidden;
             display:none;
+            ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc('+headerHeightPx+' + env(safe-area-inset-top));'}
           } 
-          #contentContainer {
+          #view {
             width:` +
                         (100 - sidebarConfig.width.tablet) +
                         `%;
+          ${sidebarConfig.hideTopMenu ? 'padding-top:0!important;margin-top:0!important;' : ''}
           }
         `;
             }
@@ -18460,11 +18505,13 @@ function createCSS(sidebarConfig, width) {
                         sidebarConfig.width.tablet +
                         `%;
             overflow:hidden;
+            ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc('+headerHeightPx+' + env(safe-area-inset-top));'}
           } 
-          #contentContainer {
+          #view {
             width:` +
                         (100 - sidebarConfig.width.tablet) +
                         `%;
+          ${sidebarConfig.hideTopMenu ? 'padding-top:0!important;margin-top:0!important;' : ''}
           }
         `;
             }
@@ -18479,11 +18526,13 @@ function createCSS(sidebarConfig, width) {
                         `%;
             overflow:hidden;
             display:none;
+            ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc('+headerHeightPx+' + env(safe-area-inset-top));'}
           } 
-          #contentContainer {
+          #view {
             width:` +
                         (100 - sidebarConfig.width.desktop) +
                         `%;
+          ${sidebarConfig.hideTopMenu ? 'padding-top:0!important;margin-top:0!important;' : ''}
           }
         `;
             }
@@ -18495,11 +18544,13 @@ function createCSS(sidebarConfig, width) {
                         sidebarConfig.width.desktop +
                         `%;
             overflow:hidden;
+            ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc('+headerHeightPx+' + env(safe-area-inset-top));'}
           } 
-          #contentContainer {
+          #view {
             width:` +
                         (100 - sidebarConfig.width.desktop) +
                         `%;
+          ${sidebarConfig.hideTopMenu ? 'padding-top:0!important;margin-top:0!important;' : ''}
           }
         `;
             }
@@ -18513,11 +18564,13 @@ function createCSS(sidebarConfig, width) {
                 sidebarWidth +
                 `%;
         overflow:hidden;
+        ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc('+headerHeightPx+' + env(safe-area-inset-top));'}
       } 
-      #contentContainer {
+      #view {
         width:` +
                 contentWidth +
                 `%;
+      ${sidebarConfig.hideTopMenu ? 'padding-top:0!important;margin-top:0!important;' : ''}
       }
     `;
     }
@@ -18526,6 +18579,23 @@ function createCSS(sidebarConfig, width) {
 // ##########################################################################################
 // ###   Helper methods
 // ##########################################################################################
+function getLovelace() {
+    let root = document.querySelector('home-assistant');
+    root = root && root.shadowRoot;
+    root = root && root.querySelector('home-assistant-main');
+    root = root && root.shadowRoot;
+    root = root && root.querySelector('ha-drawer partial-panel-resolver');
+    root = root && root.shadowRoot || root;
+    root = root && root.querySelector('ha-panel-lovelace');
+    root = root && root.shadowRoot;
+    root = root && root.querySelector('hui-root');
+    if (root) {
+        const ll = root.lovelace;
+        ll.current_view = root.___curView;
+        return ll;
+    }
+    return null;
+}
 async function log2console(method, message, object) {
     const lovelace = await getConfig();
     if (lovelace.config.sidebar) {
@@ -18550,12 +18620,24 @@ function getRoot() {
     root = root && root.shadowRoot;
     root = root && root.querySelector('home-assistant-main');
     root = root && root.shadowRoot;
-    root = root && root.querySelector('app-drawer-layout partial-panel-resolver');
+    root = root && root.querySelector('ha-drawer partial-panel-resolver');
     root = (root && root.shadowRoot) || root;
     root = root && root.querySelector('ha-panel-lovelace');
     root = root && root.shadowRoot;
     root = root && root.querySelector('hui-root');
     return root;
+}
+// return var(--header-height) from #view element
+// We need to take from the div#view element in case of "kiosk-mode" module installation that defined new CSS var(--header-height) as local new variable, not available in div#customSidebar
+function getHeaderHeightPx() {
+	let headerHeightPx = '0px';
+	const root = getRoot();
+    const view = root.shadowRoot.getElementById('view');
+	//debugger;
+	if(view!==undefined && window.getComputedStyle(view)!==undefined) {
+		headerHeightPx = window.getComputedStyle(view).marginTop;
+	}
+    return headerHeightPx;
 }
 // Returns the Home Assistant Sidebar element
 function getSidebar() {
@@ -18563,7 +18645,7 @@ function getSidebar() {
     sidebar = sidebar && sidebar.shadowRoot;
     sidebar = sidebar && sidebar.querySelector('home-assistant-main');
     sidebar = sidebar && sidebar.shadowRoot;
-    sidebar = sidebar && sidebar.querySelector('app-drawer-layout app-drawer ha-sidebar');
+    sidebar = sidebar && sidebar.querySelector('ha-drawer ha-sidebar');
     return sidebar;
 }
 // Returns the Home Assistant app-drawer layout element
@@ -18572,9 +18654,9 @@ function getAppDrawerLayout() {
     appDrawerLayout = appDrawerLayout && appDrawerLayout.shadowRoot;
     appDrawerLayout = appDrawerLayout && appDrawerLayout.querySelector('home-assistant-main');
     appDrawerLayout = appDrawerLayout && appDrawerLayout.shadowRoot;
-    appDrawerLayout = appDrawerLayout && appDrawerLayout.querySelector('app-drawer-layout');
+    appDrawerLayout = appDrawerLayout && appDrawerLayout.querySelector('ha-drawer'); // ha-drawer
     appDrawerLayout = appDrawerLayout && appDrawerLayout.shadowRoot;
-    appDrawerLayout = appDrawerLayout && appDrawerLayout.querySelector('#contentContainer');
+    appDrawerLayout = appDrawerLayout && appDrawerLayout.querySelector('.mdc-drawer-app-content');
     return appDrawerLayout;
 }
 // Returns the Home Assistant app-drawer element
@@ -18583,9 +18665,9 @@ function getAppDrawer() {
     appDrawer = appDrawer && appDrawer.shadowRoot;
     appDrawer = appDrawer && appDrawer.querySelector('home-assistant-main');
     appDrawer = appDrawer && appDrawer.shadowRoot;
-    appDrawer = appDrawer && appDrawer.querySelector('app-drawer-layout app-drawer');
+    appDrawer = appDrawer && appDrawer.querySelector('ha-drawer'); // ha-drawer
     appDrawer = appDrawer && appDrawer.shadowRoot;
-    appDrawer = appDrawer && appDrawer.querySelector('#contentContainer');
+    appDrawer = appDrawer && appDrawer.querySelector('.mdc-drawer');
     return appDrawer;
 }
 // Returns a query parameter by its name
@@ -18602,15 +18684,23 @@ function getParameterByName(name, url = window.location.href) {
 // hides (if requested) the HA header, HA footer and/or HA sidebar and hides this sidebar if configured so
 function updateStyling(appLayout, sidebarConfig) {
     const width = document.body.clientWidth;
-    appLayout.shadowRoot.querySelector('#customSidebarStyle').textContent = createCSS(sidebarConfig, width);
+    appLayout.querySelector('#customSidebarStyle').textContent = createCSS(sidebarConfig, width);
     const root = getRoot();
-    const hassHeader = root.shadowRoot.querySelector('ch-header') || root.shadowRoot.querySelector('app-header');
+    const hassHeader = root.shadowRoot.querySelector('.header');
     log2console('updateStyling', hassHeader ? 'Home Assistant header found!' : 'Home Assistant header not found!');
     const hassFooter = root.shadowRoot.querySelector('ch-footer' || root.shadowRoot.querySelector('app-footer'));
     log2console('updateStyling', hassFooter ? 'Home Assistant footer found!' : 'Home Assistant footer not found!');
     const offParam = getParameterByName('sidebarOff');
-    const view = root.shadowRoot.querySelector('hui-view');
+    const view = root.shadowRoot.getElementById('view');
+    let headerHeightPx = getHeaderHeightPx();
     if (sidebarConfig.hideTopMenu && sidebarConfig.hideTopMenu === true && sidebarConfig.showTopMenuOnMobile && sidebarConfig.showTopMenuOnMobile === true && width <= sidebarConfig.breakpoints.mobile && offParam == null) {
+        if (hassHeader) {
+            log2console('updateStyling', 'Action: Show Home Assistant header!');
+            hassHeader.style.display = 'block';
+        }
+        if (view) {
+            view.style.minHeight = 'calc(100vh - '+headerHeightPx+')';
+        }
         if (hassFooter) {
             log2console('updateStyling', 'Action: Show Home Assistant footer!');
             hassFooter.style.display = 'flex';
@@ -18626,7 +18716,7 @@ function updateStyling(appLayout, sidebarConfig) {
             hassFooter.style.display = 'none';
         }
         if (view) {
-            view.style.minHeight = 'calc(100vh - 4px)';
+            view.style.minHeight = 'calc(100vh)';
         }
     }
 }
@@ -18659,21 +18749,15 @@ function watchLocationChange() {
             const root = getRoot();
             if (!root)
                 return; // location changed before finishing dom rendering
-            const appLayout = root.shadowRoot.querySelector('ha-app-layout');
-            const wrapper = appLayout.shadowRoot.querySelector('#wrapper');
-            if (!wrapper) {
+            const appLayout = root.shadowRoot.querySelector('div');
+            const customSidebarWrapper = appLayout.querySelector('#customSidebarWrapper');
+            if (!customSidebarWrapper) {
                 buildSidebar();
             }
             else {
-                const customSidebarWrapper = wrapper.querySelector('#customSidebarWrapper');
-                if (!customSidebarWrapper) {
+                const customSidebar = customSidebarWrapper.querySelector('#customSidebar');
+                if (!customSidebar) {
                     buildSidebar();
-                }
-                else {
-                    const customSidebar = customSidebarWrapper.querySelector('#customSidebar');
-                    if (!customSidebar) {
-                        buildSidebar();
-                    }
                 }
             }
         });
@@ -18694,7 +18778,7 @@ function sleep(ms) {
 async function getConfig() {
     let lovelace;
     while (!lovelace) {
-        lovelace = X();
+        lovelace = getLovelace();
         if (!lovelace) {
             await sleep(500);
         }
@@ -18721,8 +18805,8 @@ async function buildSidebar() {
                     root.shadowRoot.querySelector('app-header').style.display = 'none';
                 if (root.shadowRoot.querySelector('ch-footer'))
                     root.shadowRoot.querySelector('ch-footer').style.display = 'none';
-                if (root.shadowRoot.querySelector('hui-view'))
-                    root.shadowRoot.querySelector('hui-view').style.minHeight = 'calc(100vh - 4px)';
+                if (root.shadowRoot.getElementById('view'))
+                    root.shadowRoot.getElementById('view').style.minHeight = 'calc(100vh)';
             }
             if (sidebarConfig.hideHassSidebar && sidebarConfig.hideHassSidebar === true && offParam == null) {
                 if (hassSidebar) {
@@ -18730,6 +18814,7 @@ async function buildSidebar() {
                 }
                 if (appDrawerLayout) {
                     appDrawerLayout.style.marginLeft = '0';
+                    appDrawerLayout.style.paddingLeft = '0';
                 }
                 if (appDrawer) {
                     appDrawer.style.display = 'none';
@@ -18749,11 +18834,11 @@ async function buildSidebar() {
                     sidebarConfig.breakpoints.tablet = 1024;
                 }
             }
-            let appLayout = root.shadowRoot.querySelector('ha-app-layout');
+            let appLayout = root.shadowRoot.querySelector('div');
             let css = createCSS(sidebarConfig, document.body.clientWidth);
             let style = document.createElement('style');
             style.setAttribute('id', 'customSidebarStyle');
-            appLayout.shadowRoot.appendChild(style);
+            appLayout.appendChild(style);
             style.type = 'text/css';
             if (style.styleSheet) {
                 // This is required for IE8 and below.
@@ -18763,7 +18848,7 @@ async function buildSidebar() {
                 style.appendChild(document.createTextNode(css));
             }
             // get element to wrap
-            let contentContainer = appLayout.shadowRoot.querySelector('#contentContainer');
+            let contentContainer = appLayout.querySelector('#view');
             // create wrapper container
             const wrapper = document.createElement('div');
             wrapper.setAttribute('id', 'customSidebarWrapper');

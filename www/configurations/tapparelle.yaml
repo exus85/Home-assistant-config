@@ -1,6 +1,0 @@
-- platform: group
-  name: Tutte le tapparelle
-  entities:
-    - cover.fibaro_system_fgrm223_roller_shutter_controller_3_level
-    - cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_2
-    - cover.fibaro_system_fgrm223_roller_shutter_controller_3_level_3

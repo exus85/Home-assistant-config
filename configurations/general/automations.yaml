@@ -1,0 +1,123 @@
+- alias: 'luci_taverna_on'
+  trigger:
+    platform: event
+    event_type: luci_taverna_on
+  action:
+    - service: light.turn_on
+      entity_id: 
+        - group.torri
+        - light.cielo_rgb_light
+
+
+- alias: 'luci_taverna_off'
+  trigger:
+    platform: event
+    event_type: luci_taverna_off
+  action:
+    - service: light.turn_off
+      entity_id: 
+        - group.torri
+        - light.cielo_rgb_light
+
+
+
+- alias: 'Play/resume mode'
+  trigger:
+    platform: webhook
+    webhook_id: play_resume
+    local_only: true
+  action:
+    - service: light.turn_off
+      entity_id: 
+       - group.torri
+       - light.cielo_rgb_light
+
+    
+- alias: 'Stop/pausa mode'
+  trigger:
+    platform: webhook
+    webhook_id: stop_pausa
+    local_only: true
+  action:
+    - service: light.turn_on
+      entity_id: 
+       - group.torri
+       - light.cielo_rgb_light
+
+
+
+- alias: 'Playing mode Netflix/Primevideo'
+  trigger:
+    - platform: state
+      entity_id: media_player.nvidiashield
+      to: 'playing'
+  condition:
+    - condition: and
+      conditions:
+        - condition: or
+          conditions:
+          - condition: template
+            value_template: "{{ state_attr('media_player.nvidiashield', 'app_id') == 'com.netflix.ninja'}}"
+          - condition: template
+            value_template: "{{ state_attr('media_player.nvidiashield', 'app_id') == 'com.amazon.amazonvideo.livingroom'}}"
+  action:
+    - service: light.turn_off
+      entity_id:
+        - group.torri
+        - light.cielo_rgb_light
+ 
+ 
+ 
+        
+- alias: 'Pause/Idle mode Netflix/Primevideo'
+  trigger:
+    - platform: state
+      entity_id: media_player.nvidiashield
+      to: 'idle'
+    - platform: state
+      entity_id: media_player.nvidiashield
+      to: 'paused'
+  condition:
+    - condition: and
+      conditions:           
+        - condition: or
+          conditions:
+            - condition: template
+              value_template: "{{ state_attr('media_player.nvidiashield', 'app_id') == 'com.netflix.ninja'}}"
+            - condition: template
+              value_template: "{{ state_attr('media_player.nvidiashield', 'app_id') == 'com.amazon.amazonvideo.livingroom'}}"
+  action:
+    - service: light.turn_on
+      entity_id:
+        - group.torri
+        - light.cielo_rgb_light
+     
+- alias: 'IFTTT-HA'
+  trigger:
+    - platform: event
+      event_type: ifttt_webhook_received
+      event_data:
+        action: 'call_service'
+  action:
+    - service: '{{ trigger.event.data.service }}'
+      data_template:
+        entity_id: '{{ trigger.event.data.entity_id }}'
+
+
+
+- alias: 'Irrigazione'
+  trigger: 
+    - platform: time
+      at: input_datetime.prossima_irrigazione
+  action: 
+    - service: script.irrigazione
+
+
+
+
+
+
+
+
+
+

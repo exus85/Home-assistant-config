@@ -1,0 +1,55 @@
+purge_keep_days: 180
+db_url: !secret hassio_db
+auto_purge: true
+auto_repack: true 
+include:
+  domains:
+    - media_player
+    - weather
+  entities:
+    - sensor.home_energy_meter_gen5_electric_consumption_kwh
+    - sensor.double_switch_2_electric_consumed_kwh_3
+    - sensor.double_switch_2_electric_consumed_kwh_5
+    - sensor.double_switch_2_electric_consumed_kwh
+    - sensor.double_switch_2_electric_consumed_kwh_4
+    - sensor.metered_wall_plug_switch_electric_consumed_kwh
+    - sensor.home_energy_meter_gen5_electric_consumption_w
+    - sensor.double_switch_2_electric_consumed_kwh_2_3
+    - sensor.double_switch_2_electric_consumed_kwh_2
+    - sensor.double_switch_2_electric_consumed_kwh_2_4
+    - sensor.double_switch_2_electric_consumed_kwh_2_2
+    - sensor.home_energy_meter_gen5_electric_consumption_kwh_cost
+    - sensor.metered_wall_plug_switch_electric_consumed_kwh_2
+    - sensor.double_switch_2_electric_consumed_kwh_6
+    - sensor.double_switch_2_electric_consumed_kwh_2_5
+    - sensor.main_pc_mulo_electric_consumed_kwh_4
+    - sensor.presa_home_theatre_electric_consumed_kwh_3
+    - sensor.presa_home_theatre_power_3
+    - sensor.metered_wall_plug_switch_power_2
+    - sensor.frigorifero_metered_wall_plug_switch_electric_consumption_kwh
+    - sensor.presa_serverini_consumption_kwh_serverini
+    - sensor.presa_serverini_power_4
+    #- sensor.kwh_24h
+    - sensor.rete_upload
+    - sensor.rete_download
+    - sensor.inside_temperature_soggiorno_inside_temperature
+    - device_tracker.ubuntu  #sarebbe il media server 
+    - sensor.total_rain_rate
+    - sensor.wind_speed    
+    - sensor.daily_rain_rate
+    - sensor.outdoor_temperature
+    - sensor.dewpoint
+    - sensor.humidity
+    - sensor.solar_radiation
+    - sensor.relative_pressure
+    - sensor.outdoor_average_solar_radiation_24h
+    - script.irrigazione
+    - automation.irrigazione
+    - input_datetime.prossima_irrigazione
+    - script.aggiorna_data_irrigazione
+  entity_globs:
+    - sensor.openweathermap_*
+    - sensor.outdoor_*
+    - sensor.evapotranspiration*
+    - sensor.minuti_irrigazione
+    - sensor.fabbisogno_irrigazione_calcolato

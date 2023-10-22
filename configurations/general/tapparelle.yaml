@@ -1,0 +1,6 @@
+- platform: group
+  name: Tutte le tapparelle
+  entities:
+    - cover.roller_shutter_3_4
+    - cover.roller_shutter_3
+    - cover.roller_shutter_3_3

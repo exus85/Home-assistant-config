@@ -1,19 +1,15 @@
 ######### Optimized for Tablet Kiosk mode 10.1"/10.4" 1920x1200  ################# 
-#custom_header:
-#  compact_mode: true
-#  exceptions:
-#    - conditions:
-#        user: tablet
-#      config:
-#        kiosk_mode: true
-      
+
+                    
 #########################   SIDEBAR      ###################################
-sidebar: !include www/sidebar.yaml
+sidebar: !include views/sidebar.yaml
 
 ####################### TEMPLATE BUTTON CARD ################################
-button_card_templates: !include www/configurations/button_card_templates.yaml
+button_card_templates: !include configurations/general/button_card_templates.yaml
 
 title: Casa
+kiosk_mode:
+  hide_header: true
 views:
 ########################### SCHEDA HOME ####################################
   - title: Home
@@ -21,7 +17,7 @@ views:
     panel: true  
     badges: []
     cards:
-      - !include /config/www/home.yaml
+      - !include views/home.yaml
    
 ########################### SCHEDA PULIZIA #################################
   - title: Pulizia
@@ -29,7 +25,7 @@ views:
     panel: true
     badges: []
     cards:
-      - !include /config/www/pulizia.yaml 
+      - !include views/pulizia.yaml 
 
 ########################### SCHEDA MUSICA ##################################     
   - title: Musica
@@ -37,7 +33,7 @@ views:
     panel: true
     badges: [] 
     cards:
-      - !include /config/www/musica.yaml
+      - !include views/musica.yaml
      
 ########################### SCHEDA METEO ###################################
   - title: Meteo
@@ -45,22 +41,29 @@ views:
     panel: true
     badges: []
     cards: 
-      - !include /config/www/meteo.yaml
+      - !include views/meteo.yaml
 
 ########################### SCHEDA DISPOSITIVI #############################
-  - title: Dispositivi 
+  - title: Dispositivi   
     path: dispositivi 
     panel: true
     badges: []
     cards:   
-      - !include /config/www/dispositivi.yaml 
+      - !include views/dispositivi.yaml 
 ########################### SCHEDA MONITORING #################################
   - title: Monitoring  
     path: monitoring  
     panel: true
     badges: []
     cards:
-      - !include /config/www/monitoring.yaml                                                                              
-                                                                                                                                                          
-                                                                                 
-                   
+      - !include views/monitoring.yaml                                                                              
+########################### SCHEDA GARDEN #################################
+  - title: Giardino  
+    path: garden  
+    panel: true
+    badges: []
+    cards:
+      - !include views/garden.yaml         
+                                    
+                                            
+                                                                                                                 
