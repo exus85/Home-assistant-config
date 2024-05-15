@@ -49,13 +49,13 @@ views:
     panel: true
     badges: []
     cards:   
-      - !include views/dispositivi.yaml 
+      - !include views/dispositivi.yaml  
 ########################### SCHEDA MONITORING #################################
   - title: Monitoring  
     path: monitoring  
-    panel: true
+    panel: true 
     badges: []
-    cards:
+    cards: 
       - !include views/monitoring.yaml                                                                              
 ########################### SCHEDA GARDEN #################################
   - title: Giardino  
@@ -64,6 +64,4 @@ views:
     badges: []
     cards:
       - !include views/garden.yaml         
-                                    
-                                            
-                                                                                                                 
+                                  

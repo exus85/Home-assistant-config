@@ -23,7 +23,10 @@
         ha-dialog {max-width: 100% !important;
                   --mdc-dialog-min-width: 800px !important;
                   --mdc-dialog-max-width: 1000px !important;
+                  --ha-dialog-border-radius: 0px !important;
                     }
+        content {---ha-dialog-border-radius: 0px !important;}
+        
 
 ########################### SWIPER  #####################################
 #  type: custom:mod-card ### Rimosso, causa bug nel caricamento su table, ho editato direttamete swipe-card.js
@@ -284,36 +287,37 @@
             value: inside
           animation:
             state: 'off'
-          style: |
-            :host {
-              transform: none !important;
-              bottom: 0.3%;
-              left: 52.1%;
-              --ha-card-box-shadow: none;
-              --ha-card-background: none;
-              width: 12.5%;
-            }
-            ha-card{
-            max-height: 65px;
-            }
-            bar-card-backgroundbar {
-              border-radius: 8px;
-            }
-            bar-card-currentbar {
-              border-radius: 8px;
-            }
-            bar-card-animationbar {
-              border-radius: 8px;
-            }
-            bar-card-value {
-              margin-right: auto;
-              font-size: 12px;
-              font-weight: bold;
-              text-shadow: 1px 1px #0005;
-            }
-            .card-content {
-              padding: 0px;
-            }
+          card_mod:
+            style: |
+              :host {
+                transform: none !important;
+                bottom: 0.3%;
+                left: 52.1%;
+                --ha-card-box-shadow: none;
+                --ha-card-background: none;
+                width: 12.5%;
+              }
+              ha-card{
+              max-height: 65px;
+              }
+              bar-card-backgroundbar {
+                border-radius: 8px;
+              }
+              bar-card-currentbar {
+                border-radius: 8px;
+              }
+              bar-card-animationbar {
+                border-radius: 8px;
+              }
+              bar-card-value {
+                margin-right: auto;
+                font-size: 12px;
+                font-weight: bold;
+                text-shadow: 1px 1px #0005;
+              }
+              .card-content {
+                padding: 0px;
+              }
           tap_action:
             action: fire-dom-event
             browser_mod: 
@@ -375,27 +379,27 @@
               tap_action:
                 action: navigate
                 navigation_path: /lovelace/musica/
-
-              style: |
-                :host {
-                    transform: none !important;
-                    top: 0px;
-                    left: -10px;                
+              card_mod:
+                style: |
+                  :host {
+                      transform: none !important;
+                      top: 0px;
+                      left: -10px;                
+                    }
+                  ha-card {
+                    box-shadow: none !important;
                   }
-                ha-card {
-                  box-shadow: none !important;
-                }
-                .entity__info {
-                font-size: 1vw !important;
-                justify-content: left !important;
-                margin-left: 0px !important;
-                }
-                .entity__artwork {
-                  border-radius: 0 !important;
-                }
-                .mmp__bg {
-                  background: none !important;
-                }
+                  .entity__info {
+                  font-size: 1vw !important;
+                  justify-content: left !important;
+                  margin-left: 0px !important;
+                  }
+                  .entity__artwork {
+                    border-radius: 0 !important;
+                  }
+                  .mmp__bg {
+                    background: none !important;
+                  }
             - type: image
               image: /local/ui/home/equalizer.svg
               style:
@@ -461,17 +465,18 @@
               icon_hue:
                 [top: 9%, left: 30%, width: 3.55vw, position: absolute]
           entity: group.luci_piano_terra 
-          style: |
-            :host {
-              transform: none;
-              left: 8%;
-              bottom: -3.5%;
-              width: 12%;
-            }
-            ha-card {
-              border-radius: 8px;
-              background: #2b2b2b;
-            }
+          card_mod:
+            style: |
+              :host {
+                transform: none;
+                left: 8%;
+                bottom: -3.5%;
+                width: 12%;
+              }
+              ha-card {
+                border-radius: 8px;
+                background: #2b2b2b;
+              }
         ######## ARIA CONDIZIONATA ############
         - type: "custom:button-card"
           icon: mdi:air-conditioner
@@ -525,21 +530,22 @@
             custom_fields:
               icon_hue:
                 [top: 9%, left: 30%, width: 3.55vw, position: absolute]
-          style: |
-            :host {
-              transform: none;
-              left: 20.5%;
-              bottom: -3.5%;
-              width: 12%;
-            }
-            ha-card {
-              border-radius: 8px;
-              background: #2b2b2b;
-            }
-            :host .content {
+          card_mod:
+            style: |
+                :host {
+                  transform: none;
+                  left: 20.5%;
+                  bottom: -3.5%;
+                  width: 12%;
+                }
+                ha-card {
+                  border-radius: 8px;
+                  background: #2b2b2b;
+                }
+                :host .content {
 
-              margin: 0px;
-            }
+                  margin: 0px;
+                }
           tap_action:
             action: fire-dom-event
             browser_mod: 
@@ -593,21 +599,22 @@
             custom_fields:
               icon_hue:
                 [top: 9%, left: 31%, width: 3.55vw, position: absolute]
-          style: |
-            :host {
-              transform: none;
-              left: 33%;
-              bottom: -3.5%;
-              width: 12%;
-            }
-            ha-card {
-              border-radius: 8px;
-              background: #2b2b2b;
-            }
-            :host .content {
+          card_mod:
+            style: |
+              :host {
+                transform: none;
+                left: 33%;
+                bottom: -3.5%;
+                width: 12%;
+              }
+              ha-card {
+                border-radius: 8px;
+                background: #2b2b2b;
+              }
+              :host .content {
 
-              margin: 0px;
-            }
+                margin: 0px;
+              }
           tap_action:
             action: fire-dom-event
             browser_mod: 
@@ -661,21 +668,21 @@
               icon_hue:
                 [top: 9%, left: 35%, width: 3.55vw, position: absolute]
           entity: cover.roller_shutter_3
-
-          style: |
-            :host {
-              transform: none;
-              left: 45.5%;
-              bottom: -3.5%;
-              width: 12%;
-            }
-            ha-card {
-              border-radius: 8px;
-              background: #2b2b2b;
-            }
-            :host .content {
-              margin: 0px;
-            }
+          card_mod:
+            style: |
+              :host {
+                transform: none;
+                left: 45.5%;
+                bottom: -3.5%;
+                width: 12%;
+              }
+              ha-card {
+                border-radius: 8px;
+                background: #2b2b2b;
+              }
+              :host .content {
+                margin: 0px;
+              }
 
           tap_action:
             action: fire-dom-event
@@ -686,25 +693,26 @@
                   - this
                 large: true
                 hide_header: true
-                style:
-                  $: |
-                    .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
-                      border-radius: 25px;
-                    }
-                  .: |
-                    :host {
-                      --mdc-theme-surface: rgba(0,0,0,0);
-                      --secondary-background-color: rgba(0,0,0,0.5);
-                      --ha-card-background: rgba(0,0,0,0.5);
-                    }
-                    :host .content {
+                card_mod:
+                  style:
+                    $: |
+                      .mdc-dialog .mdc-dialog__container .mdc-dialog__surface {
+                        border-radius: 25px;
+                      }
+                    .: |
+                      :host {
+                        --mdc-theme-surface: rgba(0,0,0,0);
+                        --secondary-background-color: rgba(0,0,0,0.5);
+                        --ha-card-background: rgba(0,0,0,0.5);
+                      }
+                      :host .content {
 
-                      margin: 0px;
-                    }
+                        margin: 0px;
+                      }
                 content:
                   type: picture-elements
-                  entity: camera.foscam_camera
-                  camera_image: camera.foscam_camera
+                  entity: camera.g5_bullet_high
+                  camera_image: camera.g5_bullet_high
                   camera_view: live
                   elements:
                     - type: icon
@@ -745,71 +753,6 @@
                         service_data:
                           entity_id: camera.foscam_camera
                           movement: left
-                          travel_time: 0.25
-                    - type: icon
-                      icon: 'mdi:arrow-right'
-                      style:
-                        background: 'rgba(255, 255, 255, 0.5)'
-                        right: 0px
-                        bottom: 25px
-                      tap_action:
-                        action: call-service
-                        service: foscam.ptz
-                        service_data:
-                          entity_id: camera.foscam_camera
-                          movement: right
-                          travel_time: 0.25
-                    - type: icon
-                      icon: 'mdi:arrow-top-left'
-                      style:
-                        background: 'rgba(255, 255, 255, 0.5)'
-                        right: 50px
-                        bottom: 50px
-                      tap_action:
-                        action: call-service
-                        service: foscam.ptz
-                        service_data:
-                          entity_id: camera.foscam_camera
-                          movement: top_left
-                          travel_time: 0.25
-                    - type: icon
-                      icon: 'mdi:arrow-top-right'
-                      style:
-                        background: 'rgba(255, 255, 255, 0.5)'
-                        right: 0px
-                        bottom: 50px
-                      tap_action:
-                        action: call-service
-                        service: foscam.ptz
-                        service_data:
-                          entity_id: camera.foscam_camera
-                          movement: top_right
-                          travel_time: 0.25
-                    - type: icon
-                      icon: 'mdi:arrow-bottom-left'
-                      style:
-                        background: 'rgba(255, 255, 255, 0.5)'
-                        right: 50px
-                        bottom: 0px
-                      tap_action:
-                        action: call-service
-                        service: foscam.ptz
-                        service_data:
-                          entity_id: camera.foscam_camera
-                          movement: bottom_left
-                          travel_time: 0.25
-                    - type: icon
-                      icon: 'mdi:arrow-bottom-right'
-                      style:
-                        background: 'rgba(255, 255, 255, 0.5)'
-                        right: 0px
-                        bottom: 0px
-                      tap_action:
-                        action: call-service
-                        service: foscam.ptz
-                        service_data:
-                          entity_id: camera.foscam_camera
-                          movement: bottom_right
                           travel_time: 0.25
 
 

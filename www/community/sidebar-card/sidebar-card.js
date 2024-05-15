@@ -29,6 +29,7 @@ const removeNodes = (container, start, end = null) => {
         start = n;
     }
 };
+//# sourceMappingURL=dom.js.map
 
 /**
  * @license
@@ -244,6 +245,7 @@ const createMarker = () => document.createComment('');
 const lastAttributeNameRegex = 
 // eslint-disable-next-line no-control-regex
 /([ \x09\x0a\x0c\x0d])([^\0-\x1F\x7F-\x9F "'>=/]+)([ \x09\x0a\x0c\x0d]*=[ \x09\x0a\x0c\x0d]*(?:[^ \x09\x0a\x0c\x0d"'`<>=]*|"[^"]*|'[^']*))$/;
+//# sourceMappingURL=template.js.map
 
 /**
  * @license
@@ -368,6 +370,7 @@ function insertNodeIntoTemplate(template, node, refNode = null) {
         }
     }
 }
+//# sourceMappingURL=modify-template.js.map
 
 /**
  * @license
@@ -386,6 +389,7 @@ const directives = new WeakMap();
 const isDirective = (o) => {
     return typeof o === 'function' && directives.has(o);
 };
+//# sourceMappingURL=directive.js.map
 
 /**
  * @license
@@ -409,6 +413,7 @@ const noChange = {};
  * A sentinel value that signals a NodePart to fully clear its content.
  */
 const nothing = {};
+//# sourceMappingURL=part.js.map
 
 /**
  * @license
@@ -541,6 +546,7 @@ class TemplateInstance {
         return fragment;
     }
 }
+//# sourceMappingURL=template-instance.js.map
 
 /**
  * @license
@@ -647,6 +653,7 @@ class TemplateResult {
         return template;
     }
 }
+//# sourceMappingURL=template-result.js.map
 
 /**
  * @license
@@ -1117,6 +1124,7 @@ const getOptions = (o) => o &&
     (eventOptionsSupported ?
         { capture: o.capture, passive: o.passive, once: o.once } :
         o.capture);
+//# sourceMappingURL=parts.js.map
 
 /**
  * @license
@@ -1164,6 +1172,7 @@ function templateFactory(result) {
     return template;
 }
 const templateCaches = new Map();
+//# sourceMappingURL=template-factory.js.map
 
 /**
  * @license
@@ -1204,6 +1213,7 @@ const render = (result, container, options) => {
     part.setValue(result);
     part.commit();
 };
+//# sourceMappingURL=render.js.map
 
 /**
  * @license
@@ -1255,6 +1265,7 @@ class DefaultTemplateProcessor {
     }
 }
 const defaultTemplateProcessor = new DefaultTemplateProcessor();
+//# sourceMappingURL=default-template-processor.js.map
 
 /**
  * @license
@@ -1280,6 +1291,7 @@ if (typeof window !== 'undefined') {
  * render to and update a container.
  */
 const html = (strings, ...values) => new TemplateResult(strings, values, 'html', defaultTemplateProcessor);
+//# sourceMappingURL=lit-html.js.map
 
 /**
  * @license
@@ -1549,6 +1561,7 @@ const render$1 = (result, container, options) => {
         window.ShadyCSS.styleElement(container.host);
     }
 };
+//# sourceMappingURL=shady-render.js.map
 
 /**
  * @license
@@ -2222,6 +2235,7 @@ _a = finalized;
  * Marks class as having finished creating properties.
  */
 UpdatingElement[_a] = true;
+//# sourceMappingURL=updating-element.js.map
 
 /**
 @license
@@ -2300,6 +2314,7 @@ const css = (strings, ...values) => {
     const cssText = values.reduce((acc, v, idx) => acc + textFromCSSResult(v) + strings[idx + 1], strings[0]);
     return new CSSResult(cssText, constructionToken);
 };
+//# sourceMappingURL=css-tag.js.map
 
 /**
  * @license
@@ -2525,6 +2540,7 @@ LitElement['finalized'] = true;
  * @nocollapse
  */
 LitElement.render = render$1;
+//# sourceMappingURL=lit-element.js.map
 
 function hass() {
   if(document.querySelector('hc-main'))
@@ -17836,8 +17852,9 @@ var fecha = {
     setGlobalDateI18n: setGlobalDateI18n,
     setGlobalDateMasks: setGlobalDateMasks
 };
+//# sourceMappingURL=fecha.js.map
 
-var a=function(){try{(new Date).toLocaleDateString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleDateString(t,{year:"numeric",month:"long",day:"numeric"})}:function(t){return fecha.format(t,"mediumDate")},r=function(){try{(new Date).toLocaleString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleString(t,{year:"numeric",month:"long",day:"numeric",hour:"numeric",minute:"2-digit"})}:function(t){return fecha.format(t,"haDateTime")},n=function(){try{(new Date).toLocaleTimeString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleTimeString(t,{hour:"numeric",minute:"2-digit"})}:function(t){return fecha.format(t,"shortTime")};function f(e){return e.substr(0,e.indexOf("."))}var D=["closed","locked","off"],q=function(e,t,a,r){r=r||{},a=null==a?{}:a;var n=new Event(t,{bubbles:void 0===r.bubbles||r.bubbles,cancelable:Boolean(r.cancelable),composed:void 0===r.composed||r.composed});return n.detail=a,e.dispatchEvent(n),n};var B=function(e){q(window,"haptic",e);},U=function(e,t,a){void 0===a&&(a=!1),a?history.replaceState(null,"",t):history.pushState(null,"",t),q(window,"location-changed",{replace:a});},V=function(e,t,a){void 0===a&&(a=!0);var r,n=f(t),s="group"===n?"homeassistant":n;switch(n){case"lock":r=a?"unlock":"lock";break;case"cover":r=a?"open_cover":"close_cover";break;default:r=a?"turn_on":"turn_off";}return e.callService(s,r,{entity_id:t})},W=function(e,t){var a=D.includes(e.states[t].state);return V(e,t,a)};
+var a=function(){try{(new Date).toLocaleDateString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleDateString(t,{year:"numeric",month:"long",day:"numeric"})}:function(t){return fecha.format(t,"mediumDate")},r=function(){try{(new Date).toLocaleString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleString(t,{year:"numeric",month:"long",day:"numeric",hour:"numeric",minute:"2-digit"})}:function(t){return fecha.format(t,"haDateTime")},n=function(){try{(new Date).toLocaleTimeString("i");}catch(e){return "RangeError"===e.name}return !1}()?function(e,t){return e.toLocaleTimeString(t,{hour:"numeric",minute:"2-digit"})}:function(t){return fecha.format(t,"shortTime")};function f(e){return e.substr(0,e.indexOf("."))}var D=["closed","locked","off"],q=function(e,t,a,r){r=r||{},a=null==a?{}:a;var n=new Event(t,{bubbles:void 0===r.bubbles||r.bubbles,cancelable:Boolean(r.cancelable),composed:void 0===r.composed||r.composed});return n.detail=a,e.dispatchEvent(n),n};var B=function(e){q(window,"haptic",e);},U=function(e,t,a){void 0===a&&(a=!1),a?history.replaceState(null,"",t):history.pushState(null,"",t),q(window,"location-changed",{replace:a});},V=function(e,t,a){void 0===a&&(a=!0);var r,n=f(t),s="group"===n?"homeassistant":n;switch(n){case"lock":r=a?"unlock":"lock";break;case"cover":r=a?"open_cover":"close_cover";break;default:r=a?"turn_on":"turn_off";}return e.callService(s,r,{entity_id:t})},W=function(e,t){var a=D.includes(e.states[t].state);return V(e,t,a)};//# sourceMappingURL=index.m.js.map
 
 // ------------------------------------------------------------------------------------------
 //  SIDEBAR-CARD
@@ -17848,7 +17865,7 @@ var a=function(){try{(new Date).toLocaleDateString("i");}catch(e){return "RangeE
 // ###   Global constants
 // ##########################################################################################
 const SIDEBAR_CARD_TITLE = 'SIDEBAR-CARD';
-const SIDEBAR_CARD_VERSION = '0.1.8.4';
+const SIDEBAR_CARD_VERSION = '0.1.9.6.1';
 // ##########################################################################################
 // ###   The actual Sidebar Card element
 // ##########################################################################################
@@ -17860,6 +17877,7 @@ class SidebarCard extends LitElement {
         super();
         this.templateLines = [];
         this.clock = false;
+        this.updateMenu = true;
         this.digitalClock = false;
         this.twelveHourVersion = false;
         this.digitalClockWithSeconds = false;
@@ -17894,6 +17912,7 @@ class SidebarCard extends LitElement {
         this.date = this.config.date ? this.config.date : false;
         this.dateFormat = this.config.dateFormat ? this.config.dateFormat : 'DD MMMM';
         this.bottomCard = this.config.bottomCard ? this.config.bottomCard : null;
+        this.updateMenu = this.config.hasOwnProperty('updateMenu') ? this.config.updateMenu : true;
         return html `
       ${addStyle
             ? html `
@@ -17923,7 +17942,7 @@ class SidebarCard extends LitElement {
             : html ``}
         ${title
             ? html `
-              <h1>${title}</h1>
+              <h1 class="title">${title}</h1>
             `
             : html ``}
         ${this.date
@@ -18053,7 +18072,7 @@ class SidebarCard extends LitElement {
                 sidebarInner.style.top = '0px';
             }
             else {
-                sidebarInner.style.height = `calc(${window.innerHeight}px - `+headerHeightPx+`)`;
+                sidebarInner.style.height = `calc(${window.innerHeight}px - ` + headerHeightPx + `)`;
                 sidebarInner.style.top = headerHeightPx;
             }
         }
@@ -18087,7 +18106,9 @@ class SidebarCard extends LitElement {
             self._updateActiveMenu();
         }, 1);
         window.addEventListener('resize', function () {
-            self.updateSidebarSize(root);
+            setTimeout(() => {
+                self.updateSidebarSize(root);
+            }, 1);
         }, true);
         if (this.bottomCard) {
             setTimeout(() => {
@@ -18131,12 +18152,14 @@ class SidebarCard extends LitElement {
         }
     }
     _updateActiveMenu() {
-        this.shadowRoot.querySelectorAll('ul.sidebarMenu li[data-type="navigate"]').forEach((menuItem) => {
-            menuItem.classList.remove('active');
-        });
-        let activeEl = this.shadowRoot.querySelector('ul.sidebarMenu li[data-path="' + document.location.pathname + '"]');
-        if (activeEl) {
-            activeEl.classList.add('active');
+        if (this.updateMenu) {
+            this.shadowRoot.querySelectorAll('ul.sidebarMenu li[data-type="navigate"]').forEach((menuItem) => {
+                menuItem.classList.remove('active');
+            });
+            let activeEl = this.shadowRoot.querySelector('ul.sidebarMenu li[data-path="' + document.location.pathname + '"]');
+            if (activeEl) {
+                activeEl.classList.add('active');
+            }
         }
     }
     _menuAction(e) {
@@ -18225,6 +18248,7 @@ class SidebarCard extends LitElement {
         box-sizing: border-box;
         position: fixed;
         width: 0;
+        overflow: hidden auto;
       }
       .sidebarMenu {
         list-style: none;
@@ -18409,8 +18433,7 @@ function createCSS(sidebarConfig, width) {
     let sidebarWidth = 25;
     let contentWidth = 75;
     let sidebarResponsive = false;
-	let headerHeightPx = getHeaderHeightPx();
-	
+    let headerHeightPx = getHeaderHeightPx();
     if (sidebarConfig.width) {
         if (typeof sidebarConfig.width == 'number') {
             sidebarWidth = sidebarConfig.width;
@@ -18448,7 +18471,7 @@ function createCSS(sidebarConfig, width) {
                         `%;
             overflow:hidden;
             display:none;
-            ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc('+headerHeightPx+' + env(safe-area-inset-top));'}
+            ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc(' + headerHeightPx + ' + env(safe-area-inset-top));'}
           } 
           #view {
             width:` +
@@ -18466,7 +18489,7 @@ function createCSS(sidebarConfig, width) {
                         sidebarConfig.width.mobile +
                         `%;
             overflow:hidden;
-            ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc('+headerHeightPx+' + env(safe-area-inset-top));'}
+            ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc(' + headerHeightPx + ' + env(safe-area-inset-top));'}
           } 
           #view {
             width:` +
@@ -18487,7 +18510,7 @@ function createCSS(sidebarConfig, width) {
                         `%;
             overflow:hidden;
             display:none;
-            ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc('+headerHeightPx+' + env(safe-area-inset-top));'}
+            ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc(' + headerHeightPx + ' + env(safe-area-inset-top));'}
           } 
           #view {
             width:` +
@@ -18505,7 +18528,7 @@ function createCSS(sidebarConfig, width) {
                         sidebarConfig.width.tablet +
                         `%;
             overflow:hidden;
-            ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc('+headerHeightPx+' + env(safe-area-inset-top));'}
+            ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc(' + headerHeightPx + ' + env(safe-area-inset-top));'}
           } 
           #view {
             width:` +
@@ -18526,7 +18549,7 @@ function createCSS(sidebarConfig, width) {
                         `%;
             overflow:hidden;
             display:none;
-            ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc('+headerHeightPx+' + env(safe-area-inset-top));'}
+            ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc(' + headerHeightPx + ' + env(safe-area-inset-top));'}
           } 
           #view {
             width:` +
@@ -18544,7 +18567,7 @@ function createCSS(sidebarConfig, width) {
                         sidebarConfig.width.desktop +
                         `%;
             overflow:hidden;
-            ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc('+headerHeightPx+' + env(safe-area-inset-top));'}
+            ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc(' + headerHeightPx + ' + env(safe-area-inset-top));'}
           } 
           #view {
             width:` +
@@ -18564,7 +18587,7 @@ function createCSS(sidebarConfig, width) {
                 sidebarWidth +
                 `%;
         overflow:hidden;
-        ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc('+headerHeightPx+' + env(safe-area-inset-top));'}
+        ${sidebarConfig.hideTopMenu ? '' : 'margin-top: calc(' + headerHeightPx + ' + env(safe-area-inset-top));'}
       } 
       #view {
         width:` +
@@ -18630,13 +18653,13 @@ function getRoot() {
 // return var(--header-height) from #view element
 // We need to take from the div#view element in case of "kiosk-mode" module installation that defined new CSS var(--header-height) as local new variable, not available in div#customSidebar
 function getHeaderHeightPx() {
-	let headerHeightPx = '0px';
-	const root = getRoot();
+    let headerHeightPx = '0px';
+    const root = getRoot();
     const view = root.shadowRoot.getElementById('view');
-	//debugger;
-	if(view!==undefined && window.getComputedStyle(view)!==undefined) {
-		headerHeightPx = window.getComputedStyle(view).marginTop;
-	}
+    //debugger;
+    if (view !== undefined && window.getComputedStyle(view) !== undefined) {
+        headerHeightPx = window.getComputedStyle(view).paddingTop;
+    }
     return headerHeightPx;
 }
 // Returns the Home Assistant Sidebar element
@@ -18699,7 +18722,7 @@ function updateStyling(appLayout, sidebarConfig) {
             hassHeader.style.display = 'block';
         }
         if (view) {
-            view.style.minHeight = 'calc(100vh - '+headerHeightPx+')';
+            view.style.minHeight = 'calc(100vh - ' + headerHeightPx + ')';
         }
         if (hassFooter) {
             log2console('updateStyling', 'Action: Show Home Assistant footer!');

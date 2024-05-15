@@ -132,7 +132,8 @@ cards:
         width: 30%
       cards:
         - type: entities
-          style: *list_style_1
+          card_mod:
+            style: *list_style_1
           title: Configura irrigazione
           entities:
             - type: divider
@@ -141,18 +142,21 @@ cards:
               entity: input_number.zona1_litri_mq_min
               name: Retro L/mq/min
               hide_state: false
-              style: *slider_row_style
+              card_mod:
+                style: *slider_row_style
 
             - type: custom:slider-entity-row
               entity: input_number.zona2_litri_mq_min
               name: Fronte L/mq/min
               hide_state: false
-              style: *slider_row_style
+              card_mod:
+                style: *slider_row_style
             - type: custom:slider-entity-row
               entity: input_number.zona3_litri_mq_min
               name: Siepe L/mq/min
               hide_state: false
-              style: *slider_row_style 
+              card_mod:
+                style: *slider_row_style 
 
 
 
@@ -223,7 +227,8 @@ cards:
               condition: "{{ states('input_select.irrigation_mode') == 'Auto (Evapotranspiration)'}}"
               icon: mdi:water-minus-outline 
               state: "{{states('sensor.evapotranspiration_total_this_cycle')}} {{state_attr('sensor.evapotranspiration_total_this_cycle', 'unit_of_measurement')}} "  
-              style: *row_style2
+              card_mod:
+                style: *row_style2
               
             - type: custom:template-entity-row
               entity: sensor.evapotranspiration
@@ -231,11 +236,13 @@ cards:
               condition: "{{ states('input_select.irrigation_mode') == 'Auto (Evapotranspiration)'}}"
               icon: mdi:water-minus-outline 
               state: "{{states('sensor.evapotranspiration')}} {{state_attr('sensor.evapotranspiration', 'unit_of_measurement')}} "  
-              style: *row_style2   
+              card_mod:
+                style: *row_style2   
 
 
         - type: entities
-          style: *list_style_1
+          card_mod:
+            style: *list_style_1
           title: Imposta ciclo di irrigazione
           entities:
             - type: divider
@@ -247,33 +254,35 @@ cards:
               layout:
                 name: inside
                 align_controls: right
-              style: 
-                .: | 
-                  ha-card {
-                    background: none;
-                    box-shadow: none;
-                    font-size: 11px;
-                    --paper-item-icon-color: lightblue;
-                      }
-                  .time-picker-row {
-                    padding: 0px !important;
-                  }
-                  .entity-name-inside{
-                    margin-left: 0px !important;
-                  }
-                  state-badge{
-                    width: 30px !important;
-                  }
-                time-unit:
-                  $: |
-                    .time-picker-icon {
-                    padding: 0px !important;
-                    }                  
+              card_mod:
+                style: 
+                  .: | 
+                    ha-card {
+                      background: none;
+                      box-shadow: none;
+                      font-size: 11px;
+                      --paper-item-icon-color: lightblue;
+                        }
+                    .time-picker-row {
+                      padding: 0px !important;
+                    }
+                    .entity-name-inside{
+                      margin-left: 0px !important;
+                    }
+                    state-badge{
+                      width: 30px !important;
+                    }
+                  time-unit:
+                    $: |
+                      .time-picker-icon {
+                      padding: 0px !important;
+                      }                  
             - type: custom:slider-entity-row
               entity: input_number.ciclo_irrigazione
               name: Irriga ogni (giorni)
               hide_state: false
-              style: *slider_row_style
+              card_mod:
+                style: *slider_row_style
               tap_action:
                 action: call-service
                 service: homeassistant.update_entity
@@ -329,7 +338,8 @@ cards:
         width: 30%
       cards:
         - type: entities
-          style: *list_style_1
+          card_mod:
+            style: *list_style_1
           title: Informazioni irrigazione automatica
           entities:
             - type: divider
@@ -339,14 +349,16 @@ cards:
               entity: sensor.outdoor_total_rain_this_cycle
               name: "Pioggia accumulata negli ultimi {{states('input_number.ciclo_irrigazione') | round(0)}} giorni"
               icon: mdi:weather-pouring 
-              state: "{{states('sensor.outdoor_total_rain_this_cycle')}} {{state_attr('sensor.outdoor_total_rain_this_cycle', 'unit_of_measurement')}} "                  
-              style: *row_style2
+              state: "{{states('sensor.outdoor_total_rain_this_cycle')}} {{state_attr('sensor.outdoor_total_rain_this_cycle', 'unit_of_measurement')}} "      
+              card_mod:            
+                style: *row_style2
             - type: custom:template-entity-row  
               entity: sensor.outdoor_total_rain_this_cycle
               name: "Pioggia accumulata dall'ultima irrigazione: "
               icon: mdi:weather-pouring 
               state: "{{states('sensor.outdoor_total_rain_since_last_irrigation')}} {{state_attr('sensor.outdoor_total_rain_since_last_irrigation', 'unit_of_measurement')}}"
-              style: *row_style2 
+              card_mod:
+                style: *row_style2 
               
 
             - entity: sensor.minuti_irrigazione
@@ -354,40 +366,46 @@ cards:
               attribute: retro
               suffix: minuti
               name: Zona 1 (Retro) sarà irrigata per
-              style: *row_style
+              card_mod:
+                style: *row_style
               icon: mdi:timer-outline
             - entity: sensor.minuti_irrigazione
               type: attribute
               attribute: fronte
               suffix: minuti
               name: Zona 2 (Fronte) sarà irrigata per
-              style: *row_style
+              card_mod:
+                style: *row_style
               icon: mdi:timer-outline      
             - entity: sensor.minuti_irrigazione
               type: attribute
               attribute: siepe
               suffix: minuti
               name: Zona 3 (Siepe) sarà irrigata per
-              style: *row_style
+              card_mod:
+                style: *row_style
               icon: mdi:timer-outline
             - entity: sensor.info_irrigazione
               type: attribute
               attribute: ultima_irrigazione
               name: "Ultima irrigazione avvenuta:"
-              style: *row_style
+              card_mod:
+                style: *row_style
               icon: mdi:history
             - entity: sensor.info_irrigazione
               type: attribute
               attribute: prossima_irrigazione
               name: "Prossima irrigazione:"
-              style: *row_style
+              card_mod:
+                style: *row_style
               icon: mdi:calendar-clock
 
 
 
 
         - type: entities
-          style: *list_style_1
+          card_mod:
+            style: *list_style_1
           title: Avvio Manuale
           entities:
             - type: divider
@@ -396,7 +414,8 @@ cards:
               entity: input_number.timer_manuale_irrigazione
               name: Imposta durata (minuti)
               hide_state: false
-              style: *slider_row_style
+              card_mod:
+                style: *slider_row_style
                 
             - type: custom:mod-card
               style: |
@@ -493,7 +512,8 @@ cards:
         width: 30%
       cards:
         - type: entities
-          style: *list_style_1
+          card_mod:
+            style: *list_style_1
           title: Configura irrigazione
           entities:
             - type: divider

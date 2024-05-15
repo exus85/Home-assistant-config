@@ -62,6 +62,7 @@ style: |
     }
 
 
+
     
   
 bottomCard:
@@ -88,21 +89,18 @@ bottomCard:
         tap_action:
           action: navigate
           navigation_path: "/lovelace/meteo"
-        style: |
-          ha-card {
-            background: none  !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-            margin: 4px;
-            font-size: 12px;
-            border-style: none;
-          }        
-#          :host {
-#            position: absolute;
-#            bottom: 13%;
-#            width: 90%;
-#            left: 5%;            
-#          }
+        card_mod:
+          style: |
+              ha-card {
+                background: none  !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 4px;
+                border-style: none;
+              }
+            
+
+
       - type: 'custom:mini-graph-card'
         tap_action: 
           action: none
@@ -128,23 +126,24 @@ bottomCard:
             value: 20
           - color: '#ff1a1a'
             value: 30
-        style: |
-          ha-card, ha-card > div {
-            padding: 0px !important;
-            
-          }
-          ha-card > .header.flex > div, ha-card > .states.flex > div {
-            padding: 5px !important;
-            font-weight: 500;
-          } 
-          ha-card > .info.flex > .info__item > .info__item__time {
-            display: none;
-          }
-          ha-card {
-            background-color: rgba(40,40,40,0);
-            border-style: none;
+        card_mod:
+          style: |
+            ha-card, ha-card > div {
+              padding: 0px !important;
+              
+            }
+            ha-card > .header.flex > div, ha-card > .states.flex > div {
+              padding: 5px !important;
+              font-weight: 500;
+            } 
+            ha-card > .info.flex > .info__item > .info__item__time {
+              display: none;
+            }
+            ha-card {
+              background-color: rgba(40,40,40,0);
+              border-style: none;
 
-          }
-          .name > span {
-            font-weight: 500 !important;
-          }
+            }
+            .name > span {
+              font-weight: 500 !important;
+            }

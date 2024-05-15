@@ -202,8 +202,9 @@ card:
                     color: *graph_color_3
                   - value: 25
                     color: *graph_color_4
-                style:
-                  *graph_style_dsl
+                card_mod:
+                  style:
+                    *graph_style_dsl
 
 #              - type: custom:mini-graph-card
 #                icon: mdi:signal-4g
@@ -314,8 +315,9 @@ card:
                     color: *graph_color_3
                   - value: 2500
                     color: *graph_color_4
-                style:
-                  *graph_style_dsl            
+                card_mod:
+                  style:
+                    *graph_style_dsl            
 
               - type: custom:button-card
                 entity: sensor.placeholder
@@ -384,13 +386,14 @@ card:
                   - entity: sensor.hassio_uptime_templated
                     name: Hassio attivo da
                     icon: mdi:home-assistant
-                          
-                style: 
-                  *list_style_1
+                card_mod:          
+                  style: 
+                    *list_style_1
 
 
               - type: entities
-                style: *list_style_1
+                card_mod:
+                  style: *list_style_1
                 entities:
                   #- entity: sensor.rete_gb_scaricati
                   #  name: FTTC download sessione
@@ -403,22 +406,24 @@ card:
                     name: Emby dns/vpn Link
                     icon: mdi:emby
                     state: "{% if is_state('binary_sensor.emby_check', 'on')%} CONNESSO {% else %} !OFFLINE! {% endif %}"
-                    style: | 
-                          
-                          .state {
-                          color: {% if is_state('binary_sensor.emby_check', 'on')%} #33cc33 !important {% else %} red !important {% endif %}
-                            }
+                    card_mod:
+                      style: | 
+                            
+                            .state {
+                            color: {% if is_state('binary_sensor.emby_check', 'on')%} #33cc33 !important {% else %} red !important {% endif %}
+                              }
 
                   - type: custom:template-entity-row
                     entity: sensor.qnas_status
                     name: NAS health status
                     icon: mdi:nas
                     state: "{% if is_state('sensor.qnas_status', 'good')%} GOOD {% else %} WARNING {% endif %}"
-                    style: | 
-                          
-                          .state {
-                          color: {% if is_state('sensor.qnas_status', 'good')%} #33cc33 !important {% else %} red !important {% endif %}
-                            } 
+                    card_mod:
+                      style: | 
+                            
+                            .state {
+                            color: {% if is_state('sensor.qnas_status', 'good')%} #33cc33 !important {% else %} red !important {% endif %}
+                              } 
                   - type: custom:template-entity-row
                     entity: sensor.placeholder
                     name: LAN Connected devices
@@ -441,10 +446,11 @@ card:
                     entity: sensor.pi_hole_total_ads_blocked
                     name: Last year pi-hole blocked
                     icon: mdi:pi-hole
-                    style: |
-                      #wrapper {
-                      --paper-item-icon-color: red;
-                          }
+                    card_mod:
+                      style: |
+                        #wrapper {
+                        --paper-item-icon-color: red;
+                            }
 
 #              - type: entities
 #                style:
@@ -472,49 +478,50 @@ card:
                   action: none
                 hold-action:
                   action: none
-                style: |
-                  :host {
-                    transform: none !important;
-                    left: 0%;
-                    bottom: 0%;
-                    width: 100%;
-                  }
-                  ha-card.button-card-main {
-                    padding: 0px !important;
-                  }
-                  .ellipsis {
-                    justify-self: auto !important;
-                    margin: inherit;
-                    height: 30px;
-                  }
-                  span.dispositivo {
-                    color: rgb(95, 132, 189);
-                  }
-                  .scrolling-text {
-                    font-size: 12px;
-                    color: #FFF;
-                    position: absolute;
-                    width: 100%;
-                    height: 30px;
-                    overflow: visible;
-                    margin: 0;
-                    line-height: 30px;
-                    text-align: left;
-                    /* Starting position */
-                    transform:translate3d(100%,0,0);
-                    /* Apply animation to this element */  
-                    animation: scrolling-text 30s linear infinite;
-                  }
-                  @keyframes scrolling-text {
-                    0%   { 
-                    transform: translate3d(100%,0,0);       
+                card_mod:
+                  style: |
+                    :host {
+                      transform: none !important;
+                      left: 0%;
+                      bottom: 0%;
+                      width: 100%;
                     }
-                    100% { 
-                      transform: translate3d(-200%,0%,0); 
+                    ha-card.button-card-main {
+                      padding: 0px !important;
+                    }
+                    .ellipsis {
+                      justify-self: auto !important;
+                      margin: inherit;
+                      height: 30px;
+                    }
+                    span.dispositivo {
+                      color: rgb(95, 132, 189);
+                    }
+                    .scrolling-text {
+                      font-size: 12px;
+                      color: #FFF;
+                      position: absolute;
+                      width: 100%;
+                      height: 30px;
+                      overflow: visible;
+                      margin: 0;
+                      line-height: 30px;
+                      text-align: left;
+                      /* Starting position */
+                      transform:translate3d(100%,0,0);
+                      /* Apply animation to this element */  
+                      animation: scrolling-text 30s linear infinite;
+                    }
+                    @keyframes scrolling-text {
+                      0%   { 
+                      transform: translate3d(100%,0,0);       
                       }
-                  } 
-                name: >
-                  [[[return `<div class="scrolling-text">Infotext -- ${states['sensor.infotext'].state} </div>`]]]
+                      100% { 
+                        transform: translate3d(-200%,0%,0); 
+                        }
+                    } 
+                  name: >
+                    [[[return `<div class="scrolling-text">Infotext -- ${states['sensor.infotext'].state} </div>`]]]
                       
 
 

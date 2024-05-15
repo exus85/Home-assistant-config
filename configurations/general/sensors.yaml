@@ -14,9 +14,9 @@
 
 
 
-  - platform: tautulli
-    api_key: !secret tautulli_key
-    host: !secret ip_media_server
+#  - platform: tautulli
+#    api_key: !secret tautulli_key
+#    host: !secret ip_media_server
 
 #  - platform: systemmonitor
 #    resources:
@@ -55,18 +55,18 @@
 #        data_group: disk_space._share_cachedev1_data
 #        element: used
 
-  - platform: unifigateway
-    host: !secret ip_dreammachine
-    username: !secret user_dreammachine
-    password: !secret psw_dreammachine
-    port: 443
-    version: UDMP-unifiOS
-    monitored_conditions:
-      - www
-      - wlan
-      - firmware
-      - wan
-      - lan
+#  - platform: unifigateway
+#    host: !secret ip_dreammachine
+#    username: !secret user_dreammachine
+#    password: !secret psw_dreammachine
+#    port: 443
+#    version: UDMP-unifiOS
+#    monitored_conditions:
+#      - www
+#      - wlan
+#      - firmware
+#      - wan
+#      - lan
 
 
 

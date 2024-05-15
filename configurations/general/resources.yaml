@@ -26,8 +26,8 @@
   url: /hacsfiles/spotify-card/spotify-card.js
 - type: module
   url: /hacsfiles/simple-weather-card/simple-weather-card-bundle.js
-- type: module
-  url: /hacsfiles/weather-card/weather-card.js 
+#- type: module
+#  url: /hacsfiles/weather-card/weather-card.js 
 - type: module         
   url: /hacsfiles/decluttering-card/decluttering-card.js
 - type: module
@@ -41,7 +41,7 @@
 - type: module
   url: /hacsfiles/light-entity-card/light-entity-card.js
 - type: module
-  url: /local/jsModuliManuali/weather-chart-card.js
+  url: /hacsfiles/weather-chart-card/weather-chart-card.js
 - type: module
   url: /hacsfiles/lovelace-card-templater/lovelace-card-templater.js
 - type: module  
